@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/catkin_ws/install
+
+Name: mb_1r2t_ros
+Description: Description of mb_1r2t_ros
+Version: 1.0.0
+Cflags: -I${prefix}/include -I/usr/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs sensor_msgs
