@@ -2,10 +2,10 @@
 # license removed for brevity
 import rospy
 import serial
-from std_msgs.msg import String
+from std_msgs.msg import Float64
 
 def talker():
-    pub = rospy.Publisher('voltage', String, queue_size=10)
+    pub = rospy.Publisher('voltage', Float64, queue_size=10)
     rospy.init_node('talker_node')
     rate = rospy.Rate(10) # 10hz
 
@@ -18,7 +18,7 @@ def talker():
         dataFromArduino = ser.readline().decode('utf-8').rstrip()
         [dataFromArduino_topic, dataFromArduino_value] = dataFromArduino.split(":")
 
-        pub.publish(dataFromArduino_value)
+        pub.publish(float(dataFromArduino_value))
         rospy.loginfo(dataFromArduino_topic + ": " + dataFromArduino_value)
         rate.sleep()
 
