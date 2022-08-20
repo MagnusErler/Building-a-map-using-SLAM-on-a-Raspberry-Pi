@@ -1,4 +1,4 @@
-prefix=/home/ubuntu/catkin_ws/install
+prefix=/home/ubuntu/Robocup2023/catkin_ws/install
 
 Name: mb_1r2t_ros
 Description: Description of mb_1r2t_ros

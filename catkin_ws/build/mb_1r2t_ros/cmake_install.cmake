@@ -1,8 +1,8 @@
-# Install script for directory: /home/ubuntu/catkin_ws/src/mb_1r2t_ros
+# Install script for directory: /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/Robocup2023/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,18 +38,18 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/catkin_ws/build/mb_1r2t_ros/catkin_generated/installspace/mb_1r2t_ros.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros/catkin_generated/installspace/mb_1r2t_ros.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mb_1r2t_ros/cmake" TYPE FILE FILES
-    "/home/ubuntu/catkin_ws/build/mb_1r2t_ros/catkin_generated/installspace/mb_1r2t_rosConfig.cmake"
-    "/home/ubuntu/catkin_ws/build/mb_1r2t_ros/catkin_generated/installspace/mb_1r2t_rosConfig-version.cmake"
+    "/home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros/catkin_generated/installspace/mb_1r2t_rosConfig.cmake"
+    "/home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros/catkin_generated/installspace/mb_1r2t_rosConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mb_1r2t_ros" TYPE FILE FILES "/home/ubuntu/catkin_ws/src/mb_1r2t_ros/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mb_1r2t_ros" TYPE FILE FILES "/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/package.xml")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -59,7 +59,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/mb_1r2t_ros/mb_1r2t_publisher"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/mb_1r2t_ros" TYPE EXECUTABLE FILES "/home/ubuntu/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/mb_1r2t_ros" TYPE EXECUTABLE FILES "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/mb_1r2t_ros/mb_1r2t_publisher" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/mb_1r2t_ros/mb_1r2t_publisher")
     file(RPATH_CHANGE
@@ -73,13 +73,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mb_1r2t_ros" TYPE DIRECTORY FILES "/home/ubuntu/catkin_ws/src/mb_1r2t_ros/include/mb_1r2t_ros/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/mb_1r2t_ros" TYPE DIRECTORY FILES "/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/include/mb_1r2t_ros/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/mb_1r2t_ros" TYPE DIRECTORY FILES
-    "/home/ubuntu/catkin_ws/src/mb_1r2t_ros/launch"
-    "/home/ubuntu/catkin_ws/src/mb_1r2t_ros/rviz"
+    "/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/launch"
+    "/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/rviz"
     )
 endif()
 

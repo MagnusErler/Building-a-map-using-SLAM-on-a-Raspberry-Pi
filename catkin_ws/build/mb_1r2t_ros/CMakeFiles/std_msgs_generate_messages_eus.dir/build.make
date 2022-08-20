@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/Robocup2023/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/Robocup2023/catkin_ws/build
 
 # Utility rule file for std_msgs_generate_messages_eus.
 
@@ -63,10 +63,10 @@ mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build: std_msgs_genera
 .PHONY : mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build
 
 mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/clean:
-	cd /home/ubuntu/catkin_ws/build/mb_1r2t_ros && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_eus.dir/cmake_clean.cmake
+	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_eus.dir/cmake_clean.cmake
 .PHONY : mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/clean
 
 mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/depend:
-	cd /home/ubuntu/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/catkin_ws/src /home/ubuntu/catkin_ws/src/mb_1r2t_ros /home/ubuntu/catkin_ws/build /home/ubuntu/catkin_ws/build/mb_1r2t_ros /home/ubuntu/catkin_ws/build/mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/Robocup2023/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Robocup2023/catkin_ws/src /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros /home/ubuntu/Robocup2023/catkin_ws/build /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : mb_1r2t_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/depend
 

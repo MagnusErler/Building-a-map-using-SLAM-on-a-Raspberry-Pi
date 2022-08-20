@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/Robocup2023/catkin_ws/install
+
+Name: data_from_arduino
+Description: Description of data_from_arduino
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

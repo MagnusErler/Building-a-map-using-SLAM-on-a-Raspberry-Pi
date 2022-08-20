@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include;/usr/include".split(';') if
 PROJECT_CATKIN_DEPENDS = "roscpp;std_msgs;sensor_msgs".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "mb_1r2t_ros"
-PROJECT_SPACE_DIR = "/home/ubuntu/catkin_ws/install"
+PROJECT_SPACE_DIR = "/home/ubuntu/Robocup2023/catkin_ws/install"
 PROJECT_VERSION = "1.0.0"
