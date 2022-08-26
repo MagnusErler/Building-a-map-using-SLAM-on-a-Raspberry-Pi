@@ -1,0 +1,3 @@
+<launch>
+  <node name="talker_joystick_node" pkg="joystick" type="joy.py" output="log"/>
+</launch>

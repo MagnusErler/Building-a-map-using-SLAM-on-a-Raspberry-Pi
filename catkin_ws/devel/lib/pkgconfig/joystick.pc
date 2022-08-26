@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/Robocup2023/catkin_ws/devel
+
+Name: joystick
+Description: Description of joystick
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,90 +1,4 @@
-
-
 #!/usr/bin/env python
-'''
-import struct
-
-infile_path = "/dev/input/js0"
-EVENT_SIZE = struct.calcsize("llHHI")
-file = open(infile_path, "rb")
-event = file.read(EVENT_SIZE)
-while event:
-    print(struct.unpack("llHHI", event))
-    (tv_sec, tv_usec, type, code, value) = struct.unpack("llHHI", event)
-    event = file.read(EVENT_SIZE)
-'''
-
-'''
-from evdev import InputDevice
-from select import select
-
-gamepad = InputDevice('/dev/input/js0')
-
-while True:
-    r,w,x = select([gamepad], [], [])
-    for event in gamepad.read():
-        #print(event)
-
-        if event.value != 0:
-            if event.code == 304:
-                print('A')
-            elif event.code == 305:
-                print('B')
-            elif event.code == 307:
-                print('X')
-            elif event.code == 308:
-                print('Y')
-
-            elif event.code == 310:
-                print('L1')
-            elif event.code == 2:
-                print('L2')
-            elif event.code == 311:
-                print('R1')
-            elif event.code == 5:
-                print('R2')
-
-            elif event.code == 16 and event.value == -1:
-                print('Arrow left')
-            elif event.code == 16 and event.value == 1:
-                print('Arrow right')
-            elif event.code == 17 and event.value == -1:
-                print('Arrow up')
-            elif event.code == 17 and event.value == 1:
-                print('Arrow down')
-
-            elif event.code == 314:
-                print('Select')
-            elif event.code == 315:
-                print('Start')
-            elif event.code == 316:
-                print('Mode')
-
-            elif event.code == 0 and event.value > 1:
-                print('L thumbstick right')
-            elif event.code == 0 and event.value < 1:
-                print('L thumbstick left')
-            elif event.code == 1 and event.value < 1:
-                print('L thumbstick up')
-            elif event.code == 1 and event.value > 1:
-                print('L thumbstick down')
-            elif event.code == 317:
-                print('L thumbstick press')
-
-            elif event.code == 3 and event.value > 1:
-                print('R thumbstick right')
-            elif event.code == 3 and event.value < 1:
-                print('R thumbstick left')
-            elif event.code == 4 and event.value < 1:
-                print('R thumbstick up')
-            elif event.code == 4 and event.value > 1:
-                print('R thumbstick down')
-            elif event.code == 318:
-                print('R thumbstick press')
-
-'''
-
-
 
 # Released by rdb under the Unlicense (unlicense.org)
 # Based on information from:
@@ -92,6 +6,12 @@ while True:
 
 import os, struct, array
 from fcntl import ioctl
+
+import rospy
+from std_msgs.msg import String
+
+
+
 
 # Iterate over the joystick devices.
 print('Available devices:')
@@ -221,27 +141,46 @@ for btn in buf[:num_buttons]:
 print('%d axes found: %s' % (num_axes, ', '.join(axis_map)))
 print('%d buttons found: %s' % (num_buttons, ', '.join(button_map)))
 
-# Main event loop
-while True:
-    evbuf = jsdev.read(8)
-    if evbuf:
-        time, value, type, number = struct.unpack('IhBB', evbuf)
 
-        if type & 0x80:
-             print("(initial)", end="")
+pub = rospy.Publisher('joystick', String, queue_size=10)
+rospy.init_node('talker_joystick_node')
+rate = rospy.Rate(10) # 10hz
+rospy.loginfo("Starting publishing voltage")
 
-        if type & 0x01:
-            button = button_map[number]
-            if button:
-                button_states[button] = value
-                if value:
-                    print("%s pressed" % (button))
-                else:
-                    print("%s released" % (button))
+try:
+    # Main event loop
+    while True:
+        evbuf = jsdev.read(8)
+        if evbuf:
+            time, value, type, number = struct.unpack('IhBB', evbuf)
 
-        if type & 0x02:
-            axis = axis_map[number]
-            if axis:
-                fvalue = value / 32767.0
-                axis_states[axis] = fvalue
-                print("%s: %.3f" % (axis, fvalue))
+            if type & 0x80:
+                #pub.publish("(initial)", end="")
+                #rospy.loginfo("(initial)", end="")
+                print("(initial)", end="")
+
+            if type & 0x01:
+                button = button_map[number]
+                if button:
+                    button_states[button] = value
+                    if value:
+                        pub.publish("%s pressed" % (button))
+                        rospy.loginfo("%s pressed" % (button))
+                        #print("%s pressed" % (button))
+                    else:
+                        pub.publish("%s released" % (button))
+                        rospy.loginfo("%s released" % (button))
+                        #print("%s released" % (button))
+
+            if type & 0x02:
+                axis = axis_map[number]
+                if axis:
+                    fvalue = value / 32767.0
+                    axis_states[axis] = fvalue
+
+                    pub.publish("%s: %.3f" % (axis, fvalue))
+                    rospy.loginfo("%s: %.3f" % (axis, fvalue))
+                    #print("%s: %.3f" % (axis, fvalue))
+except rospy.ROSInterruptException:
+    pass
+        

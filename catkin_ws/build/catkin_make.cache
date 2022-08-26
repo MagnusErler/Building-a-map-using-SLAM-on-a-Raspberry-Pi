@@ -1,2 +1,2 @@
-data_from_arduino:mb_1r2t_ros
+data_from_arduino:joystick:mb_1r2t_ros
 -DCATKIN_DEVEL_PREFIX=/home/ubuntu/Robocup2023/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/Robocup2023/catkin_ws/install -G Unix Makefiles

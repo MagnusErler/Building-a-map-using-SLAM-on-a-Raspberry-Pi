@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ubuntu/Robocup2023/catkin_ws/build/gtest/cmake_install.cmake")
   include("/home/ubuntu/Robocup2023/catkin_ws/build/data_from_arduino/cmake_install.cmake")
+  include("/home/ubuntu/Robocup2023/catkin_ws/build/joystick/cmake_install.cmake")
   include("/home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros/cmake_install.cmake")
 
 endif()

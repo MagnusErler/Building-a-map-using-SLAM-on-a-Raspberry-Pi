@@ -55,6 +55,7 @@ CMAKE_BINARY_DIR = /home/ubuntu/Robocup2023/catkin_ws/build
 # The main recursive "all" target.
 all: gtest/all
 all: data_from_arduino/all
+all: joystick/all
 all: mb_1r2t_ros/all
 
 .PHONY : all
@@ -62,6 +63,7 @@ all: mb_1r2t_ros/all
 # The main recursive "preinstall" target.
 preinstall: gtest/preinstall
 preinstall: data_from_arduino/preinstall
+preinstall: joystick/preinstall
 preinstall: mb_1r2t_ros/preinstall
 
 .PHONY : preinstall
@@ -74,6 +76,7 @@ clean: CMakeFiles/tests.dir/clean
 clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: data_from_arduino/clean
+clean: joystick/clean
 clean: mb_1r2t_ros/clean
 
 .PHONY : clean
@@ -166,6 +169,24 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest_main.dir/clean
 gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 
 .PHONY : gtest/googletest/clean
+
+#=============================================================================
+# Directory level rules for directory joystick
+
+# Recursive "all" directory target.
+joystick/all:
+
+.PHONY : joystick/all
+
+# Recursive "preinstall" directory target.
+joystick/preinstall:
+
+.PHONY : joystick/preinstall
+
+# Recursive "clean" directory target.
+joystick/clean:
+
+.PHONY : joystick/clean
 
 #=============================================================================
 # Directory level rules for directory mb_1r2t_ros

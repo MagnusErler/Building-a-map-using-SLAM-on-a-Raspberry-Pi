@@ -15,11 +15,15 @@ set(CMAKE_MAKEFILE_DEPENDS
   "catkin_generated/order_packages.cmake"
   "data_from_arduino/catkin_generated/ordered_paths.cmake"
   "data_from_arduino/catkin_generated/package.cmake"
+  "joystick/catkin_generated/ordered_paths.cmake"
+  "joystick/catkin_generated/package.cmake"
   "mb_1r2t_ros/catkin_generated/ordered_paths.cmake"
   "mb_1r2t_ros/catkin_generated/package.cmake"
   "/home/ubuntu/Robocup2023/catkin_ws/src/CMakeLists.txt"
   "/home/ubuntu/Robocup2023/catkin_ws/src/data_from_arduino/CMakeLists.txt"
   "/home/ubuntu/Robocup2023/catkin_ws/src/data_from_arduino/package.xml"
+  "/home/ubuntu/Robocup2023/catkin_ws/src/joystick/CMakeLists.txt"
+  "/home/ubuntu/Robocup2023/catkin_ws/src/joystick/package.xml"
   "/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/CMakeLists.txt"
   "/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/package.xml"
   "/opt/ros/noetic/share/catkin/cmake/all.cmake"
@@ -195,6 +199,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "gtest/googlemock/CMakeFiles/CMakeDirectoryInformation.cmake"
   "gtest/googletest/CMakeFiles/CMakeDirectoryInformation.cmake"
   "data_from_arduino/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "joystick/CMakeFiles/CMakeDirectoryInformation.cmake"
   "mb_1r2t_ros/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

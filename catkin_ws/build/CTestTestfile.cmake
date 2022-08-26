@@ -6,4 +6,5 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("data_from_arduino")
+subdirs("joystick")
 subdirs("mb_1r2t_ros")
