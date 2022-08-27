@@ -41,3 +41,7 @@ roslaunch data_from_arduino talker.launch
 ```
 roslaunch joystick talker_joystick.launch
 ```
+
+## Control power to RP3 USB-ports
+
+https://github.com/mvp/uhubctl#raspberry-pi-b2b3b
