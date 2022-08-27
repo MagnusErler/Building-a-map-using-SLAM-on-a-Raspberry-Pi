@@ -12,7 +12,7 @@ ssh -X ubuntu@185.107.14.82
 cd ~/Robocup2023/
 ```
 
-***Remember to source .bash-file ```source /opt/ros/noetic/setup.bash```
+***Remember to source .bash-file ```source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash```
 
 <b>Data from Arduino</b>
 ```
