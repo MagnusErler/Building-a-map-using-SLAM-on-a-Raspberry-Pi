@@ -1,3 +1,0 @@
-<launch>
-  <node name="talker_arduino_node" pkg="data_from_arduino" type="arduinoDataPublisher.py" output="log"/>
-</launch>
