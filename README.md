@@ -40,15 +40,29 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 
 Now with every new shell you open, it will source automatically
 
+## Get Data from Arduino (Rosrun)
+
+Terminal 1:
+```
+roscore
+```
+
+Terminal 2:
+```
+rosrun rosserial_python serial_node.py /dev/ttyACM0
+```
+If ```ttyACM0``` can't be found look fo the USB-device with ```ls /dev/tty*```
+
+Terminal 3:
+```
+rostopic list
+rostopic echo /voltage
+```
+
 ## Launch ROS-package
 
 ```
 cd ~/Robocup2023/
-```
-
-<b>Data from Arduino</b>
-```
-roslaunch data_from_arduino talker.launch
 ```
 
 <b>Joystick</b>
