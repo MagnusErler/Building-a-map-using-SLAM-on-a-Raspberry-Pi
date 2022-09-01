@@ -4,21 +4,21 @@
 
 ### SSH
 ```
-ssh -X ubuntu@185.107.14.82
+ssh -X ubuntu@185.107.14.85
 ```
 ```-X``` starts up a proxy X11 server on the remote machine.
 
 ### SSH folder from RP onto personal computer
 - Create folder (e.g. RP3_files)
 ```
-sshfs ubuntu@185.107.14.82:/ /home/magnus/RP3_files/
+sshfs ubuntu@185.107.14.85:/ /home/magnus/RP3_files/
 ```
 
 ### SSH in Visual Studio Code
 - Open VSC
 - Click on green box ('Open a Remote Window') in lower left corne
 - Click 'Connect to Host...'
-- ssh ubuntu@185.107.14.82
+- ssh ubuntu@185.107.14.85
 
 ## Source .bash-file
 
