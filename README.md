@@ -1,6 +1,6 @@
 # Robocup2023
 
-## Connect to RP3
+## Connect to RP4
 
 ### SSH
 ```
@@ -77,6 +77,6 @@ roslaunch mb_1r2t_ros view.launch port:=/dev/ttyUSB0
 ```
 This will open RViz and show the LiDAR data
 
-## Control power to RP3 USB-ports
+## Control power to RP4 USB-ports
 
 https://github.com/mvp/uhubctl#raspberry-pi-b2b3b
