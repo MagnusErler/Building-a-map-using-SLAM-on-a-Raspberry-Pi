@@ -4,21 +4,21 @@
 
 ### SSH
 ```
-ssh -X ubuntu@185.107.14.85
+ssh -X ubuntu@185.107.14.82
 ```
 ```-X``` starts up a proxy X11 server on the remote machine.
 
 ### SSH folder from RP onto personal computer
-- Create folder (e.g. RP3_files)
+- Create folder (e.g. RP4_files)
 ```
-sshfs ubuntu@185.107.14.85:/ /home/magnus/RP3_files/
+sshfs ubuntu@185.107.14.82:/ /home/magnus/RP4_files/
 ```
 
 ### SSH in Visual Studio Code
 - Open VSC
 - Click on green box ('Open a Remote Window') in lower left corne
 - Click 'Connect to Host...'
-- ssh ubuntu@185.107.14.85
+- ssh ubuntu@185.107.14.82
 
 ## Source .bash-file
 
@@ -75,6 +75,7 @@ roslaunch joystick talker_joystick.launch
 cd ~/Robocup2023/
 roslaunch mb_1r2t_ros view.launch port:=/dev/ttyUSB0
 ```
+If ```ttyUSB0``` can't be found look fo the USB-device with ```ls /dev/tty*```
 This will open RViz and show the LiDAR data
 
 ## Control power to RP4 USB-ports
