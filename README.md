@@ -41,6 +41,11 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 
 Now with every new shell you open, it will source automatically
 
+## Uploade Arduino-code from terminal
+```
+pio run -t upload
+```
+
 ## Communicate with Arduino (Rosrun)
 Terminal 1:
 ```
