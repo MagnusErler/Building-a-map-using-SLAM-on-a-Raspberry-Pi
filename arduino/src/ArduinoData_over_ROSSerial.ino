@@ -35,6 +35,11 @@ int motor2pin2 = 7;
 int motor1_en = 9;
 int motor2_en = 10;
 
+// -------Timer-------
+int interval = 1000;
+long previousMillis = 0;
+long currentMillis = 0;
+
 void setup() {
 
   setupROSSerial();
@@ -51,18 +56,27 @@ void setMotor( const std_msgs::UInt16& cmd_msg){
   analogWrite(motor2_en, x);
 }
 
-ros::Subscriber<std_msgs::UInt16> sub("CmdSetMotor", setMotor);
+void setPubFreq( const std_msgs::UInt16& cmd_msg){
+  interval = cmd_msg.data;
+}
+
+ros::Subscriber<std_msgs::UInt16> sub_motor("CmdSetMotor", setMotor);
+ros::Subscriber<std_msgs::UInt16> sub_pupFreq("CmdSetPubFreq", setPubFreq);
 
 void loop() {
 
-  getVoltage();
-  getDataFromMPU6050();
+  currentMillis = millis();
 
-  publishData();
+  if (currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;
+ 
+    getVoltage();
+    getDataFromMPU6050();
 
-  nh.spinOnce();
-  
-  delay(1000);
+    publishData();
+
+    nh.spinOnce();
+  }
 }
 
 void setupROSSerial() {
@@ -73,7 +87,8 @@ void setupROSSerial() {
   nh.advertise(pub_temperature);
   nh.advertise(pub_orientation);
 
-  nh.subscribe(sub);
+  nh.subscribe(sub_motor);
+  nh.subscribe(sub_pupFreq);
 }
 
 void setupMPU6050() {
