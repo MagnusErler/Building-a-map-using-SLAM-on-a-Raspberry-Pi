@@ -1,10 +1,12 @@
 
 // ------ROS Serial------
-#define USE_USBCON  //Used with Arduino Micro Pro
+//#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
+#include <std_msgs/Int16.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Int16MultiArray.h>
 
 ros::NodeHandle nh;
 
@@ -12,8 +14,8 @@ std_msgs::Float32 float32_msg;
 std_msgs::String str_msg;
 
 ros::Publisher pub_voltage("voltage", &float32_msg);
-ros::Publisher pub_temperature("temperature", &float32_msg);
-ros::Publisher pub_orientation("orientation", &str_msg);
+ros::Publisher pub_temperature("MPU6050/temperature", &float32_msg);
+ros::Publisher pub_orientation("MPU6050/orientation", &str_msg);
 
 // ------Voltmeter------
 float voltage = 0.00;
@@ -32,8 +34,8 @@ int motor1pin2 = 5;
 int motor2pin1 = 6;
 int motor2pin2 = 7;
 
-int motor1_en = 9;
-int motor2_en = 10;
+int motor1_en = A0;
+int motor2_en = A1;
 
 // -------Timer-------
 int interval = 1000;
@@ -49,19 +51,55 @@ void setup() {
   setupMotor();
 }
 
-void setMotor( const std_msgs::UInt16& cmd_msg){
+void setSpeed( const std_msgs::Int16MultiArray& cmd_msg){
+
   //Controlling speed (0 = off and 255 = max speed):
-  int x = cmd_msg.data;
-  analogWrite(motor1_en, x);
-  analogWrite(motor2_en, x);
+  int speed1 = cmd_msg.data[0];
+  int speed2 = cmd_msg.data[1];
+
+  if (speed1 < 0 && speed2 > 0) {
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, HIGH);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, HIGH);
+  } else if (speed1 > 0 && speed2 < 0) {
+    digitalWrite(motor1pin1, HIGH);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, HIGH);
+    digitalWrite(motor2pin2, LOW);
+  } else if (speed1 < 0 && speed2 < 0) {
+    //Backward
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, HIGH);
+    digitalWrite(motor2pin1, HIGH);
+    digitalWrite(motor2pin2, LOW);
+  } else {
+    //Forward
+    digitalWrite(motor1pin1, HIGH);
+    digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, LOW);
+    digitalWrite(motor2pin2, HIGH);
+  }
+
+  if (speed1 < 0) {
+    speed1 = speed1*(-1);
+  }
+
+  if (speed2 < 0) {
+    speed2 = speed2*(-1);
+  }
+  
+  analogWrite(motor1_en, speed1);
+  analogWrite(motor2_en, speed2);
 }
 
 void setPubFreq( const std_msgs::UInt16& cmd_msg){
   interval = cmd_msg.data;
 }
 
-ros::Subscriber<std_msgs::UInt16> sub_motor("CmdSetMotor", setMotor);
-ros::Subscriber<std_msgs::UInt16> sub_pupFreq("CmdSetPubFreq", setPubFreq);
+
+ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
+ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
 
 void loop() {
 
@@ -74,12 +112,13 @@ void loop() {
     getDataFromMPU6050();
 
     publishData();
-
-    nh.spinOnce();
   }
+
+  nh.spinOnce();
 }
 
 void setupROSSerial() {
+
   nh.initNode();
   nh.getHardware()->setBaud(57600);
   
@@ -87,8 +126,8 @@ void setupROSSerial() {
   nh.advertise(pub_temperature);
   nh.advertise(pub_orientation);
 
-  nh.subscribe(sub_motor);
-  nh.subscribe(sub_pupFreq);
+  nh.subscribe(sub_speed);
+  nh.subscribe(sub_pubFreq);
 }
 
 void setupMPU6050() {
@@ -109,7 +148,7 @@ void setupMotor() {
   pinMode(motor1_en, OUTPUT); 
   pinMode(motor2_en, OUTPUT);
 
-  //Controlling spin direction of motors:
+  //Forward
   digitalWrite(motor1pin1, HIGH);
   digitalWrite(motor1pin2, LOW);
 
