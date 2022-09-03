@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+
 # Robocup2023
 
 ## Connect to RP4
@@ -21,7 +23,6 @@ sshfs ubuntu@185.107.14.82:/ /home/magnus/RP4_files/
 - ssh ubuntu@185.107.14.82
 
 ## Source .bash-file
-
 Every terminal should source it automatically, if not you may do it manually
 
 ```
@@ -40,8 +41,7 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 
 Now with every new shell you open, it will source automatically
 
-## Get Data from Arduino (Rosrun)
-
+## Communicate with Arduino (Rosrun)
 Terminal 1:
 ```
 roscore
@@ -53,14 +53,22 @@ rosrun rosserial_python serial_node.py /dev/ttyACM0
 ```
 If ```ttyACM0``` can't be found look fo the USB-device with ```ls /dev/tty*```
 
+### Get Data from Arduino (Rosrun)
 Terminal 3:
 ```
 rostopic list
 rostopic echo /voltage
 ```
 
-## Launch ROS-package
+### Send Data to Arduino (Rosrun)
+Terminal 3:
+```
+rostopic list
+rostopic pub /CmdSetMotor std_msgs/UInt16 255
+```
+(Controlling speed: 0 = off and 255 = max speed)
 
+## Launch ROS-package
 ```
 cd ~/Robocup2023/
 ```
@@ -79,5 +87,6 @@ If ```ttyUSB0``` can't be found look fo the USB-device with ```ls /dev/tty*```
 This will open RViz and show the LiDAR data
 
 ## Control power to RP4 USB-ports
-
 https://github.com/mvp/uhubctl#raspberry-pi-b2b3b
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
