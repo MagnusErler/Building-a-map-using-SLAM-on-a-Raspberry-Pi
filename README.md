@@ -41,7 +41,7 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 
 Now with every new shell you open, it will source automatically
 
-## Get Data from Arduino (Rosrun)
+## Communicate with Arduino (Rosrun)
 Terminal 1:
 ```
 roscore
@@ -53,24 +53,14 @@ rosrun rosserial_python serial_node.py /dev/ttyACM0
 ```
 If ```ttyACM0``` can't be found look fo the USB-device with ```ls /dev/tty*```
 
+### Get Data from Arduino (Rosrun)
 Terminal 3:
 ```
 rostopic list
 rostopic echo /voltage
 ```
 
-## Send Data to Arduino (Rosrun)
-Terminal 1:
-```
-roscore
-```
-
-Terminal 2:
-```
-rosrun rosserial_python serial_node.py /dev/ttyACM0
-```
-If ```ttyACM0``` can't be found look fo the USB-device with ```ls /dev/tty*```
-
+### Send Data to Arduino (Rosrun)
 Terminal 3:
 ```
 rostopic list
