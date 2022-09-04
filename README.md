@@ -42,6 +42,9 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 Now with every new shell you open, it will source automatically
 
 ## Uploade Arduino-code from terminal
+```
+cd Robocup2023/arduino/
+```
 Arduino Micro Pro
 ```
 pio run -e micro -t upload
