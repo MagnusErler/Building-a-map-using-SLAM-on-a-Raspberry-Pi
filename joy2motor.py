@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-from std_msgs.msg import Float32
-from std_msgs.msg import Int16
 from std_msgs.msg import Int16MultiArray
 
 pub = rospy.Publisher('motor/CmdSetSpeed', Int16MultiArray, queue_size=10)
@@ -38,11 +36,13 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
-
-    rospy.Subscriber("joystick", String, callback)
+    rospy.Subscriber("/joystick", String, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
 
 if __name__ == '__main__':
-    listener()
+    try:
+        listener()
+    except rospy.ROSInterruptException:
+        pass

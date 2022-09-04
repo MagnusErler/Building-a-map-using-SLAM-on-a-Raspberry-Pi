@@ -2,20 +2,19 @@
 // ------ROS Serial------
 //#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
-#include <std_msgs/Int16.h>
+#include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
-#include <std_msgs/Int16MultiArray.h>
 
 ros::NodeHandle nh;
 
 std_msgs::Float32 float32_msg;
 std_msgs::String str_msg;
 
-ros::Publisher pub_voltage("voltage", &float32_msg);
-ros::Publisher pub_temperature("MPU6050/temperature", &float32_msg);
-ros::Publisher pub_orientation("MPU6050/orientation", &str_msg);
+ros::Publisher pub_voltage("battery/voltage", &float32_msg);
+ros::Publisher pub_temperature("IMU/temperature", &float32_msg);
+ros::Publisher pub_orientation("IMU/orientation", &str_msg);
 
 // ------Voltmeter------
 float voltage = 0.00;
@@ -97,8 +96,8 @@ void setPubFreq( const std_msgs::UInt16& cmd_msg){
   interval = cmd_msg.data;
 }
 
-
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
+ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
 
 void loop() {

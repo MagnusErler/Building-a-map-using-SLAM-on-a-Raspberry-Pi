@@ -175,7 +175,7 @@ try:
             if type & 0x02:
                 axis = axis_map[number]
                 if axis:
-                    fvalue = value / 32767.0
+                    fvalue = -value / 32767.0
                     axis_states[axis] = fvalue
 
                     pub.publish("%s: %.3f" % (axis, fvalue))
