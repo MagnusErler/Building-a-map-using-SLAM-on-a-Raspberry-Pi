@@ -65,7 +65,7 @@ Terminal 2:
 ```
 rosrun rosserial_python serial_node.py /dev/ttyUSB0
 ```
-If ```ttyUSB0``` can't be found look fo the USB-device with ```ls /dev/tty*```
+If ```ttyUSB0``` can't be found look for the USB-device with ```ls /dev/tty*```
 
 ### Get Data from Arduino (Rosrun)
 Terminal 3:
@@ -82,6 +82,8 @@ rostopic pub /CmdSetMotor std_msgs/UInt16 255
 ```
 (Controlling speed: 0 = off and 255 = max speed)
 
+## Commands to bend to Arduino
+
 ## Launch ROS-package
 
 <b>Joystick</b>
@@ -94,7 +96,7 @@ roslaunch joystick talker_joystick.launch
 cd ~/Robocup2023/
 roslaunch mb_1r2t_ros view.launch port:=/dev/ttyUSB1
 ```
-If ```ttyUSB1``` can't be found look fo the USB-device with ```ls /dev/tty*```
+If ```ttyUSB1``` can't be found look for the USB-device with ```ls /dev/tty*```
 This will open RViz and show the LiDAR data
 
 ## Control power to RP4 USB-ports
