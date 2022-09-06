@@ -1,5 +1,5 @@
 <launch>
+  <node name="listener_oled_node" pkg="oled" type="OLEDDisplay.py" output="screen"/>
   <node name="talker_joystick_node" pkg="joystick" type="joy.py" output="screen"/>
   <node name="serial_node" pkg="rosserial_arduino" type="serial_node.py" output="screen"/>
-/>
 </launch>
