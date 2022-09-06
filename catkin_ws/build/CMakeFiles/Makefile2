@@ -66,6 +66,7 @@ all: rosserial/rosserial_vex_v5/all
 all: rosserial/rosserial_xbee/all
 all: rosserial/rosserial_client/all
 all: joystick/all
+all: ros_setup/all
 all: rosserial/rosserial_server/all
 all: mb_1r2t_ros/all
 all: rosserial/rosserial_embeddedlinux/all
@@ -88,6 +89,7 @@ preinstall: rosserial/rosserial_vex_v5/preinstall
 preinstall: rosserial/rosserial_xbee/preinstall
 preinstall: rosserial/rosserial_client/preinstall
 preinstall: joystick/preinstall
+preinstall: ros_setup/preinstall
 preinstall: rosserial/rosserial_server/preinstall
 preinstall: mb_1r2t_ros/preinstall
 preinstall: rosserial/rosserial_embeddedlinux/preinstall
@@ -115,6 +117,7 @@ clean: rosserial/rosserial_vex_v5/clean
 clean: rosserial/rosserial_xbee/clean
 clean: rosserial/rosserial_client/clean
 clean: joystick/clean
+clean: ros_setup/clean
 clean: rosserial/rosserial_server/clean
 clean: mb_1r2t_ros/clean
 clean: rosserial/rosserial_embeddedlinux/clean
@@ -239,6 +242,24 @@ mb_1r2t_ros/clean: mb_1r2t_ros/CMakeFiles/geometry_msgs_generate_messages_lisp.d
 mb_1r2t_ros/clean: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/clean
 
 .PHONY : mb_1r2t_ros/clean
+
+#=============================================================================
+# Directory level rules for directory ros_setup
+
+# Recursive "all" directory target.
+ros_setup/all:
+
+.PHONY : ros_setup/all
+
+# Recursive "preinstall" directory target.
+ros_setup/preinstall:
+
+.PHONY : ros_setup/preinstall
+
+# Recursive "clean" directory target.
+ros_setup/clean:
+
+.PHONY : ros_setup/clean
 
 #=============================================================================
 # Directory level rules for directory rosserial/rosserial

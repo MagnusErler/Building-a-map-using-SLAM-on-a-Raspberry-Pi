@@ -175,7 +175,7 @@ try:
             if type & 0x02:
                 axis = axis_map[number]
                 if axis:
-                    fvalue = -value / 32767.0
+                    fvalue = -value / 32767.0   #2^15-1, so the maximum value of a 16-bit signed integer
                     axis_states[axis] = fvalue
 
                     pub.publish("%s: %.3f" % (axis, fvalue))

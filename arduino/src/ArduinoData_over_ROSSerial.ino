@@ -2,6 +2,7 @@
 // ------ROS Serial------
 //#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
+#include <std_msgs/Bool.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
@@ -27,14 +28,14 @@ float temperature;
 String orientation_string;
 
 // -------Motor-------
-int motor1pin1 = 4;
-int motor1pin2 = 5;
+const int motor1pin1 = 4;
+const int motor1pin2 = 5;
 
-int motor2pin1 = 6;
-int motor2pin2 = 7;
+const int motor2pin1 = 6;
+const int motor2pin2 = 7;
 
-int motor1_en = A0;
-int motor2_en = A1;
+const int motor1_en = A2; //A0 not working??
+const int motor2_en = A3;
 
 // -------Timer-------
 int interval = 1000;
@@ -43,6 +44,8 @@ long currentMillis = 0;
 
 void setup() {
 
+  //Serial.begin(9600);
+
   setupROSSerial();
   
   setupMPU6050();
@@ -50,7 +53,7 @@ void setup() {
   setupMotor();
 }
 
-void setSpeed( const std_msgs::Int16MultiArray& cmd_msg){
+void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
 
   //Controlling speed (0 = off and 255 = max speed):
   int speed1 = cmd_msg.data[0];
@@ -96,9 +99,21 @@ void setPubFreq( const std_msgs::UInt16& cmd_msg){
   interval = cmd_msg.data;
 }
 
+void caliMPU6050(const std_msgs::Bool& dummy) {
+  //mpu6050.calcGyroOffsets(true);
+  mpu6050.setGyroOffsets(2.32, 0.22, 0.11);
+}
+
+void setupMPU6050() {
+  Wire.begin();
+  mpu6050.begin();
+
+  //caliMPU6050(true);  //not working
+}
+
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
-ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
+ros::Subscriber<std_msgs::Bool> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
 
 void loop() {
 
@@ -127,15 +142,7 @@ void setupROSSerial() {
 
   nh.subscribe(sub_speed);
   nh.subscribe(sub_pubFreq);
-}
-
-void setupMPU6050() {
-  Wire.begin();
-  mpu6050.begin();
-
-  //Serial.begin(9600);
-  //mpu6050.calcGyroOffsets(true);
-  mpu6050.setGyroOffsets(2.32, 0.22, 0.11);
+  nh.subscribe(sub_caliIMU);
 }
 
 void setupMotor() {
@@ -156,7 +163,7 @@ void setupMotor() {
 }
 
 void getVoltage() {
-  voltage = (analogRead(A0) * 3.3) / 1024.00; // formula for calculating voltage out i.e. V+, here 3.30
+  voltage = (analogRead(A0) * 5.0) / 1024.00; // formula for calculating voltage out i.e. V+, here 5.0
 }
 
 void getDataFromMPU6050() {
