@@ -11,6 +11,10 @@ from PIL import ImageFont
 
 import subprocess
 
+#ROS
+import rospy
+from std_msgs.msg import String
+
 # Raspberry Pi pin configuration:
 RST = None     # on the PiOLED this pin isnt used
 # Note the following are only used with SPI:
@@ -51,7 +55,12 @@ font = ImageFont.load_default()
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 
-while True:
+update_display_interval = 2.0 #sec
+
+global oledText
+oledText = ""
+
+def display1(data=oledText):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
@@ -69,11 +78,40 @@ while True:
     MemUsage = MemUsage.decode("utf-8")
     Disk = Disk.decode("utf-8")
 
+    global oledText
+    try:
+        oledText = data.data
+    except:
+        oledText = data
+
     draw.text((x, top),       str(IP),  font=font, fill=255)
     draw.text((x, top+8),     str(CPU), font=font, fill=255)
     draw.text((x, top+16),    str(MemUsage),  font=font, fill=255)
-    draw.text((x, top+25),    str(Disk),  font=font, fill=255)
+    draw.text((x, top+24),    str(Disk),  font=font, fill=255)
+    draw.text((x, top+32),    str(oledText),  font=font, fill=255)
 
     disp.image(image)
     disp.display()
-    time.sleep(.1)
+
+def listener():
+
+    # In ROS, nodes are uniquely named. If two nodes with the same
+    # name are launched, the previous one is kicked off. The
+    # anonymous=True flag means that rospy will choose a unique
+    # name for our 'listener' node so that multiple listeners can
+    # run simultaneously.
+    rospy.init_node('listener', anonymous=True)
+    rospy.Subscriber("/send2Oled", String, display1)
+    rospy.loginfo("Starting subscribing to text to oled")
+
+if __name__ == '__main__':
+
+    listener()
+
+    starttime = time.time()
+    while True:
+        display1(oledText)
+        time.sleep(update_display_interval - ((time.time() - starttime) % update_display_interval))
+
+        # spin() simply keeps python from exiting until this node is stopped
+        #rospy.spin()
