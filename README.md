@@ -78,11 +78,24 @@ rostopic echo /voltage
 Terminal 3:
 ```
 rostopic list
-rostopic pub /CmdSetMotor std_msgs/UInt16 255
+rostopic pub /motor/CmdSetMotor std_msgs/UInt16 255
 ```
 (Controlling speed: 0 = off and 255 = max speed)
 
-## Commands to bend to Arduino
+### Subscriber and publisher
+#### Publisher
+```/battery/voltage``` [Float32] gives the voltage of the battery
+
+```/IMU/temperatur``` [Float32] gives the temperature (from the MPU6050-chip)
+
+```/IMU/orientation``` [String] gives the orientation
+
+#### Subscriber
+```/motor/CmdSetMotor``` [Int16MultiArray] sets the speed of both motors (0 = off and 255 = max speed)
+
+```/IMU/CmdCaliIMU``` [Bool] calibrates the IMU (calibrate = true)
+
+```/CmdSetPubFreq``` [UInt16] sets publishing rate
 
 ## Launch ROS-package
 
