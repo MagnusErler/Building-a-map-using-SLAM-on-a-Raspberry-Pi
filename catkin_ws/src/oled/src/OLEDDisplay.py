@@ -60,7 +60,7 @@ update_display_interval = 2.0 #sec
 global oledText
 oledText = ""
 
-def display1(data=oledText):
+def display(data=oledText):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
@@ -101,7 +101,7 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber("/send2Oled", String, display1)
+    rospy.Subscriber("/send2Oled", String, display)
     rospy.loginfo("Starting subscribing to text to oled")
 
 if __name__ == '__main__':
@@ -110,7 +110,7 @@ if __name__ == '__main__':
 
     starttime = time.time()
     while True:
-        display1(oledText)
+        display(oledText)
         time.sleep(update_display_interval - ((time.time() - starttime) % update_display_interval))
 
         # spin() simply keeps python from exiting until this node is stopped
