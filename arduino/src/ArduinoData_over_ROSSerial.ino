@@ -2,7 +2,7 @@
 // ------ROS Serial------
 //#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
-#include <std_msgs/Bool.h>
+#include <std_msgs/Empty.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
@@ -95,11 +95,17 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   analogWrite(motor2_en, speed2);
 }
 
-void setPubFreq( const std_msgs::UInt16& cmd_msg){
+void setPubFreq(const std_msgs::UInt16& cmd_msg){
   interval = cmd_msg.data;
 }
 
-void caliMPU6050(const std_msgs::Bool& dummy) {
+void caliMPU6050(const std_msgs::Empty&) {
+  // caliMPU6050() is a callback function and can't be called from other functions.
+  // For other functions to calibrate the IMU a new function has been made: caliIMU()
+  caliIMU();
+}
+
+void caliIMU() {
   //mpu6050.calcGyroOffsets(true);
   mpu6050.setGyroOffsets(2.32, 0.22, 0.11);
 }
@@ -108,12 +114,13 @@ void setupMPU6050() {
   Wire.begin();
   mpu6050.begin();
 
-  //caliMPU6050(true);  //not working
+  caliIMU();
+  //caliMPU6050();  //not working
 }
 
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
-ros::Subscriber<std_msgs::Bool> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
+ros::Subscriber<std_msgs::Empty> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
 
 void loop() {
 
