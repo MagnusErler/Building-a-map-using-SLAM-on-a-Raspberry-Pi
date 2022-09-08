@@ -18,9 +18,9 @@ sshfs ubuntu@185.107.14.82:/ /home/magnus/RP4_files/
 
 ### SSH in Visual Studio Code
 - Open VSC
-- Click on green box ('Open a Remote Window') in lower left corne
+- Click on green box ('Open a Remote Window') in lower left corne (If this can't be found, be sure that <b>Remote - SSH</b> is installed from Extentions)
 - Click 'Connect to Host...'
-- ssh ubuntu@185.107.14.82
+- ubuntu@185.107.14.82
 
 ## Source .bash-file
 Every terminal should source it automatically, if not you may do it manually
@@ -83,19 +83,20 @@ rostopic pub /motor/CmdSetMotor std_msgs/UInt16 255
 (Controlling speed: 0 = off and 255 = max speed)
 
 ### Subscriber and publisher
-#### Publisher
-```/battery/voltage``` [Float32] gives the voltage of the battery
 
-```/IMU/temperatur``` [Float32] gives the temperature (from the MPU6050-chip)
+#### <b>Publisher</b>
+| Command  | Data types | Aktion |
+| ------------- | ------------- | ------------- |
+| ```/battery/voltage```  | Float32  | gives the voltage of the battery  |
+| ```/IMU/temperatur```  | Float32  | gives the temperature (from the MPU6050-chip)  |
+| ```/IMU/orientation```  | String  | gives the orientation  |
 
-```/IMU/orientation``` [String] gives the orientation
-
-#### Subscriber
-```/motor/CmdSetMotor``` [Int16MultiArray] sets the speed of both motors (0 = off and 255 = max speed)
-
-```/IMU/CmdCaliIMU``` [Bool] calibrates the IMU (calibrate = true)
-
-```/CmdSetPubFreq``` [UInt16] sets publishing rate
+#### <b>Subscriber</b>
+| Command  | Data types | Aktion |
+| ------------- | ------------- | ------------- |
+| ```/motor/CmdSetMotor```  | Int16MultiArray  | sets the speed of both motors (0 = off and 255 = max speed)  |
+| ```/IMU/CmdCaliIMU```  | Bool  | calibrates the IMU (calibrate = true)  |
+| ```/CmdSetPubFreq```  | UInt16  | sets publishing rate  |
 
 ## Launch ROS-package
 
