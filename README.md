@@ -63,6 +63,7 @@ Now with every new shell you open, it will source automatically
 <br />
 
 ## Start using ROS
+Terminal 1:
 ```
 roslaunch ros_setup ros_setup.launch
 ```
@@ -77,7 +78,7 @@ If ```ttyUSB0``` can't be found look for the USB-device with ```ls /dev/tty*```
 <details>
 <summary>Get Data from Arduino (Rosrun)</summary>
 <br>
-Terminal 3:
+Terminal 2:
 
 ```
 rostopic list
@@ -88,7 +89,7 @@ rostopic echo /voltage
 <details>
 <summary>Send Data to Arduino (Rosrun)</summary>
 <br>
-Terminal 3:
+Terminal 2:
 
 ```
 rostopic list
@@ -115,8 +116,6 @@ Arduino Mega 2560
 pio run -e megaatmega2560 -t upload
 ```
 </details>
-
-<br />
 
 ### Communication (Subscriber and publisher)
 
