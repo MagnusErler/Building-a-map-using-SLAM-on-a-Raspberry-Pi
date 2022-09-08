@@ -60,8 +60,6 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 Now with every new shell you open, it will source automatically
 </details>
 
-<br />
-
 ## Start using ROS
 Terminal 1:
 ```

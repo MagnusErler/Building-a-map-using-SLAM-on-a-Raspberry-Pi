@@ -145,27 +145,19 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   int speed2 = cmd_msg.data[1];
 
   if (speed1 < 0 && speed2 > 0) {
-    digitalWrite(motor1pin1, LOW);
-    digitalWrite(motor1pin2, HIGH);
-    digitalWrite(motor2pin1, LOW);
-    digitalWrite(motor2pin2, HIGH);
+    digitalWrite(motor1pin1, LOW); digitalWrite(motor1pin2, HIGH);
+    digitalWrite(motor2pin1, LOW); digitalWrite(motor2pin2, HIGH);
   } else if (speed1 > 0 && speed2 < 0) {
-    digitalWrite(motor1pin1, HIGH);
-    digitalWrite(motor1pin2, LOW);
-    digitalWrite(motor2pin1, HIGH);
-    digitalWrite(motor2pin2, LOW);
+    digitalWrite(motor1pin1, HIGH); digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, HIGH); digitalWrite(motor2pin2, LOW);
   } else if (speed1 < 0 && speed2 < 0) {
     //Backward
-    digitalWrite(motor1pin1, LOW);
-    digitalWrite(motor1pin2, HIGH);
-    digitalWrite(motor2pin1, HIGH);
-    digitalWrite(motor2pin2, LOW);
+    digitalWrite(motor1pin1, LOW); digitalWrite(motor1pin2, HIGH);
+    digitalWrite(motor2pin1, HIGH); digitalWrite(motor2pin2, LOW);
   } else {
     //Forward
-    digitalWrite(motor1pin1, HIGH);
-    digitalWrite(motor1pin2, LOW);
-    digitalWrite(motor2pin1, LOW);
-    digitalWrite(motor2pin2, HIGH);
+    digitalWrite(motor1pin1, HIGH); digitalWrite(motor1pin2, LOW);
+    digitalWrite(motor2pin1, LOW); digitalWrite(motor2pin2, HIGH);
   }
 
   if (speed1 < 0) {
@@ -181,7 +173,7 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
 }
 
 void getVoltage() {
-  voltage = (analogRead(A0) * 5.0) / 1024.00; // formula for calculating voltage out i.e. V+, here 5.0
+  voltage = (analogRead(A0) * 5.0) / 1024.00;
 }
 
 // -------Ros-------
@@ -198,7 +190,6 @@ void publishData() {
 
   char Buf[50];
   orientation_string.toCharArray(Buf, 50);
-
   str_msg.data = Buf;
   pub_orientation.publish( &str_msg );
 }
