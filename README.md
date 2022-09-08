@@ -69,6 +69,7 @@ roslaunch ros_setup ros_setup.launch
 This runs alle nodes for the <b>joystick</b>, <b>Arduino</b> and <b>OLED display</b>
 
 OBS! ```roscore``` will be called automatically - no need to do that manually
+
 If ```ttyUSB0``` can't be found look for the USB-device with ```ls /dev/tty*```
 
 <br />
