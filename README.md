@@ -18,6 +18,7 @@ ssh -X ubuntu@185.107.14.82
 <summary>SSH folder from RP onto personal computer</summary>
 <br>
 Create folder (e.g. RP4_files)
+
 ```
 sshfs ubuntu@185.107.14.82:/ /home/magnus/RP4_files/
 ```
@@ -76,6 +77,7 @@ If ```ttyUSB0``` can't be found look for the USB-device with ```ls /dev/tty*```
 <summary>Get Data from Arduino (Rosrun)</summary>
 <br>
 Terminal 3:
+
 ```
 rostopic list
 rostopic echo /voltage
@@ -86,6 +88,7 @@ rostopic echo /voltage
 <summary>Send Data to Arduino (Rosrun)</summary>
 <br>
 Terminal 3:
+
 ```
 rostopic list
 rostopic pub /motor/CmdSetMotor std_msgs/UInt16 255
@@ -97,6 +100,7 @@ rostopic pub /motor/CmdSetMotor std_msgs/UInt16 255
 <summary>Upload Arduino-code from terminal</summary>
 <br>
 Using platformio to send code to Arduino
+
 ```
 cd Robocup2023/arduino/
 ```
