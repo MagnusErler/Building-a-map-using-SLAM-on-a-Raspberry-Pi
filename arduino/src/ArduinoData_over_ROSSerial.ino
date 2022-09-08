@@ -62,45 +62,6 @@ void setup() {
   setupMotor();
 }
 
-void setupROSSerial() {
-
-  nh.initNode();
-  nh.getHardware()->setBaud(57600);
-  
-  nh.advertise(pub_voltage);
-  nh.advertise(pub_temperature);
-  nh.advertise(pub_orientation);
-
-  nh.subscribe(sub_speed);
-  nh.subscribe(sub_pubFreq);
-  nh.subscribe(sub_caliIMU);
-}
-
-void setupMPU6050() {
-  Wire.begin();
-  mpu6050.begin();
-
-  caliIMU();
-  //caliMPU6050();  //not working
-}
-
-void setupMotor() {
-  pinMode(motor1pin1, OUTPUT);
-  pinMode(motor1pin2, OUTPUT);
-  pinMode(motor2pin1, OUTPUT);
-  pinMode(motor2pin2, OUTPUT);
-
-  pinMode(motor1_en, OUTPUT); 
-  pinMode(motor2_en, OUTPUT);
-
-  //Forward
-  digitalWrite(motor1pin1, HIGH);
-  digitalWrite(motor1pin2, LOW);
-
-  digitalWrite(motor2pin1, LOW);
-  digitalWrite(motor2pin2, HIGH);
-}
-
 void loop() {
 
   currentMillis = millis();
@@ -118,6 +79,14 @@ void loop() {
 }
 
 // -------IMU-------
+void setupMPU6050() {
+  Wire.begin();
+  mpu6050.begin();
+
+  caliIMU();
+  //caliMPU6050();  //not working
+}
+
 void caliMPU6050(const std_msgs::Empty&) {
   // caliMPU6050() is a callback function and can't be called from other functions.
   // For other functions to calibrate the IMU a new function has been made: caliIMU()
@@ -138,6 +107,19 @@ void getDataFromMPU6050() {
 }
 
 // -------Motor-------
+void setupMotor() {
+  pinMode(motor1pin1, OUTPUT);
+  pinMode(motor1pin2, OUTPUT);
+  pinMode(motor2pin1, OUTPUT);
+  pinMode(motor2pin2, OUTPUT);
+
+  pinMode(motor1_en, OUTPUT); 
+  pinMode(motor2_en, OUTPUT);
+
+  digitalWrite(motor1pin1, LOW); digitalWrite(motor1pin2, LOW);
+  digitalWrite(motor2pin1, LOW); digitalWrite(motor2pin2, LOW);
+}
+
 void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
 
   //Controlling speed (0 = off and 255 = max speed):
@@ -172,11 +154,26 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   analogWrite(motor2_en, speed2);
 }
 
+// -------Voltage-------
 void getVoltage() {
   voltage = (analogRead(A0) * 5.0) / 1024.00;
 }
 
 // -------Ros-------
+void setupROSSerial() {
+
+  nh.initNode();
+  nh.getHardware()->setBaud(57600);
+  
+  nh.advertise(pub_voltage);
+  nh.advertise(pub_temperature);
+  nh.advertise(pub_orientation);
+
+  nh.subscribe(sub_speed);
+  nh.subscribe(sub_pubFreq);
+  nh.subscribe(sub_caliIMU);
+}
+
 void setPubFreq(const std_msgs::UInt16& cmd_msg){
   interval = cmd_msg.data;
 }
