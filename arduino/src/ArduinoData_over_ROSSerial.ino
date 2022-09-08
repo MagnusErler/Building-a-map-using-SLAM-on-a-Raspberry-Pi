@@ -8,6 +8,10 @@
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
 
+void setPubFreq(const std_msgs::UInt16&);
+void setSpeed(const std_msgs::Int16MultiArray&);
+void caliMPU6050(const std_msgs::Empty&);
+
 ros::NodeHandle nh;
 
 std_msgs::Float32 float32_msg;
@@ -16,6 +20,10 @@ std_msgs::String str_msg;
 ros::Publisher pub_voltage("battery/voltage", &float32_msg);
 ros::Publisher pub_temperature("IMU/temperature", &float32_msg);
 ros::Publisher pub_orientation("IMU/orientation", &str_msg);
+
+ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
+ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
+ros::Subscriber<std_msgs::Empty> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
 
 // ------Voltmeter------
 float voltage = 0.00;
@@ -42,6 +50,7 @@ int interval = 1000;
 long previousMillis = 0;
 long currentMillis = 0;
 
+// -------Setup-------
 void setup() {
 
   //Serial.begin(9600);
@@ -53,6 +62,82 @@ void setup() {
   setupMotor();
 }
 
+void setupROSSerial() {
+
+  nh.initNode();
+  nh.getHardware()->setBaud(57600);
+  
+  nh.advertise(pub_voltage);
+  nh.advertise(pub_temperature);
+  nh.advertise(pub_orientation);
+
+  nh.subscribe(sub_speed);
+  nh.subscribe(sub_pubFreq);
+  nh.subscribe(sub_caliIMU);
+}
+
+void setupMPU6050() {
+  Wire.begin();
+  mpu6050.begin();
+
+  caliIMU();
+  //caliMPU6050();  //not working
+}
+
+void setupMotor() {
+  pinMode(motor1pin1, OUTPUT);
+  pinMode(motor1pin2, OUTPUT);
+  pinMode(motor2pin1, OUTPUT);
+  pinMode(motor2pin2, OUTPUT);
+
+  pinMode(motor1_en, OUTPUT); 
+  pinMode(motor2_en, OUTPUT);
+
+  //Forward
+  digitalWrite(motor1pin1, HIGH);
+  digitalWrite(motor1pin2, LOW);
+
+  digitalWrite(motor2pin1, LOW);
+  digitalWrite(motor2pin2, HIGH);
+}
+
+void loop() {
+
+  currentMillis = millis();
+
+  if (currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;
+ 
+    getVoltage();
+    getDataFromMPU6050();
+
+    publishData();
+  }
+
+  nh.spinOnce();
+}
+
+// -------IMU-------
+void caliMPU6050(const std_msgs::Empty&) {
+  // caliMPU6050() is a callback function and can't be called from other functions.
+  // For other functions to calibrate the IMU a new function has been made: caliIMU()
+  caliIMU();
+}
+
+void caliIMU() {
+  //mpu6050.calcGyroOffsets(true);
+  mpu6050.setGyroOffsets(2.32, 0.22, 0.11);
+}
+
+void getDataFromMPU6050() {
+  mpu6050.update();
+  
+  orientation_string = String(mpu6050.getAngleX()) + ";" + String(mpu6050.getAngleY()) + ";" + String(mpu6050.getAngleZ());
+             
+  temperature = mpu6050.getTemp();
+}
+
+// -------Motor-------
 void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
 
   //Controlling speed (0 = off and 255 = max speed):
@@ -95,90 +180,13 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   analogWrite(motor2_en, speed2);
 }
 
-void setPubFreq(const std_msgs::UInt16& cmd_msg){
-  interval = cmd_msg.data;
-}
-
-void caliMPU6050(const std_msgs::Empty&) {
-  // caliMPU6050() is a callback function and can't be called from other functions.
-  // For other functions to calibrate the IMU a new function has been made: caliIMU()
-  caliIMU();
-}
-
-void caliIMU() {
-  //mpu6050.calcGyroOffsets(true);
-  mpu6050.setGyroOffsets(2.32, 0.22, 0.11);
-}
-
-void setupMPU6050() {
-  Wire.begin();
-  mpu6050.begin();
-
-  caliIMU();
-  //caliMPU6050();  //not working
-}
-
-ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
-ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
-ros::Subscriber<std_msgs::Empty> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
-
-void loop() {
-
-  currentMillis = millis();
-
-  if (currentMillis - previousMillis > interval) {
-    previousMillis = currentMillis;
- 
-    getVoltage();
-    getDataFromMPU6050();
-
-    publishData();
-  }
-
-  nh.spinOnce();
-}
-
-void setupROSSerial() {
-
-  nh.initNode();
-  nh.getHardware()->setBaud(57600);
-  
-  nh.advertise(pub_voltage);
-  nh.advertise(pub_temperature);
-  nh.advertise(pub_orientation);
-
-  nh.subscribe(sub_speed);
-  nh.subscribe(sub_pubFreq);
-  nh.subscribe(sub_caliIMU);
-}
-
-void setupMotor() {
-  pinMode(motor1pin1, OUTPUT);
-  pinMode(motor1pin2, OUTPUT);
-  pinMode(motor2pin1, OUTPUT);
-  pinMode(motor2pin2, OUTPUT);
-
-  pinMode(motor1_en, OUTPUT); 
-  pinMode(motor2_en, OUTPUT);
-
-  //Forward
-  digitalWrite(motor1pin1, HIGH);
-  digitalWrite(motor1pin2, LOW);
-
-  digitalWrite(motor2pin1, LOW);
-  digitalWrite(motor2pin2, HIGH);
-}
-
 void getVoltage() {
   voltage = (analogRead(A0) * 5.0) / 1024.00; // formula for calculating voltage out i.e. V+, here 5.0
 }
 
-void getDataFromMPU6050() {
-  mpu6050.update();
-  
-  orientation_string = String(mpu6050.getAngleX()) + ";" + String(mpu6050.getAngleY()) + ";" + String(mpu6050.getAngleZ());
-             
-  temperature = mpu6050.getTemp();
+// -------Ros-------
+void setPubFreq(const std_msgs::UInt16& cmd_msg){
+  interval = cmd_msg.data;
 }
 
 void publishData() {
@@ -194,3 +202,4 @@ void publishData() {
   str_msg.data = Buf;
   pub_orientation.publish( &str_msg );
 }
+
