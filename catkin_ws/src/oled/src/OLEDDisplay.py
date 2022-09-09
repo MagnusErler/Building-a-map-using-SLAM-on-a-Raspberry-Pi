@@ -16,7 +16,7 @@ import rospy
 from std_msgs.msg import String
 
 # Raspberry Pi pin configuration:
-RST = None     # on the PiOLED this pin isnt used
+RST = None     # on the PiOLED this pin isn't used
 # Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
@@ -57,10 +57,11 @@ font = ImageFont.load_default()
 
 update_display_interval = 2.0 #sec
 
-global oledText
-oledText = ""
+global OLEDtext
+OLEDtext = ""
+OLEDtext_5 = OLEDtext_6 = OLEDtext_7 = OLEDtext_8 = ""
 
-def display(data=oledText):
+def display(data=OLEDtext):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
@@ -78,17 +79,40 @@ def display(data=oledText):
     MemUsage = MemUsage.decode("utf-8")
     Disk = Disk.decode("utf-8")
 
-    global oledText
-    try:
-        oledText = data.data
-    except:
-        oledText = data
+    OLEDtext_1 = str(IP)
+    OLEDtext_2 = str(CPU)
+    OLEDtext_3 = str(MemUsage)
+    OLEDtext_4 = str(Disk)
 
-    draw.text((x, top),       str(IP),  font=font, fill=255)
-    draw.text((x, top+8),     str(CPU), font=font, fill=255)
-    draw.text((x, top+16),    str(MemUsage),  font=font, fill=255)
-    draw.text((x, top+24),    str(Disk),  font=font, fill=255)
-    draw.text((x, top+32),    str(oledText),  font=font, fill=255)
+    global lineNr, OLEDtext
+    try:
+        OLEDtext_raw = data.data
+        [lineNr, OLEDtext] = OLEDtext_raw.split("_")
+        lineNr = int(lineNr.replace("_", ""))
+
+        if (lineNr == 5):
+            global OLEDtext_5
+            OLEDtext_5 = str(OLEDtext)
+        elif (lineNr == 6):
+            global OLEDtext_6
+            OLEDtext_6 = str(OLEDtext)
+        elif (lineNr == 7):
+            global OLEDtext_7
+            OLEDtext_7 = str(OLEDtext)
+        elif (lineNr == 8):
+            global OLEDtext_8
+            OLEDtext_8 = str(OLEDtext)
+    except:
+        OLEDtext = data
+
+    draw.text((x, top),    OLEDtext_1, font=font, fill=255)
+    draw.text((x, top+8),  OLEDtext_2, font=font, fill=255)
+    draw.text((x, top+16), OLEDtext_3, font=font, fill=255)
+    draw.text((x, top+24), OLEDtext_4, font=font, fill=255)
+    draw.text((x, top+32), OLEDtext_5, font=font, fill=255)
+    draw.text((x, top+40), OLEDtext_6, font=font, fill=255)
+    draw.text((x, top+48), OLEDtext_7, font=font, fill=255)
+    draw.text((x, top+56), OLEDtext_8, font=font, fill=255)
 
     disp.image(image)
     disp.display()
@@ -101,7 +125,7 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber("/send2Oled", String, display)
+    rospy.Subscriber("/OLED/sendText", String, display)
     rospy.loginfo("Starting subscribing to text to oled")
 
 if __name__ == '__main__':
@@ -110,7 +134,7 @@ if __name__ == '__main__':
 
     starttime = time.time()
     while True:
-        display(oledText)
+        display(OLEDtext)
         time.sleep(update_display_interval - ((time.time() - starttime) % update_display_interval))
 
         # spin() simply keeps python from exiting until this node is stopped
