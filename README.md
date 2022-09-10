@@ -20,16 +20,6 @@ sudo apt-get install --no-install-recommends ubuntu-desktop
 </details>
 
 <details>
-<summary>SSH folder from RP onto personal computer</summary>
-<br>
-Create folder (e.g. RP4_files)
-
-```
-sshfs ubuntu@185.107.14.82:/ /home/magnus/RP4_files/
-```
-</details>
-
-<details>
 <summary>SSH</summary>
 <br>
 SSH onto RP4
