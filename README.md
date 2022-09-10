@@ -17,6 +17,13 @@ Start with downloading Raspberry Pi Imager, insert you SD card and flash it with
 ```
 sudo apt-get install --no-install-recommends ubuntu-desktop
 ```
+Install and setup LightDM as a Desktop Environment/GUI:
+```
+sudo apt install lightdm
+sudo systemctl start lightdm.service
+sudo service ligthdm start
+sudo reboot
+```
 </details>
 
 <details>
