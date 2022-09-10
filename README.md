@@ -130,7 +130,7 @@ pio run -e megaatmega2560 -t upload
 | ```/CmdSetPubFreq```  | UInt16  | Sets publishing rate |
 | ```/IMU/CmdCaliIMU```  | Bool  | Calibrates the IMU (calibrate = true) |
 | ```/motor/CmdSetMotor```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
-| ```/OLED/sendText```  | String  | Write 1 line of text to 1 of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory,and Disk. The display updates every 2 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes "Robot" to line 5)
+| ```/OLED/sendText```  | String  | Write 1 line of text to 1 of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory,and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes "Robot" to line 5). Use " when writing multiple words.
 
 ## LiDAR
 ```

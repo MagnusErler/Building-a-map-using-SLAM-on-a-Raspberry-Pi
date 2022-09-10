@@ -55,7 +55,7 @@ font = ImageFont.load_default()
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 
-update_display_interval = 2.0 #sec
+update_display_interval = 1.0 #sec
 
 global OLEDtext
 OLEDtext = ""
