@@ -4,6 +4,32 @@
 
 ## Setup personal machine to communicate wih ROS + RP4
 <details>
+<summary>Setup Ubuntu 20.04 on RP4</summary>
+<br>
+Because the latest ROS distro (Noetic) is not supported by Ubuntu 22.04 we will install Ubuntu 20.04.
+
+For ROS we will install the desktop version of Ubuntu (Ubuntu 20.04 Desktop) as this will help us more with visualizing ROS.
+
+There never was a specific desktop version of Ubuntu 20.04 for Raspberry Pi. Instead, we have to install the server version of Ubuntu 20.04, and when that is installed, install the desktop environment from terminal
+
+Start with downloading Raspberry Pi Imager, insert you SD card and flash it with Ubuntu 20.04 Server. Insert the SD card into the RP4, find the IP-address, ssh onto it, and change the password. Now install the desktop version (without all the bloat) with:
+
+```
+sudo apt-get install --no-install-recommends ubuntu-desktop
+```
+</details>
+
+<details>
+<summary>SSH folder from RP onto personal computer</summary>
+<br>
+Create folder (e.g. RP4_files)
+
+```
+sshfs ubuntu@185.107.14.82:/ /home/magnus/RP4_files/
+```
+</details>
+
+<details>
 <summary>SSH</summary>
 <br>
 SSH onto RP4
