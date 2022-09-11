@@ -24,6 +24,13 @@ sudo systemctl start lightdm.service    #You are maybe forced to press ctrl+alt+
 sudo service ligthdm start
 sudo reboot
 ```
+Maybe below need to be added to the config.txt
+```
+hdmi_drive=2
+hdmi_safe=1
+dtoverlay=vc4-fkms-v3d
+```
+  
 </details>
 
 <details>
