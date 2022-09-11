@@ -4,7 +4,7 @@
 
 ## Setup personal machine to communicate wih ROS + RP4
 <details>
-<summary>Setup Ubuntu 20.04 on RP4</summary>
+<summary><b>Setup Ubuntu 20.04 on RP4</b></summary>
 <br>
 Because the latest ROS distro (Noetic) is not supported by Ubuntu 22.04 we will install Ubuntu 20.04.
 
@@ -33,7 +33,7 @@ dtoverlay=vc4-fkms-v3d
 </details>
 
 <details>
-<summary>Setup ROS</summary>
+<summary><b>Setup ROS</b></summary>
 <br>
 
 For RP4 we will install ROS Noetic
@@ -50,7 +50,7 @@ sudo apt-get install ros-noetic-rosserial
 </details>
 
 <details>
-<summary>Setup PlatoformIO</summary>
+<summary><b>Setup PlatoformIO</b></summary>
 <br>
 
 PlatformIO is used to uploade code to arduino from the terminal
@@ -62,7 +62,7 @@ sudo python3 -m pip install -U platformio
 </details>
 
 <details>
-<summary>Setup OLED display</summary>
+<summary><b>Setup OLED display</b></summary>
 <br>
 
 Install used packages
@@ -82,15 +82,13 @@ Follow these instructions to enable I2C interface: https://www.instructables.com
 </details>
 
 <details>
-<summary>Setup OLED display</summary>
+<summary><b>Setup RP camera</b></summary>
 <br>
-
 Follow these instructions to enable the RP camera v2.1: https://zengliyang.wordpress.com/2021/01/04/raspberry-pi-4b-ubuntu-20-04-camera/
-
 </details>
 
 <details>
-<summary>SSH</summary>
+<summary><b>SSH</b></summary>
 <br>
 SSH onto RP4
 
@@ -98,8 +96,7 @@ SSH onto RP4
 ssh -X ubuntu@185.107.14.82
 ```
 ```-X``` starts up a proxy X11 server on the remote machine.
-</details>
-
+  
 <details>
 <summary>SSH folder from RP onto personal computer</summary>
 <br>
@@ -120,12 +117,13 @@ SSH onto RP4 via VSC
 - Click on green box ('Open a Remote Window') in lower left corner (If this can't be found, be sure that <b>Remote - SSH</b> is installed from Extensions)
 
 - Click 'Connect to Host...'
-  
+
 - ubuntu@185.107.14.82
+</details>
 </details>
 
 <details>
-<summary>Source .bash-file</summary>
+<summary><b>Source .bash-file</b></summary>
 <br>
 Every terminal should source it automatically, if not you may do it manually
 
