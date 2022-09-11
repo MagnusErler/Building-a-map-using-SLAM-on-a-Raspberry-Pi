@@ -186,7 +186,7 @@ rostopic pub /motor/CmdSetMotor std_msgs/UInt16 255
 Using platformio to send code to Arduino
 
 ```
-cd Robocup2023/arduino/
+cd RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/arduino/
 ```
 Arduino Micro Pro
 ```
@@ -218,7 +218,7 @@ pio run -e megaatmega2560 -t upload
 
 ## LiDAR
 ```
-cd ~/Robocup2023/
+cd ~/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/
 roslaunch mb_1r2t_ros view.launch port:=/dev/ttyUSB1
 ```
 If ```ttyUSB1``` can't be found look for the USB-device with ```ls /dev/tty*```
