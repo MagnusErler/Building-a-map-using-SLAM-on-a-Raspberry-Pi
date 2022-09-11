@@ -82,6 +82,14 @@ Follow these instructions to enable I2C interface: https://www.instructables.com
 </details>
 
 <details>
+<summary>Setup OLED display</summary>
+<br>
+
+Follow these instructions to enable the RP camera v2.1: https://zengliyang.wordpress.com/2021/01/04/raspberry-pi-4b-ubuntu-20-04-camera/
+
+</details>
+
+<details>
 <summary>SSH</summary>
 <br>
 SSH onto RP4
