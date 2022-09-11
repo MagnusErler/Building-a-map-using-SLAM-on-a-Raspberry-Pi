@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/Robocup2023/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/Robocup2023/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build
 
 # Utility rule file for rosserial_arduino_gennodejs.
 
@@ -63,10 +63,10 @@ rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/build: ro
 .PHONY : rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/build
 
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/clean:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_arduino && $(CMAKE_COMMAND) -P CMakeFiles/rosserial_arduino_gennodejs.dir/cmake_clean.cmake
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_arduino && $(CMAKE_COMMAND) -P CMakeFiles/rosserial_arduino_gennodejs.dir/cmake_clean.cmake
 .PHONY : rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/clean
 
 rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/depend:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Robocup2023/catkin_ws/src /home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino /home/ubuntu/Robocup2023/catkin_ws/build /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_arduino /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_arduino /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : rosserial/rosserial_arduino/CMakeFiles/rosserial_arduino_gennodejs.dir/depend
 

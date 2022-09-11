@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/gennodejs/ros/rosserial_msgs/msg/Log.js"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/gennodejs/ros/rosserial_msgs/msg/TopicInfo.js"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/gennodejs/ros/rosserial_msgs/srv/RequestParam.js"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/gennodejs/ros/rosserial_msgs/msg/Log.js"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/gennodejs/ros/rosserial_msgs/msg/TopicInfo.js"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/gennodejs/ros/rosserial_msgs/srv/RequestParam.js"
   "CMakeFiles/rosserial_msgs_generate_messages_nodejs"
 )
 

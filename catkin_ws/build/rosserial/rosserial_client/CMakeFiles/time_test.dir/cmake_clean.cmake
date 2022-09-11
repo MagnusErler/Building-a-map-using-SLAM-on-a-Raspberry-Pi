@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/rosserial_client/time_test"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/rosserial_client/time_test.pdb"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/rosserial_client/time_test"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/rosserial_client/time_test.pdb"
   "CMakeFiles/time_test.dir/src/ros_lib/duration.cpp.o"
   "CMakeFiles/time_test.dir/src/ros_lib/time.cpp.o"
   "CMakeFiles/time_test.dir/test/time_test.cpp.o"

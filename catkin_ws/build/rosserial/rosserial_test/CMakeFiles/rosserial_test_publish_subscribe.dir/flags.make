@@ -6,5 +6,5 @@ CXX_FLAGS =   -DGTEST_HAS_PTHREAD=1
 
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"rosserial_test\"
 
-CXX_INCLUDES = -I/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_test/include -I/home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_test/include -I/home/ubuntu/Robocup2023/catkin_ws/devel/include -I/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_server/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest 
+CXX_INCLUDES = -I/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_test/include -I/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_test/include -I/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/include -I/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_server/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest 
 

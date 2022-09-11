@@ -6,5 +6,5 @@ CXX_FLAGS =   -DGTEST_HAS_PTHREAD=1
 
 CXX_DEFINES = -DROS_BUILD_SHARED_LIBS=1
 
-CXX_INCLUDES = -I/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_client/src/ros_lib -I/home/ubuntu/Robocup2023/catkin_ws/devel/include -I/opt/ros/noetic/include -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest 
+CXX_INCLUDES = -I/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_client/src/ros_lib -I/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/include -I/opt/ros/noetic/include -isystem /usr/src/googletest/googletest/include -isystem /usr/src/googletest/googletest 
 

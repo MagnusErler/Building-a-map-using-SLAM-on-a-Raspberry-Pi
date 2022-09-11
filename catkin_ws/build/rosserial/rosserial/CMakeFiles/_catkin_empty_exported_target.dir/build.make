@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/Robocup2023/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/Robocup2023/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/build: _catkin_
 .PHONY : rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Robocup2023/catkin_ws/src /home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial /home/ubuntu/Robocup2023/catkin_ws/build /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : rosserial/rosserial/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

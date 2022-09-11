@@ -2,7 +2,7 @@
 DEVELSPACE = 'FALSE' == 'TRUE'
 INSTALLSPACE = 'TRUE' == 'TRUE'
 
-CATKIN_DEVEL_PREFIX = '/home/ubuntu/Robocup2023/catkin_ws/devel'
+CATKIN_DEVEL_PREFIX = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel'
 
 CATKIN_GLOBAL_BIN_DESTINATION = 'bin'
 CATKIN_GLOBAL_ETC_DESTINATION = 'etc'
@@ -20,14 +20,14 @@ CATKIN_PACKAGE_LIBEXEC_DESTINATION = 'lib/rosserial_arduino'
 CATKIN_PACKAGE_PYTHON_DESTINATION = 'lib/python3/dist-packages/rosserial_arduino'
 CATKIN_PACKAGE_SHARE_DESTINATION = 'share/rosserial_arduino'
 
-CMAKE_BINARY_DIR = '/home/ubuntu/Robocup2023/catkin_ws/build'
-CMAKE_CURRENT_BINARY_DIR = '/home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_arduino'
-CMAKE_CURRENT_SOURCE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino'
-CMAKE_INSTALL_PREFIX = '/home/ubuntu/Robocup2023/catkin_ws/install'
-CMAKE_SOURCE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/src'
+CMAKE_BINARY_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build'
+CMAKE_CURRENT_BINARY_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_arduino'
+CMAKE_CURRENT_SOURCE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino'
+CMAKE_INSTALL_PREFIX = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install'
+CMAKE_SOURCE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src'
 
 PKG_CMAKE_DIR = '${rosserial_arduino_DIR}'
 
 PROJECT_NAME = 'rosserial_arduino'
-PROJECT_BINARY_DIR = '/home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_arduino'
-PROJECT_SOURCE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino'
+PROJECT_BINARY_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_arduino'
+PROJECT_SOURCE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino'

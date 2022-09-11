@@ -6,17 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/msg_lookup.h
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_server/include/rosserial_server/msg_lookup.h
 string
 -
 stdexcept
 -
 
-/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_server/src/msg_lookup.cpp
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_server/src/msg_lookup.cpp
 rosserial_server/msg_lookup.h
-/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_server/src/rosserial_server/msg_lookup.h
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_server/src/rosserial_server/msg_lookup.h
 Python.h
-/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_server/src/Python.h
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_server/src/Python.h
 
 /usr/include/python3.8/Python.h
 patchlevel.h

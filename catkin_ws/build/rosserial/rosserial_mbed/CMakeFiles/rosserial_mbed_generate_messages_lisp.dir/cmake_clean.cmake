@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/common-lisp/ros/rosserial_mbed/msg/Adc.lisp"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/common-lisp/ros/rosserial_mbed/srv/Test.lisp"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/common-lisp/ros/rosserial_mbed/msg/Adc.lisp"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/common-lisp/ros/rosserial_mbed/srv/Test.lisp"
   "CMakeFiles/rosserial_mbed_generate_messages_lisp"
 )
 

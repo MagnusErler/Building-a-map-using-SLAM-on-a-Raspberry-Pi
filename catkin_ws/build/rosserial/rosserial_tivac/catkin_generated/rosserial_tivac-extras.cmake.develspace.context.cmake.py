@@ -2,7 +2,7 @@
 DEVELSPACE = 'TRUE' == 'TRUE'
 INSTALLSPACE = 'FALSE' == 'TRUE'
 
-CATKIN_DEVEL_PREFIX = '/home/ubuntu/Robocup2023/catkin_ws/devel'
+CATKIN_DEVEL_PREFIX = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel'
 
 CATKIN_GLOBAL_BIN_DESTINATION = 'bin'
 CATKIN_GLOBAL_ETC_DESTINATION = 'etc'
@@ -20,14 +20,14 @@ CATKIN_PACKAGE_LIBEXEC_DESTINATION = 'lib/rosserial_tivac'
 CATKIN_PACKAGE_PYTHON_DESTINATION = 'lib/python3/dist-packages/rosserial_tivac'
 CATKIN_PACKAGE_SHARE_DESTINATION = 'share/rosserial_tivac'
 
-CMAKE_BINARY_DIR = '/home/ubuntu/Robocup2023/catkin_ws/build'
-CMAKE_CURRENT_BINARY_DIR = '/home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_tivac'
-CMAKE_CURRENT_SOURCE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_tivac'
-CMAKE_INSTALL_PREFIX = '/home/ubuntu/Robocup2023/catkin_ws/install'
-CMAKE_SOURCE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/src'
+CMAKE_BINARY_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build'
+CMAKE_CURRENT_BINARY_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_tivac'
+CMAKE_CURRENT_SOURCE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_tivac'
+CMAKE_INSTALL_PREFIX = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install'
+CMAKE_SOURCE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src'
 
-PKG_CMAKE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/devel/share/rosserial_tivac/cmake'
+PKG_CMAKE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/rosserial_tivac/cmake'
 
 PROJECT_NAME = 'rosserial_tivac'
-PROJECT_BINARY_DIR = '/home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_tivac'
-PROJECT_SOURCE_DIR = '/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_tivac'
+PROJECT_BINARY_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_tivac'
+PROJECT_SOURCE_DIR = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_tivac'

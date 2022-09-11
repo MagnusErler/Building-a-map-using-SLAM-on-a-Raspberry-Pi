@@ -30,7 +30,55 @@ hdmi_drive=2
 hdmi_safe=1
 dtoverlay=vc4-fkms-v3d
 ```
-  
+</details>
+
+<details>
+<summary>Setup ROS</summary>
+<br>
+
+For RP4 we will install ROS Noetic
+
+http://wiki.ros.org/noetic/Installation/Ubuntu
+
+Install further packages:
+```
+sudo apt-get install python3-roslaunch
+sudo apt-get install ros-noetic-rosserial-arduino
+sudo apt-get install ros-noetic-rosserial
+```
+
+</details>
+
+<details>
+<summary>Setup PlatoformIO</summary>
+<br>
+
+PlatformIO is used to uploade code to arduino from the terminal
+```
+sudo apt-get install python3 python3-pip
+sudo python3 -m pip install -U platformio
+```
+
+</details>
+
+<details>
+<summary>Setup OLED display</summary>
+<br>
+
+Install used packages
+```
+pip3 install Adafruit_GPIO
+pip3 install adafruit-ssd1306
+sudo apt-get install python3-dev python3-rpi.gpio
+
+wget https://archive.raspberrypi.org/debian/pool/main/r/raspi-config/raspi-config_20200601_all.deb -P /tmp
+sudo apt-get install libnewt0.52 whiptail parted triggerhappy lua5.1 alsa-utils -y
+sudo apt-get install -fy
+sudo dpkg -i /tmp/raspi-config_20200601_all.deb
+```
+Follow these instructions to enable I2C interface: https://www.instructables.com/Raspberry-Pi-Monitoring-System-Via-OLED-Display-Mo/
+
+
 </details>
 
 <details>
@@ -74,7 +122,7 @@ SSH onto RP4 via VSC
 Every terminal should source it automatically, if not you may do it manually
 
 ```
-source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
+source /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/setup.bash
 ```
 
 <b>Source .bash-file automatically</b>
@@ -83,7 +131,7 @@ source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash
 
 2. Go to the bottom (last line should be something like ```source /opt/ros/noetic/setup.bash```)
 
-3. Go under that line and write ```source /home/ubuntu/Robocup2023/catkin_ws/devel/setup.bash```
+3. Go under that line and write ```source /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/setup.bash```
 
 4. Save and exit
 

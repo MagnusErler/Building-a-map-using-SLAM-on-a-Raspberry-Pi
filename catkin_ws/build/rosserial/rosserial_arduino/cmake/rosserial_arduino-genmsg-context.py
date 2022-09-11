@@ -1,11 +1,11 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg"
-services_str = "/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv"
+messages_str = "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino/msg/Adc.msg"
+services_str = "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino/srv/Test.srv"
 pkg_name = "rosserial_arduino"
 dependencies_str = ""
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"
-dep_include_paths_str = "rosserial_arduino;/home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino/msg"
+dep_include_paths_str = "rosserial_arduino;/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino/msg"
 PYTHON_EXECUTABLE = "/usr/bin/python3"
 package_has_static_sources = 'TRUE' == 'TRUE'
 genmsg_check_deps_script = "/opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py"

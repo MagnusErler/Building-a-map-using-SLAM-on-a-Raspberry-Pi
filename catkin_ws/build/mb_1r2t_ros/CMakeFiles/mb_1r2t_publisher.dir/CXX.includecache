@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/include/mb_1r2t_ros/mb_1r2t.h
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/include/mb_1r2t_ros/mb_1r2t.h
 string
 -
 sensor_msgs/LaserScan.h
@@ -18,7 +18,7 @@ boost/array.hpp
 vector
 -
 
-/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp
 ros/ros.h
 -
 math.h
@@ -38,7 +38,7 @@ linux/serial.h
 mb_1r2t_ros/mb_1r2t.h
 -
 
-/home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp
 ros/ros.h
 -
 std_msgs/Float32.h

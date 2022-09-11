@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/msg/_Adc.py"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/msg/__init__.py"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/srv/_Test.py"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/srv/__init__.py"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/msg/_Adc.py"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/msg/__init__.py"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/srv/_Test.py"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/python3/dist-packages/rosserial_arduino/srv/__init__.py"
   "CMakeFiles/rosserial_arduino_generate_messages_py"
 )
 

@@ -1,4 +1,4 @@
-prefix=/home/ubuntu/Robocup2023/catkin_ws/devel
+prefix=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel
 
 Name: rosserial_chibios
 Description: Description of rosserial_chibios

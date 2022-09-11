@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "${prefix}/include".split(';') if "${prefix}/i
 PROJECT_CATKIN_DEPENDS = "roscpp;rosserial_msgs;std_msgs;topic_tools".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "-lrosserial_server_lookup".split(';') if "-lrosserial_server_lookup" != "" else []
 PROJECT_NAME = "rosserial_server"
-PROJECT_SPACE_DIR = "/home/ubuntu/Robocup2023/catkin_ws/install"
+PROJECT_SPACE_DIR = "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install"
 PROJECT_VERSION = "0.9.2"

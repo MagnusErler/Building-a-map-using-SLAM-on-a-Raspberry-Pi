@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/Adc.js"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/msg/Adc.js"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/gennodejs/ros/rosserial_arduino/srv/Test.js"
   "CMakeFiles/rosserial_arduino_generate_messages_nodejs"
 )
 

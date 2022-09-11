@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/roseus/ros/rosserial_mbed/manifest.l"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/roseus/ros/rosserial_mbed/msg/Adc.l"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/share/roseus/ros/rosserial_mbed/srv/Test.l"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/roseus/ros/rosserial_mbed/manifest.l"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/roseus/ros/rosserial_mbed/msg/Adc.l"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/share/roseus/ros/rosserial_mbed/srv/Test.l"
   "CMakeFiles/rosserial_mbed_generate_messages_eus"
 )
 

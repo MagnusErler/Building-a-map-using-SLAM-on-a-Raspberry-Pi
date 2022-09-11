@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/rosserial_client/float64_test"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/rosserial_client/float64_test.pdb"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/rosserial_client/float64_test"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/rosserial_client/float64_test.pdb"
   "CMakeFiles/float64_test.dir/test/float64_test.cpp.o"
 )
 

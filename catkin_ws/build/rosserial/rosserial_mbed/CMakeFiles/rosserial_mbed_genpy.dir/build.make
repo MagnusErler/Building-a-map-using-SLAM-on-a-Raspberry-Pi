@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/Robocup2023/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/Robocup2023/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build
 
 # Utility rule file for rosserial_mbed_genpy.
 
@@ -63,10 +63,10 @@ rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/build: rosserial_mb
 .PHONY : rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/build
 
 rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/clean:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_mbed && $(CMAKE_COMMAND) -P CMakeFiles/rosserial_mbed_genpy.dir/cmake_clean.cmake
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_mbed && $(CMAKE_COMMAND) -P CMakeFiles/rosserial_mbed_genpy.dir/cmake_clean.cmake
 .PHONY : rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/clean
 
 rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/depend:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Robocup2023/catkin_ws/src /home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_mbed /home/ubuntu/Robocup2023/catkin_ws/build /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_mbed /home/ubuntu/Robocup2023/catkin_ws/build/rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_mbed /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_mbed /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : rosserial/rosserial_mbed/CMakeFiles/rosserial_mbed_genpy.dir/depend
 

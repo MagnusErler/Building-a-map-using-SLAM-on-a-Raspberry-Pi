@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/Robocup2023/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/Robocup2023/catkin_ws/build
+CMAKE_BINARY_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build
 
 # Include any dependencies generated for this target.
 include mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/depend.make
@@ -58,30 +58,30 @@ include mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/progress.make
 include mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/flags.make
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/flags.make
-mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o: /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/Robocup2023/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o -c /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp
+mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o: /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o"
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o -c /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.i"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp > CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.i
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp > CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.i
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.s"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.s
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t_publisher_node.cpp -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.s
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/flags.make
-mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o: /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/Robocup2023/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o -c /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp
+mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o: /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o"
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o -c /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.i"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp > CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.i
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp > CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.i
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.s"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.s
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros/src/mb_1r2t.cpp -o CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.s
 
 # Object files for target mb_1r2t_publisher
 mb_1r2t_publisher_OBJECTS = \
@@ -91,40 +91,40 @@ mb_1r2t_publisher_OBJECTS = \
 # External object files for target mb_1r2t_publisher
 mb_1r2t_publisher_EXTERNAL_OBJECTS =
 
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/build.make
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libroscpp.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libpthread.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_chrono.so.1.71.0
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_filesystem.so.1.71.0
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librosconsole.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librosconsole_log4cxx.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librosconsole_backend_interface.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/liblog4cxx.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_regex.so.1.71.0
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libxmlrpcpp.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libroscpp_serialization.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librostime.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_date_time.so.1.71.0
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libcpp_common.so
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_system.so.1.71.0
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_thread.so.1.71.0
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4
-/home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/Robocup2023/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable /home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher"
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mb_1r2t_publisher.dir/link.txt --verbose=$(VERBOSE)
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t_publisher_node.cpp.o
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/src/mb_1r2t.cpp.o
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/build.make
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libroscpp.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libpthread.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_chrono.so.1.71.0
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_filesystem.so.1.71.0
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librosconsole.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librosconsole_log4cxx.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librosconsole_backend_interface.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/liblog4cxx.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_regex.so.1.71.0
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libxmlrpcpp.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libroscpp_serialization.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/librostime.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_date_time.so.1.71.0
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /opt/ros/noetic/lib/libcpp_common.so
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_system.so.1.71.0
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libboost_thread.so.1.71.0
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: /usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4
+/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher"
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mb_1r2t_publisher.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/build: /home/ubuntu/Robocup2023/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher
+mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/build: /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/mb_1r2t_ros/mb_1r2t_publisher
 
 .PHONY : mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/build
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/clean:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros && $(CMAKE_COMMAND) -P CMakeFiles/mb_1r2t_publisher.dir/cmake_clean.cmake
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros && $(CMAKE_COMMAND) -P CMakeFiles/mb_1r2t_publisher.dir/cmake_clean.cmake
 .PHONY : mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/clean
 
 mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/depend:
-	cd /home/ubuntu/Robocup2023/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/Robocup2023/catkin_ws/src /home/ubuntu/Robocup2023/catkin_ws/src/mb_1r2t_ros /home/ubuntu/Robocup2023/catkin_ws/build /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros /home/ubuntu/Robocup2023/catkin_ws/build/mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/mb_1r2t_ros /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/depend
 

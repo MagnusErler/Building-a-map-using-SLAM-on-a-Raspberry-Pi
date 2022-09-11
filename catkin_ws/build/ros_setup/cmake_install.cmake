@@ -1,8 +1,8 @@
-# Install script for directory: /home/ubuntu/Robocup2023/catkin_ws/src/ros_setup
+# Install script for directory: /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/ros_setup
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/Robocup2023/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/Robocup2023/catkin_ws/build/ros_setup/catkin_generated/installspace/ros_setup.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/ros_setup/catkin_generated/installspace/ros_setup.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_setup/cmake" TYPE FILE FILES
-    "/home/ubuntu/Robocup2023/catkin_ws/build/ros_setup/catkin_generated/installspace/ros_setupConfig.cmake"
-    "/home/ubuntu/Robocup2023/catkin_ws/build/ros_setup/catkin_generated/installspace/ros_setupConfig-version.cmake"
+    "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/ros_setup/catkin_generated/installspace/ros_setupConfig.cmake"
+    "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/ros_setup/catkin_generated/installspace/ros_setupConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_setup" TYPE FILE FILES "/home/ubuntu/Robocup2023/catkin_ws/src/ros_setup/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/ros_setup" TYPE FILE FILES "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/ros_setup/package.xml")
 endif()
 

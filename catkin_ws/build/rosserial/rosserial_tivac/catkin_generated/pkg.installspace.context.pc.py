@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "rosserial_tivac"
-PROJECT_SPACE_DIR = "/home/ubuntu/Robocup2023/catkin_ws/install"
+PROJECT_SPACE_DIR = "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install"
 PROJECT_VERSION = "0.9.2"

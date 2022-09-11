@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/rosserial_server/udp_socket_node"
-  "/home/ubuntu/Robocup2023/catkin_ws/devel/lib/rosserial_server/udp_socket_node.pdb"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/rosserial_server/udp_socket_node"
+  "/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib/rosserial_server/udp_socket_node.pdb"
   "CMakeFiles/rosserial_server_udp_socket_node.dir/src/udp_socket_node.cpp.o"
 )
 

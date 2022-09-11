@@ -67,14 +67,14 @@ set(rosserial_arduino_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(rosserial_arduino_SOURCE_PREFIX /home/ubuntu/Robocup2023/catkin_ws/src/rosserial/rosserial_arduino)
-  set(rosserial_arduino_DEVEL_PREFIX /home/ubuntu/Robocup2023/catkin_ws/devel)
+  set(rosserial_arduino_SOURCE_PREFIX /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino)
+  set(rosserial_arduino_DEVEL_PREFIX /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel)
   set(rosserial_arduino_INSTALL_PREFIX "")
   set(rosserial_arduino_PREFIX ${rosserial_arduino_DEVEL_PREFIX})
 else()
   set(rosserial_arduino_SOURCE_PREFIX "")
   set(rosserial_arduino_DEVEL_PREFIX "")
-  set(rosserial_arduino_INSTALL_PREFIX /home/ubuntu/Robocup2023/catkin_ws/install)
+  set(rosserial_arduino_INSTALL_PREFIX /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install)
   set(rosserial_arduino_PREFIX ${rosserial_arduino_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/ubuntu/Robocup2023/catkin_ws/install/lib;/home/ubuntu/Robocup2023/catkin_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
