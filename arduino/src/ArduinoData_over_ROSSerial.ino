@@ -36,14 +36,27 @@ float temperature;
 String orientation_string;
 
 // -------Motor-------
-const int motor1pin1 = 4;
-const int motor1pin2 = 5;
+// MOTOR RIGHT
+const int motorR_in1 = 4;
+const int motorR_in2 = 5;
 
-const int motor2pin1 = 6;
-const int motor2pin2 = 7;
+const int motorR_pwm = A2; //A0 not working??
 
-const int motor1_en = A2; //A0 not working??
-const int motor2_en = A3;
+const int motorR_encoderA = 2
+const int motorR_encoderB = 3
+  
+volatile int pos_R = 0;
+
+// MOTOR LEFT
+const int motorL_in1 = 8;
+const int motorL_in2 = 9;
+
+const int motorL_pwm = A3;
+
+const int motorL_encoderA = 10
+const int motorL_encoderB = 11
+  
+volatile int pos_L = 0;
 
 // -------Timer-------
 int interval = 1000;
@@ -108,16 +121,35 @@ void getDataFromMPU6050() {
 
 // -------Motor-------
 void setupMotor() {
-  pinMode(motor1pin1, OUTPUT);
-  pinMode(motor1pin2, OUTPUT);
-  pinMode(motor2pin1, OUTPUT);
-  pinMode(motor2pin2, OUTPUT);
+  pinMode(motorR_in1, OUTPUT);
+  pinMode(motorR_in2, OUTPUT);
+  pinMode(motorL_in1, OUTPUT);
+  pinMode(motorL_in2, OUTPUT);
 
-  pinMode(motor1_en, OUTPUT); 
-  pinMode(motor2_en, OUTPUT);
+  pinMode(motorR_pwm, OUTPUT); 
+  pinMode(motorL_pwm, OUTPUT);
 
-  digitalWrite(motor1pin1, LOW); digitalWrite(motor1pin2, LOW);
-  digitalWrite(motor2pin1, LOW); digitalWrite(motor2pin2, LOW);
+  digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, LOW);
+  digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, LOW);
+  
+  attachInterrupt(digitalPinToInterrupt(motorR_encoderA),readEncoder_motorR,RISING);
+  attachInterrupt(digitalPinToInterrupt(motorL_encoderA),readEncoder_motorL,RISING);
+}
+
+void readEncoder_motorR(){
+  if(digitalRead(motorR_encoderA) > 0) {
+    pos_R++;
+  } else {
+    pos_R--;
+  }
+}
+
+void readEncoder_motorL(){
+  if(digitalRead(motorL_encoderA) > 0) {
+    pos_L++;
+  } else {
+    pos_L--;
+  }
 }
 
 void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
@@ -127,19 +159,19 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   int speed2 = cmd_msg.data[1];
 
   if (speed1 < 0 && speed2 > 0) {
-    digitalWrite(motor1pin1, LOW); digitalWrite(motor1pin2, HIGH);
-    digitalWrite(motor2pin1, LOW); digitalWrite(motor2pin2, HIGH);
+    digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
+    digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
   } else if (speed1 > 0 && speed2 < 0) {
-    digitalWrite(motor1pin1, HIGH); digitalWrite(motor1pin2, LOW);
-    digitalWrite(motor2pin1, HIGH); digitalWrite(motor2pin2, LOW);
+    digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
+    digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
   } else if (speed1 < 0 && speed2 < 0) {
     //Backward
-    digitalWrite(motor1pin1, LOW); digitalWrite(motor1pin2, HIGH);
-    digitalWrite(motor2pin1, HIGH); digitalWrite(motor2pin2, LOW);
+    digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
+    digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
   } else {
     //Forward
-    digitalWrite(motor1pin1, HIGH); digitalWrite(motor1pin2, LOW);
-    digitalWrite(motor2pin1, LOW); digitalWrite(motor2pin2, HIGH);
+    digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
+    digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
   }
 
   if (speed1 < 0) {
@@ -150,8 +182,8 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
     speed2 = speed2*(-1);
   }
   
-  analogWrite(motor1_en, speed1);
-  analogWrite(motor2_en, speed2);
+  analogWrite(motorR_pwm, speed1);
+  analogWrite(motorL_pwm, speed2);
 }
 
 // -------Voltage-------
