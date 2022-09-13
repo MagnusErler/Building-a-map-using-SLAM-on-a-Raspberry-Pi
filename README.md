@@ -6,13 +6,13 @@
 <details>
 <summary><b>Setup Ubuntu 20.04 Desktop on RP4</b></summary>
 <br>
-Because the latest ROS distro (Noetic) is not supported by Ubuntu 22.04 we will install Ubuntu 20.04.
+Because the latest ROS distribution (ROS Noetic Ninjemys) is not supported by Ubuntu 22.04 we will install Ubuntu 20.04.
 
 For ROS we will install the desktop version of Ubuntu (Ubuntu 20.04 Desktop) as this will help us more with visualizing ROS.
 
-There never was a specific desktop version of Ubuntu 20.04 for Raspberry Pi. Instead, we have to install the server version of Ubuntu 20.04, and when that is installed, install the desktop environment from terminal.
+There never was a specific desktop version of Ubuntu 20.04 for Raspberry Pi. Instead, we have to install the server version of Ubuntu 20.04, and when that is installed, install the desktop environment from the terminal.
 
-Start with downloading Raspberry Pi Imager on your personal machine, insert you SD card and flash it with Ubuntu 20.04 Server. Insert the SD card into the RP4, find the IP-address, ssh onto it, login (long: ubuntu, password: ubuntu), and change the password. Now install the desktop version (without all the bloat) with:
+Start with downloading Raspberry Pi Imager on your personal machine, insert your SD card and flash it with Ubuntu 20.04 Server. Insert the SD card into the RP4, connect display and HDMI cable, login (long: ubuntu, password: ubuntu), and change the password. Now install the desktop version (without all the bloat) with:
 
 ```
 sudo apt-get update
@@ -35,6 +35,7 @@ hdmi_drive=2
 hdmi_safe=1
 dtoverlay=vc4-fkms-v3d
 ```
+Be aware that RP4 has 2 HDMI-outputs and some of the programs might open in HDMI1 (You should be conencted to HDMI0).
 </details>
 
 <details>
