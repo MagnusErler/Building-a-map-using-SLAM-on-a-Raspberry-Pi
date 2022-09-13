@@ -35,7 +35,7 @@ hdmi_drive=2
 hdmi_safe=1
 dtoverlay=vc4-fkms-v3d
 ```
-Be aware that RP4 has 2 HDMI-outputs and some of the programs might open in HDMI1 (You should be conencted to HDMI0).
+Be aware that RP4 has 2 HDMI-outputs and some of the programs might open in HDMI1 (You should be connected to HDMI0).
 </details>
 
 <details>
