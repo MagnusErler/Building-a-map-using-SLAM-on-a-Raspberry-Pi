@@ -90,6 +90,8 @@ Follow these instructions to enable I2C interface: https://www.instructables.com
 <details>
 <summary><b>Setup RP camera</b></summary>
 <br>
+Enable camera
+  
 ```
 sudo apt-get update
 sudo apt-get upgrade
