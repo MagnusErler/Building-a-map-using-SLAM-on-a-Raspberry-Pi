@@ -103,6 +103,7 @@ gpu_mem=128
 ```
 And comment out ```dtparam=i2c_arm=on```
 Follow these instructions to enable the RP camera v2.1: https://zengliyang.wordpress.com/2021/01/04/raspberry-pi-4b-ubuntu-20-04-camera/
+Test with ```raspistill -o test.jpg```
 </details>
 
 <details>
