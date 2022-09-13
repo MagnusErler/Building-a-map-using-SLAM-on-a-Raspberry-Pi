@@ -103,6 +103,25 @@ gpu_mem=128
 ```
 And comment out ```dtparam=i2c_arm=on```
 Follow these instructions to enable the RP camera v2.1: https://zengliyang.wordpress.com/2021/01/04/raspberry-pi-4b-ubuntu-20-04-camera/
+```
+curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && chmod +x /usr/bin/rpi-update
+sudo rpi-update
+sudo apt install cmake
+git clone https://github.com/raspberrypi/userland.git
+cd userland
+./buildme # or "./buildme --aarch64" for 64-bit OS
+touch ~/.bash_aliases
+echo -e 'PATH=$PATH:/opt/vc/bin\nexport PATH' >> ~/.bash_aliases
+echo -e 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/vc/lib\nexport LD_LIBRARY_PATH' >> ~/.bash_aliases
+source ~/.bashrc
+sudo ldconfig
+```
+Give non-root users access to the camera device:
+```
+echo 'SUBSYSTEM==\"vchiq\",GROUP=\"video\",MODE=\"0660\"' > /etc/udev/rules.d/10-vchiq-permissions.rules
+sudo usermod -a -G video $USER
+sudo reboot
+```
 Test with ```raspistill -o test.jpg```
 </details>
 
