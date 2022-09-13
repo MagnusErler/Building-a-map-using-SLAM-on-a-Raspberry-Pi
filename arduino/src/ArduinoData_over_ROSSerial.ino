@@ -58,6 +58,19 @@ const int motorL_encoderB = 11
   
 volatile int pos_L = 0;
 
+// PID
+double Pk_R = 0.5;  
+double Ik_R = 0;
+double Dk_R = 0.01;
+double Setpoint_R, Input_R, Output_R, Output_Ra;    // PID variables
+PID PID_R(&Input_R, &Output_R, &Setpoint_R, Pk_R, Ik_R , Dk_R, DIRECT);    // PID Setup
+
+double Pk_L = 0.5;  
+double Ik_L = 0;
+double Dk_L = 0.01;
+double Setpoint_L, Input_L, Output_L, Output_La;    // PID variables
+PID PID_L(&Input_L, &Output_L, &Setpoint_L, Pk_L, Ik_L , Dk_L, DIRECT);    // PID Setup
+
 // -------Timer-------
 int interval = 1000;
 long previousMillis = 0;
@@ -76,6 +89,12 @@ void setup() {
 }
 
 void loop() {
+
+  Input_R = pos_R
+  PID_R.Compute();
+
+  Input_L = pos_L
+  PID_L.Compute();
 
   currentMillis = millis();
 
