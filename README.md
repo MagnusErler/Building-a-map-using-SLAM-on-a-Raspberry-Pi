@@ -56,7 +56,7 @@ sudo apt-get install ros-noetic-rosserial
 </details>
 
 <details>
-<summary><b>Setup PlatoformIO</b></summary>
+<summary><b>Setup PlatformIO</b></summary>
 <br>
 
 PlatformIO is used to uploade code to arduino from the terminal
@@ -237,6 +237,20 @@ pio run -e megaatmega2560 -t upload
 ```
 </details>
 
+<details>
+<summary>Calibrate camera</summary>
+<br>
+Install calibration package
+
+```
+sudo apt-get install ros-noetic-camera-calibration
+sudo apt-get install python3-rosdep
+sudo rosdep init
+rosdep update
+rosdep install camera_calibration
+```
+</details>
+
 ### Communication (Subscriber and publisher)
 
 #### <b>Publisher</b>
@@ -245,6 +259,8 @@ pio run -e megaatmega2560 -t upload
 | ```/battery/voltage```  | Float32  | Gives the voltage of the battery |
 | ```/IMU/temperatur```  | Float32  | Gives the temperature (from the MPU6050-chip) |
 | ```/IMU/orientation```  | String  | Gives the orientation |
+| ```/motor/encoderTick_R```  | Int16  | Gives the encoder ticks for right wheel |
+| ```/motor/encoderTick_L```  | Int16  | Gives the encoder ticks for left wheel |
 
 #### <b>Subscriber</b>
 | Command  | Data types | Action | Example |
@@ -252,7 +268,7 @@ pio run -e megaatmega2560 -t upload
 | ```/CmdSetPubFreq```  | UInt16  | Sets publishing rate |
 | ```/IMU/CmdCaliIMU```  | Bool  | Calibrates the IMU (calibrate = true) |
 | ```/motor/CmdSetMotor```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
-| ```/OLED/sendText```  | String  | Write 1 line of text to 1 of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory,and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes "Robot" to line 5). Use " when writing multiple words.
+| ```/OLED/sendText```  | String  | Write 1 line of text to 1 of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory,and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
 ## LiDAR
 ```

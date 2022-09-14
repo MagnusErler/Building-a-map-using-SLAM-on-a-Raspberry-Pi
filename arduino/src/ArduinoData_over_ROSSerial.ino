@@ -3,6 +3,7 @@
 //#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
 #include <std_msgs/Empty.h>
+#include <std_msgs/Int16.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/Float32.h>
@@ -14,12 +15,15 @@ void caliMPU6050(const std_msgs::Empty&);
 
 ros::NodeHandle nh;
 
+std_msgs::Int16 int16_msg;
 std_msgs::Float32 float32_msg;
 std_msgs::String str_msg;
 
 ros::Publisher pub_voltage("battery/voltage", &float32_msg);
 ros::Publisher pub_temperature("IMU/temperature", &float32_msg);
 ros::Publisher pub_orientation("IMU/orientation", &str_msg);
+ros::Publisher pub_encoderTick_R("motor/encoderTick_R", &int16_msg);
+ros::Publisher pub_encoderTick_L("motor/encoderTick_L", &int16_msg);
 
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
@@ -36,22 +40,20 @@ float temperature;
 String orientation_string;
 
 // -------Motor-------
-const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)
+/*const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)   https://automaticaddison.com/calculate-pulses-per-revolution-for-a-dc-motor-with-encoder/
 const float rpm_to_radians = 0.10471975512;
-const float rad_to_deg = 57.29578;
+const float rad_to_deg = 57.29578;*/
 
 // MOTOR RIGHT
 const int motorR_in1 = 4;
 const int motorR_in2 = 5;
-
 const int motorR_pwm = A2; //A0 not working??
-
 const int motorR_encoderA = 2;
 const int motorR_encoderB = 3;
   
 volatile int pos_R = 0;
 
-const float wheelRadius_R = 0.01;   // [m]
+/*const float wheelRadius_R = 0.01;   // [m]
 
 // Variable for RPM measuerment
 float rpm_R = 0;
@@ -61,20 +63,18 @@ float angVelocity_R = 0;      // [rad/s]
 float angVelocity_R_deg = 0;  // [deg/s]
 
 // Variable for linear velocity measurement
-float linVelocity_R = 0;      // [m/s]
+float linVelocity_R = 0;      // [m/s]*/
 
 // MOTOR LEFT
 const int motorL_in1 = 8;
 const int motorL_in2 = 9;
-
 const int motorL_pwm = A3;
-
 const int motorL_encoderA = 10;
 const int motorL_encoderB = 11;
   
 volatile int pos_L = 0;
 
-const float wheelRadius_L = 0.01;   // [m]
+/*const float wheelRadius_L = 0.01;   // [m]
 
 // Variable for RPM measuerment
 float rpm_L = 0;
@@ -98,6 +98,7 @@ double Ik_L = 0;
 double Dk_L = 0.01;
 double Setpoint_L, Input_L, Output_L, Output_La;    // PID variables
 //PID PID_L(&Input_L, &Output_L, &Setpoint_L, Pk_L, Ik_L , Dk_L, DIRECT);    // PID Setup
+*/
 
 // -------Timer-------
 int interval = 1000;
@@ -125,10 +126,9 @@ void loop() {
   //PID_L.Compute();
 
   
-
   currentMillis = millis();
 
-  // Calculate angular and linear velocity every 1sec
+  /*// Calculate angular and linear velocity every 1sec
   if (currentMillis - previousMillis > 1000) {
     previousMillis = currentMillis;
 
@@ -141,16 +141,26 @@ void loop() {
     angVelocity_L = rpm_L * rpm_to_radians;
     angVelocity_L_deg = angVelocity_L * rad_to_deg;
     linVelocity_L = wheelRadius_L * angVelocity_L;
-  }
+  }*/
 
-  if (currentMillis - previousMillis > interval) {
+  if (abs(currentMillis - previousMillis) > interval) {
     previousMillis = currentMillis;
  
     getVoltage();
     getDataFromMPU6050();
-
+    
     publishData();
   }
+
+
+  int16_msg.data = pos_R;
+  pub_encoderTick_R.publish(&int16_msg);
+
+  int16_msg.data = pos_L;
+  pub_encoderTick_L.publish(&int16_msg);
+
+  pos_R = 0;
+  pos_L = 0;
 
   nh.spinOnce();
 }
@@ -161,7 +171,6 @@ void setupMPU6050() {
   mpu6050.begin();
 
   caliIMU();
-  //caliMPU6050();  //not working
 }
 
 void caliMPU6050(const std_msgs::Empty&) {
@@ -196,31 +205,20 @@ void setupMotor() {
   digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, LOW);
   digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, LOW);
   
-  attachInterrupt(digitalPinToInterrupt(motorR_encoderA),readEncoder_motorR,RISING);
-  attachInterrupt(digitalPinToInterrupt(motorL_encoderA),readEncoder_motorL,RISING);
-}
-
-void readEncoder_motorR(){
-  if(digitalRead(motorR_encoderA) > 0) {
-    pos_R++;
-  } else {
-    pos_R--;
-  }
-}
-
-void readEncoder_motorL(){
-  if(digitalRead(motorL_encoderA) > 0) {
-    pos_L++;
-  } else {
-    pos_L--;
-  }
+  attachInterrupt(digitalPinToInterrupt(motorR_encoderA), readEncoder_R, RISING);
+  attachInterrupt(digitalPinToInterrupt(motorL_encoderA), readEncoder_L, RISING);
 }
 
 void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
 
+  //MAX speed = 600rpm
+  // 600 * rpm_to_radians * wheelRadius => 3.1415926536
+  //MAX speed = 255
+  // 255/3.1415926536 = 81.1690209766
+
   //Controlling speed (0 = off and 255 = max speed):
-  int speed1 = cmd_msg.data[0];
-  int speed2 = cmd_msg.data[1];
+  int speed1 = cmd_msg.data[0]*81.1690209766;
+  int speed2 = cmd_msg.data[1]*81.1690209766;
 
   if (speed1 < 0 && speed2 > 0) {
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
@@ -250,6 +248,22 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   analogWrite(motorL_pwm, speed2);
 }
 
+void readEncoder_R(){
+  if (digitalRead(motorR_encoderA) > 0) {
+    pos_R++;
+  } else {
+    pos_R--;
+  }
+}
+
+void readEncoder_L(){
+  if (digitalRead(motorL_encoderA) > 0) {
+    pos_L++;
+  } else {
+    pos_L--;
+  }
+}
+
 // -------Voltage-------
 void getVoltage() {
   voltage = (analogRead(A0) * 5.0) / 1024.00;
@@ -264,6 +278,8 @@ void setupROSSerial() {
   nh.advertise(pub_voltage);
   nh.advertise(pub_temperature);
   nh.advertise(pub_orientation);
+  nh.advertise(pub_encoderTick_R);
+  nh.advertise(pub_encoderTick_L);
 
   nh.subscribe(sub_speed);
   nh.subscribe(sub_pubFreq);
@@ -276,14 +292,14 @@ void setPubFreq(const std_msgs::UInt16& cmd_msg){
 
 void publishData() {
   float32_msg.data = voltage;
-  pub_voltage.publish( &float32_msg );
+  pub_voltage.publish(&float32_msg);
   
   float32_msg.data = temperature;
-  pub_temperature.publish( &float32_msg );
+  pub_temperature.publish(&float32_msg);
 
   char Buf[50];
   orientation_string.toCharArray(Buf, 50);
   str_msg.data = Buf;
-  pub_orientation.publish( &str_msg );
+  pub_orientation.publish(&str_msg);
 }
 
