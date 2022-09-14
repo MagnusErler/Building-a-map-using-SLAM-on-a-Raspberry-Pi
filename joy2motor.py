@@ -17,7 +17,7 @@ def callback(data):
         key = data.data.split(": ")
         value = 0
 
-    value = int(float(value)*255)
+    value = int(float(value)*3.1415)
 
     if (key == "ry"):
         speed_float.data = [value,value]
