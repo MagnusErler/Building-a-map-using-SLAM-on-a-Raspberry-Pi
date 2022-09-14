@@ -15,15 +15,14 @@ void caliMPU6050(const std_msgs::Empty&);
 
 ros::NodeHandle nh;
 
-std_msgs::Int16 int16_msg;
+std_msgs::Int16MultiArray int16MultiArray;
 std_msgs::Float32 float32_msg;
 std_msgs::String str_msg;
 
 ros::Publisher pub_voltage("battery/voltage", &float32_msg);
 ros::Publisher pub_temperature("IMU/temperature", &float32_msg);
 ros::Publisher pub_orientation("IMU/orientation", &str_msg);
-ros::Publisher pub_encoderTick_R("motor/encoderTick_R", &int16_msg);
-ros::Publisher pub_encoderTick_L("motor/encoderTick_L", &int16_msg);
+ros::Publisher pub_encoderTicks("motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
 ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
@@ -102,8 +101,9 @@ double Setpoint_L, Input_L, Output_L, Output_La;    // PID variables
 
 // -------Timer-------
 int interval = 1000;
-long previousMillis = 0;
 long currentMillis = 0;
+long previousMillis = 0;
+long previousMillis1 = 0;
 
 // -------Setup-------
 void setup() {
@@ -152,15 +152,15 @@ void loop() {
     publishData();
   }
 
-
-  int16_msg.data = pos_R;
-  pub_encoderTick_R.publish(&int16_msg);
-
-  int16_msg.data = pos_L;
-  pub_encoderTick_L.publish(&int16_msg);
-
-  pos_R = 0;
-  pos_L = 0;
+  // Publish encoder Ticks every 0.1sec
+  if (abs(currentMillis - previousMillis1) > 100) {
+    previousMillis1 = currentMillis;
+ 
+    int value[2] = {pos_L, pos_R};
+    int16MultiArray.data = value;
+    int16MultiArray.data_length = 2;
+    pub_encoderTicks.publish(&int16MultiArray);
+  }
 
   nh.spinOnce();
 }
@@ -210,15 +210,9 @@ void setupMotor() {
 }
 
 void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
-
-  //MAX speed = 600rpm
-  // 600 * rpm_to_radians * wheelRadius => 3.1415926536
-  //MAX speed = 255
-  // 255/3.1415926536 = 81.1690209766
-
   //Controlling speed (0 = off and 255 = max speed):
-  int speed1 = cmd_msg.data[0]*81.1690209766;
-  int speed2 = cmd_msg.data[1]*81.1690209766;
+  int speed1 = cmd_msg.data[0];
+  int speed2 = cmd_msg.data[1];
 
   if (speed1 < 0 && speed2 > 0) {
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
@@ -248,19 +242,19 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   analogWrite(motorL_pwm, speed2);
 }
 
-void readEncoder_R(){
-  if (digitalRead(motorR_encoderA) > 0) {
-    pos_R++;
-  } else {
-    pos_R--;
-  }
-}
-
 void readEncoder_L(){
   if (digitalRead(motorL_encoderA) > 0) {
     pos_L++;
   } else {
     pos_L--;
+  }
+}
+
+void readEncoder_R(){
+  if (digitalRead(motorR_encoderA) > 0) {
+    pos_R++;
+  } else {
+    pos_R--;
   }
 }
 
@@ -278,8 +272,7 @@ void setupROSSerial() {
   nh.advertise(pub_voltage);
   nh.advertise(pub_temperature);
   nh.advertise(pub_orientation);
-  nh.advertise(pub_encoderTick_R);
-  nh.advertise(pub_encoderTick_L);
+  nh.advertise(pub_encoderTicks);
 
   nh.subscribe(sub_speed);
   nh.subscribe(sub_pubFreq);
