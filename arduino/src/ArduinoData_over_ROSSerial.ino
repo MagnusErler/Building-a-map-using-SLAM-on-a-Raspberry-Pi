@@ -36,16 +36,32 @@ float temperature;
 String orientation_string;
 
 // -------Motor-------
+const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)
+const float rpm_to_radians = 0.10471975512;
+const float rad_to_deg = 57.29578;
+
 // MOTOR RIGHT
 const int motorR_in1 = 4;
 const int motorR_in2 = 5;
 
 const int motorR_pwm = A2; //A0 not working??
 
-const int motorR_encoderA = 2
-const int motorR_encoderB = 3
+const int motorR_encoderA = 2;
+const int motorR_encoderB = 3;
   
 volatile int pos_R = 0;
+
+const float wheelRadius_R = 0.01;   // [m]
+
+// Variable for RPM measuerment
+float rpm_R = 0;
+ 
+// Variable for angular velocity measurement
+float angVelocity_R = 0;      // [rad/s]
+float angVelocity_R_deg = 0;  // [deg/s]
+
+// Variable for linear velocity measurement
+float linVelocity_R = 0;      // [m/s]
 
 // MOTOR LEFT
 const int motorL_in1 = 8;
@@ -53,23 +69,35 @@ const int motorL_in2 = 9;
 
 const int motorL_pwm = A3;
 
-const int motorL_encoderA = 10
-const int motorL_encoderB = 11
+const int motorL_encoderA = 10;
+const int motorL_encoderB = 11;
   
 volatile int pos_L = 0;
+
+const float wheelRadius_L = 0.01;   // [m]
+
+// Variable for RPM measuerment
+float rpm_L = 0;
+ 
+// Variable for angular velocity measurement
+float angVelocity_L = 0;      // [rad/s]
+float angVelocity_L_deg = 0;  // [deg/s]
+
+// Variable for linear velocity measurement
+float linVelocity_L = 0;      // [m/s]
 
 // PID
 double Pk_R = 0.5;  
 double Ik_R = 0;
 double Dk_R = 0.01;
 double Setpoint_R, Input_R, Output_R, Output_Ra;    // PID variables
-PID PID_R(&Input_R, &Output_R, &Setpoint_R, Pk_R, Ik_R , Dk_R, DIRECT);    // PID Setup
+//PID PID_R(&Input_R, &Output_R, &Setpoint_R, Pk_R, Ik_R , Dk_R, DIRECT);    // PID Setup
 
 double Pk_L = 0.5;  
 double Ik_L = 0;
 double Dk_L = 0.01;
 double Setpoint_L, Input_L, Output_L, Output_La;    // PID variables
-PID PID_L(&Input_L, &Output_L, &Setpoint_L, Pk_L, Ik_L , Dk_L, DIRECT);    // PID Setup
+//PID PID_L(&Input_L, &Output_L, &Setpoint_L, Pk_L, Ik_L , Dk_L, DIRECT);    // PID Setup
 
 // -------Timer-------
 int interval = 1000;
@@ -90,13 +118,30 @@ void setup() {
 
 void loop() {
 
-  Input_R = pos_R
-  PID_R.Compute();
+  //Input_R = pos_R
+  //PID_R.Compute();
 
-  Input_L = pos_L
-  PID_L.Compute();
+  //Input_L = pos_L
+  //PID_L.Compute();
+
+  
 
   currentMillis = millis();
+
+  // Calculate angular and linear velocity every 1sec
+  if (currentMillis - previousMillis > 1000) {
+    previousMillis = currentMillis;
+
+    rpm_R = (float)(pos_R * 60 / ENC_COUNT_REV);
+    angVelocity_R = rpm_R * rpm_to_radians;
+    angVelocity_R_deg = angVelocity_R * rad_to_deg;
+    linVelocity_R = wheelRadius_R * angVelocity_R;
+
+    rpm_L = (float)(pos_L * 60 / ENC_COUNT_REV);
+    angVelocity_L = rpm_L * rpm_to_radians;
+    angVelocity_L_deg = angVelocity_L * rad_to_deg;
+    linVelocity_L = wheelRadius_L * angVelocity_L;
+  }
 
   if (currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
