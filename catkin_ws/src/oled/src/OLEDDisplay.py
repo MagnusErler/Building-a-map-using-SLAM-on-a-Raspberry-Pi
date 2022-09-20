@@ -2,6 +2,8 @@
 
 import time
 
+import sys
+
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_SSD1306
 
@@ -14,6 +16,7 @@ import subprocess
 #ROS
 import rospy
 from std_msgs.msg import String
+
 
 # Raspberry Pi pin configuration:
 RST = None     # on the PiOLED this pin isn't used
@@ -129,6 +132,11 @@ def listener():
     rospy.loginfo("Starting subscribing to text to oled")
 
 if __name__ == '__main__':
+
+    sys.stdout.write("sudo chmod a+rw /dev/i2c-*")
+    time.sleep(3)
+
+    print("halllo")
 
     listener()
 

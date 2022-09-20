@@ -252,6 +252,12 @@ rosdep install camera_calibration
 ```
 </details>
 
+<details>
+<summary>Make a ROS Launch Start on Boot</summary>
+<br>
+Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upstart/
+</details>
+
 ### Communication (Subscriber and publisher)
 
 #### <b>Publisher</b>
