@@ -47,8 +47,8 @@ const float rad_to_deg = 57.29578;*/
 const int motorR_in1 = 4;
 const int motorR_in2 = 5;
 const int motorR_pwm = A2; //A0 not working??
-const int motorR_encoderA = 2;
-const int motorR_encoderB = 3;
+const int motorR_encoderA = 3;
+const int motorR_encoderB = 2;
   
 volatile int pos_R = 0;
 
@@ -56,8 +56,8 @@ volatile int pos_R = 0;
 const int motorL_in1 = 8;
 const int motorL_in2 = 9;
 const int motorL_pwm = A3;
-const int motorL_encoderA = 18;
-const int motorL_encoderB = 19;
+const int motorL_encoderA = 19;
+const int motorL_encoderB = 18;
   
 volatile int pos_L = 0;
 
@@ -83,21 +83,6 @@ void loop() {
   
   currentMillis = millis();
 
-  /*// Calculate angular and linear velocity every 1sec
-  if (currentMillis - previousMillis > 1000) {
-    previousMillis = currentMillis;
-
-    rpm_R = (float)(pos_R * 60 / ENC_COUNT_REV);
-    angVelocity_R = rpm_R * rpm_to_radians;
-    angVelocity_R_deg = angVelocity_R * rad_to_deg;
-    linVelocity_R = wheelRadius_R * angVelocity_R;
-
-    rpm_L = (float)(pos_L * 60 / ENC_COUNT_REV);
-    angVelocity_L = rpm_L * rpm_to_radians;
-    angVelocity_L_deg = angVelocity_L * rad_to_deg;
-    linVelocity_L = wheelRadius_L * angVelocity_L;
-  }*/
-
   if (abs(currentMillis - previousMillis) > interval) {
     previousMillis = currentMillis;
  
@@ -115,6 +100,9 @@ void loop() {
     int16MultiArray.data = value;
     int16MultiArray.data_length = 2;
     pub_encoderTicks.publish(&int16MultiArray);
+
+    pos_L = 0;
+    pos_R = 0;
   }
 
   nh.spinOnce();
@@ -199,25 +187,6 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   analogWrite(motorL_pwm, speed2);
 }
 
-/*
-void readEncoderA_L() {
-  if (digitalRead(motorL_encoderA) == HIGH) {
-    pos_L++;
-  } else {
-    pos_L--;
-  }
-}
-
-void readEncoderA_R() {
-  if (digitalRead(motorR_encoderA) == HIGH) {
-    pos_R++;
-  } else {
-    pos_R--;
-  }
-}
-*/
-
-
 void readEncoderA_L(){  
   if (digitalRead(motorL_encoderA) == HIGH) { 
     if (digitalRead(motorL_encoderB) == LOW) {  
@@ -282,7 +251,6 @@ void readEncoderB_R(){
     }
   }
 }
-
 
 // -------Voltage-------
 void getVoltage() {

@@ -14,11 +14,11 @@ from std_msgs.msg import String
 
 
 # Iterate over the joystick devices.
-print('Available devices:')
+##print('Available devices:')
 
-for fn in os.listdir('/dev/input'):
-    if fn.startswith('js'):
-        print('  /dev/input/%s' % (fn))
+##or fn in os.listdir('/dev/input'):
+##    if fn.startswith('js'):
+##        print('  /dev/input/%s' % (fn))
 
 # We'll store the states here.
 axis_states = {}
@@ -101,7 +101,7 @@ button_map = []
 
 # Open the joystick device.
 fn = '/dev/input/js0'
-print('Opening %s...' % fn)
+##print('Opening %s...' % fn)
 jsdev = open(fn, 'rb')
 
 # Get the device name.
@@ -109,7 +109,7 @@ jsdev = open(fn, 'rb')
 buf = array.array('B', [0] * 64)
 ioctl(jsdev, 0x80006a13 + (0x10000 * len(buf)), buf) # JSIOCGNAME(len)
 js_name = buf.tobytes().rstrip(b'\x00').decode('utf-8')
-print('Device name: %s' % js_name)
+##print('Device name: %s' % js_name)
 
 # Get number of axes and buttons.
 buf = array.array('B', [0])
@@ -138,14 +138,13 @@ for btn in buf[:num_buttons]:
     button_map.append(btn_name)
     button_states[btn_name] = 0
 
-print('%d axes found: %s' % (num_axes, ', '.join(axis_map)))
-print('%d buttons found: %s' % (num_buttons, ', '.join(button_map)))
+##print('%d axes found: %s' % (num_axes, ', '.join(axis_map)))
+##print('%d buttons found: %s' % (num_buttons, ', '.join(button_map)))
 
 
 pub = rospy.Publisher('joystick', String, queue_size=10)
 rospy.init_node('talker_joystick_node')
 rate = rospy.Rate(10) # 10hz
-rospy.loginfo("Starting publishing voltage")
 
 try:
     # Main event loop
@@ -154,10 +153,10 @@ try:
         if evbuf:
             time, value, type, number = struct.unpack('IhBB', evbuf)
 
-            if type & 0x80:
-                #pub.publish("(initial)", end="")
-                #rospy.loginfo("(initial)", end="")
-                print("(initial)", end="")
+            ##if type & 0x80:
+                ##pub.publish("(initial)", end="")
+                ##rospy.loginfo("(initial)", end="")
+                ##print("(initial)", end="")
 
             if type & 0x01:
                 button = button_map[number]

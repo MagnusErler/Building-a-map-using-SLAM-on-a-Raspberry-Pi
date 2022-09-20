@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Int16MultiArray
 
-pub = rospy.Publisher('motor/CmdSetSpeed', Int16MultiArray, queue_size=10)
+pub_CmdSetSpeed = rospy.Publisher('motor/CmdSetSpeed', Int16MultiArray, queue_size=10)
 
 speed_float = Int16MultiArray()
 speed_float.data = []
@@ -20,14 +20,14 @@ def callback(data):
     value = int(float(value)*3.1415)
 
     if (key == "ry"):
-        speed_float.data = [value,value]
+        speed_float.data = [value, value]
     elif (key == "rx"):
         if (value < 0):
-            speed_float.data = [-value,value]
+            speed_float.data = [-value, value]
         else:
-            speed_float.data = [-value,value]
+            speed_float.data = [-value, value]
 
-    pub.publish(speed_float)
+    pub_CmdSetSpeed.publish(speed_float)
 
 def listener():
 
