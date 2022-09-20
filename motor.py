@@ -6,28 +6,18 @@ import tf
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 
+from constants import *
+
 from std_msgs.msg import Int16MultiArray
 
 pub_wheelSpeed = rospy.Publisher('motor/wheelSpeed', Int16MultiArray, queue_size=10)
 
 # Other
-import math 
-
-# Constants
-#motorGear = 1/10
-encoderTickPerRevolution = 1200
-wheelRadius = 0.04  # [m]
-distancePerTick = (2 * math.pi * wheelRadius) / encoderTickPerRevolution    # [m]
-distanceBetweenWheels = 0.24 # [m]
+import math
 
 global previous_encoderTick_L, previous_encoderTick_R
 previous_encoderTick_L = 0
 previous_encoderTick_R = 0
-
-global x, y, theta
-x = 0
-y = 0
-theta = 0
 
 delta_speed = Int16MultiArray()
 delta_speed.data = []
