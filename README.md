@@ -102,6 +102,7 @@ start_x=1
 gpu_mem=128
 ```
 And comment out ```dtparam=i2c_arm=on```
+
 Follow these instructions to enable the RP camera v2.1: https://zengliyang.wordpress.com/2021/01/04/raspberry-pi-4b-ubuntu-20-04-camera/
 ```
 curl -L --output /usr/bin/rpi-update https://raw.githubusercontent.com/Hexxeh/rpi-update/master/rpi-update && chmod +x /usr/bin/rpi-update
@@ -267,7 +268,7 @@ rosdep install camera_calibration
 | ```/CmdSetPubFreq```  | UInt16  | Sets publishing rate |
 | ```/IMU/CmdCaliIMU```  | Bool  | Calibrates the IMU (true: set to calibrate) |
 | ```/motor/CmdSetMotor```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
-| ```/OLED/sendText```  | String  | Write 1 line of text to 1 of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory,and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
+| ```/OLED/sendText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
 ## LiDAR
 ```
