@@ -85,6 +85,9 @@ sudo dpkg -i /tmp/raspi-config_20200601_all.deb
 Follow these instructions to enable I2C interface: https://www.instructables.com/Raspberry-Pi-Monitoring-System-Via-OLED-Display-Mo/
 
 
+sudo chmod a+rw /dev/i2c-*
+This is temporary and is lost at next boot so, to fix it permanently you need to do the following:
+
 </details>
 
 <details>

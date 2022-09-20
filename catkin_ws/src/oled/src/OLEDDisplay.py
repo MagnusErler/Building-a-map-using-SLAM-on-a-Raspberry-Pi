@@ -133,11 +133,6 @@ def listener():
 
 if __name__ == '__main__':
 
-    sys.stdout.write("sudo chmod a+rw /dev/i2c-*")
-    time.sleep(3)
-
-    print("halllo")
-
     listener()
 
     starttime = time.time()
