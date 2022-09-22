@@ -25,7 +25,7 @@ ros::Publisher pub_orientation("IMU/orientation", &str_msg);
 ros::Publisher pub_encoderTicks("motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
-ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeed", setSpeed);
+ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeedPWM", setSpeed);
 ros::Subscriber<std_msgs::Empty> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
 
 // ------Voltmeter------
@@ -137,16 +137,14 @@ void getDataFromMPU6050() {
 
 // -------Motor-------
 void setupMotor() {
-  pinMode(motorR_in1, OUTPUT);
-  pinMode(motorR_in2, OUTPUT);
-  pinMode(motorL_in1, OUTPUT);
-  pinMode(motorL_in2, OUTPUT);
+  pinMode(motorL_in1, OUTPUT); pinMode(motorL_in2, OUTPUT);
+  pinMode(motorR_in1, OUTPUT); pinMode(motorR_in2, OUTPUT);
 
   pinMode(motorR_pwm, OUTPUT); 
   pinMode(motorL_pwm, OUTPUT);
 
-  digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, LOW);
   digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, LOW);
+  digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, LOW);
   
   attachInterrupt(digitalPinToInterrupt(motorL_encoderA), readEncoderA_L, CHANGE);
   attachInterrupt(digitalPinToInterrupt(motorL_encoderB), readEncoderB_L, CHANGE);

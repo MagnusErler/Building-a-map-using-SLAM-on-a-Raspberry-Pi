@@ -278,7 +278,8 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 | ------------- | ------------- | ------------- | ------------- |
 | ```/CmdSetPubFreq```  | UInt16  | Sets publishing rate |
 | ```/IMU/CmdCaliIMU```  | Bool  | Calibrates the IMU (true: set to calibrate) |
-| ```/motor/CmdSetMotor```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
+| ```/motor/CmdSetSpeedPWM```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
+| ```/motor/CmdSetSpeed```  | Int16MultiArray  | Sets the speed of both motors [m/s] |
 | ```/OLED/sendText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/sendText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
 ## LiDAR

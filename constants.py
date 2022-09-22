@@ -5,8 +5,11 @@ import math
 # Motor
 encoderTickPerRevolution = 1200
 wheelRadius = 0.04              # [m]
-distancePerTick = (2 * math.pi * wheelRadius) / encoderTickPerRevolution    # [m]
+wheelCircumference = 2 * math.pi * wheelRadius  # [m]
+distancePerRevolution = wheelCircumference  # [m]
+distancePerTick = wheelCircumference / encoderTickPerRevolution    # [m]
 distanceBetweenWheels = 0.24    # [m]
+maxRPM = 600    # [RPM]
 #motorGear = 1/10
 
 # Odometry

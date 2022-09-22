@@ -5,17 +5,22 @@ import rospy
 import tf
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
-
-from constants import *
-
 from std_msgs.msg import Int16MultiArray
 
 # Other
 import math
+from simple_pid import PID
+
+from constants import *
+
+newPWM_array = Int16MultiArray()
+newPWM_array.data = []
 
 global previous_encoderTick_L, previous_encoderTick_R
 previous_encoderTick_L = 0
 previous_encoderTick_R = 0
+
+pub_setSpeedPWM = rospy.Publisher('motor/CmdSetSpeedPWM', Int16MultiArray, queue_size=10)
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
@@ -38,6 +43,7 @@ def callback_getEncoderTicks(data):
     #print("Encoder ticks received [L, R]: " + str(encoderTick_L) + ", " + str(encoderTick_R))
 
     calcOdom()
+    updateSpeed()
 
 def calcOdom():
     current_time = rospy.Time.now()
@@ -54,6 +60,7 @@ def calcOdom():
     delta_distance = (delta_distance_L + delta_distance_R) / 2
 
     # SPEED
+    global delta_speed_L, delta_speed_R
     delta_speed_L = delta_distance_L / delta_time_sec
     delta_speed_R = delta_distance_R / delta_time_sec
     delta_speed = (delta_speed_L + delta_speed_R) / 2
@@ -71,10 +78,6 @@ def calcOdom():
     theta = theta + delta_theta
     x = x + delta_x
     y = y + delta_y
-
-    #print("x: " + str(x))
-    #print("y: " + str(y))
-    #print("theta: " + str(theta))
 
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
@@ -107,5 +110,42 @@ def calcOdom():
     previous_encoderTick_L = encoderTick_R
     previous_time = current_time
 
+def updateSpeed():
+
+    desiredSpeed = 1 #[m/s]
+
+    desiredSpeed_L = desiredSpeed
+    desiredSpeed_R = desiredSpeed
+
+    pid_P = 0.5
+    pid_I = 0
+    pid_D = 0.01
+
+    pid_L = PID(pid_P, pid_I, pid_D, setpoint = desiredSpeed_L)
+    pid_L.output_limits = (-5, 5)
+    pid_L.sample_time = 0.001
+
+    pid_R = PID(pid_P, pid_I, pid_D, setpoint = desiredSpeed_R)
+    pid_R.output_limits = (-5, 5)
+    pid_R.sample_time = 0.001
+
+    global delta_speed_L, delta_speed_R
+    newSpeed_L = pid_L(delta_speed_L)
+    newSpeed_R = pid_R(delta_speed_R)
+
+    print(newSpeed_R)
+
+    #Convert new speed [m/s] to RPM
+    newRPM_L = (newSpeed_L / distancePerRevolution) * 60
+    newRPM_R = (newSpeed_R / distancePerRevolution) * 60
+
+    #Convert RPM to PWM-values
+    newPWM_L = (255/maxRPM) * newRPM_L
+    newPWM_R = (255/maxRPM) * newRPM_R
+    
+    newPWM_array.data = [newPWM_L, newPWM_R]
+    pub_setSpeedPWM.publish(newPWM_array)
+
 if __name__ == '__main__':
     sub_encoderTicks()
+
