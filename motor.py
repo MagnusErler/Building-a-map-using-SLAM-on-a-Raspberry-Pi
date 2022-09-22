@@ -10,17 +10,12 @@ from constants import *
 
 from std_msgs.msg import Int16MultiArray
 
-pub_wheelSpeed = rospy.Publisher('motor/wheelSpeed', Int16MultiArray, queue_size=10)
-
 # Other
 import math
 
 global previous_encoderTick_L, previous_encoderTick_R
 previous_encoderTick_L = 0
 previous_encoderTick_R = 0
-
-delta_speed = Int16MultiArray()
-delta_speed.data = []
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
