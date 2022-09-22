@@ -128,7 +128,7 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber("/OLED/sendText", String, display)
+    rospy.Subscriber("/OLED/CmdsetText", String, display)
     rospy.loginfo("Starting subscribing to text to oled")
 
 if __name__ == '__main__':

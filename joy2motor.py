@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Int16MultiArray
 
-pub_CmdSetSpeed = rospy.Publisher('motor/CmdSetSpeed', Int16MultiArray, queue_size=10)
+pub_CmdSetSpeedPWM = rospy.Publisher('motor/CmdSetSpeedPWM', Int16MultiArray, queue_size=10)
 
 speed_float = Int16MultiArray()
 speed_float.data = []
@@ -27,7 +27,7 @@ def callback(data):
         else:
             speed_float.data = [-value, value]
 
-    pub_CmdSetSpeed.publish(speed_float)
+    pub_CmdSetSpeedPWM.publish(speed_float)
 
 def listener():
 

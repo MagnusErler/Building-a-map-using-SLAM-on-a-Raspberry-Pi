@@ -6,6 +6,7 @@ import tf
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 from std_msgs.msg import Int16MultiArray
+from std_msgs.msg import Float32
 
 # Other
 import math
@@ -20,6 +21,10 @@ global previous_encoderTick_L, previous_encoderTick_R
 previous_encoderTick_L = 0
 previous_encoderTick_R = 0
 
+global delta_speed_L, delta_speed_R
+delta_speed_L = 0
+delta_speed_R = 0
+
 pub_setSpeedPWM = rospy.Publisher('motor/CmdSetSpeedPWM', Int16MultiArray, queue_size=10)
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
@@ -33,7 +38,8 @@ def sub_encoderTicks():
     current_time = rospy.Time.now()
     previous_time = rospy.Time.now()
 
-    rospy.spin()
+def sub_desiredSpeed():
+    rospy.Subscriber('/motor/CmdSetSpeed', Float32, callback_setDesiredSpeed)
 
 def callback_getEncoderTicks(data):
     global encoderTick_L, encoderTick_R
@@ -43,7 +49,9 @@ def callback_getEncoderTicks(data):
     #print("Encoder ticks received [L, R]: " + str(encoderTick_L) + ", " + str(encoderTick_R))
 
     calcOdom()
-    updateSpeed()
+
+def callback_setDesiredSpeed(data):
+    updateSpeed(data.data)
 
 def calcOdom():
     current_time = rospy.Time.now()
@@ -110,17 +118,15 @@ def calcOdom():
     previous_encoderTick_L = encoderTick_R
     previous_time = current_time
 
-def updateSpeed():
-
-    desiredSpeed = 1 #[m/s]
+def updateSpeed(desiredSpeed):
 
     desiredSpeed_L = desiredSpeed
     desiredSpeed_R = desiredSpeed
-
+    
     pid_P = 0.5
     pid_I = 0
     pid_D = 0.01
-
+    
     pid_L = PID(pid_P, pid_I, pid_D, setpoint = desiredSpeed_L)
     pid_L.output_limits = (-5, 5)
     pid_L.sample_time = 0.001
@@ -133,19 +139,20 @@ def updateSpeed():
     newSpeed_L = pid_L(delta_speed_L)
     newSpeed_R = pid_R(delta_speed_R)
 
-    print(newSpeed_R)
-
     #Convert new speed [m/s] to RPM
     newRPM_L = (newSpeed_L / distancePerRevolution) * 60
     newRPM_R = (newSpeed_R / distancePerRevolution) * 60
 
     #Convert RPM to PWM-values
-    newPWM_L = (255/maxRPM) * newRPM_L
-    newPWM_R = (255/maxRPM) * newRPM_R
-    
+    newPWM_L = int((255/maxRPM) * newRPM_L)
+    newPWM_R = int((255/maxRPM) * newRPM_R)
+
     newPWM_array.data = [newPWM_L, newPWM_R]
     pub_setSpeedPWM.publish(newPWM_array)
 
 if __name__ == '__main__':
     sub_encoderTicks()
+    sub_desiredSpeed()
+
+    rospy.spin()
 
