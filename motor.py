@@ -25,6 +25,9 @@ global delta_speed_L, delta_speed_R
 delta_speed_L = 0
 delta_speed_R = 0
 
+global desiredSpeed
+desiredSpeed = 0
+
 pub_setSpeedPWM = rospy.Publisher('motor/CmdSetSpeedPWM', Int16MultiArray, queue_size=10)
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
@@ -42,25 +45,22 @@ def sub_desiredSpeed():
     rospy.Subscriber('/motor/CmdSetSpeed', Float32, callback_setDesiredSpeed)
 
 def callback_getEncoderTicks(data):
-    global encoderTick_L, encoderTick_R
-    encoderTick_L = data.data[0]
-    encoderTick_R = data.data[1]
+    delta_encoderTick_L = data.data[0]
+    delta_encoderTick_R = data.data[1]
 
-    #print("Encoder ticks received [L, R]: " + str(encoderTick_L) + ", " + str(encoderTick_R))
+    #print("Encoder ticks received [L, R]: " + str(delta_encoderTick_L) + ", " + str(delta_encoderTick_R))
 
-    calcOdom()
+    calcOdom(delta_encoderTick_L, delta_encoderTick_R)
+    updateSpeed()
 
 def callback_setDesiredSpeed(data):
-    updateSpeed(data.data)
+    global desiredSpeed
+    desiredSpeed = data.data
 
-def calcOdom():
+    updateSpeed()
+
+def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     current_time = rospy.Time.now()
-
-    global previous_encoderTick_L, previous_encoderTick_R, previous_time
-    delta_encoderTick_L = encoderTick_L - previous_encoderTick_L
-    delta_encoderTick_R = encoderTick_R - previous_encoderTick_R
-
-    delta_time_sec = (current_time - previous_time).to_sec()
 
     # DISTANCE
     delta_distance_L = distancePerTick * delta_encoderTick_L
@@ -68,7 +68,9 @@ def calcOdom():
     delta_distance = (delta_distance_L + delta_distance_R) / 2
 
     # SPEED
-    global delta_speed_L, delta_speed_R
+    global delta_speed_L, delta_speed_R, previous_time
+    delta_time_sec = (current_time - previous_time).to_sec()
+    
     delta_speed_L = delta_distance_L / delta_time_sec
     delta_speed_R = delta_distance_R / delta_time_sec
     delta_speed = (delta_speed_L + delta_speed_R) / 2
@@ -114,12 +116,11 @@ def calcOdom():
     # publish the message
     odom_pub.publish(odom)
 
-    previous_encoderTick_L = encoderTick_L
-    previous_encoderTick_L = encoderTick_R
     previous_time = current_time
 
-def updateSpeed(desiredSpeed):
+def updateSpeed():
 
+    global desiredSpeed
     desiredSpeed_L = desiredSpeed
     desiredSpeed_R = desiredSpeed
     
