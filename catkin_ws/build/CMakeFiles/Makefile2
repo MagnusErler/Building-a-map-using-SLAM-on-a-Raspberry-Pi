@@ -66,6 +66,7 @@ all: rosserial/rosserial_vex_v5/all
 all: rosserial/rosserial_xbee/all
 all: rosserial/rosserial_client/all
 all: joystick/all
+all: motor/all
 all: oled/all
 all: ros_setup/all
 all: rosserial/rosserial_server/all
@@ -90,6 +91,7 @@ preinstall: rosserial/rosserial_vex_v5/preinstall
 preinstall: rosserial/rosserial_xbee/preinstall
 preinstall: rosserial/rosserial_client/preinstall
 preinstall: joystick/preinstall
+preinstall: motor/preinstall
 preinstall: oled/preinstall
 preinstall: ros_setup/preinstall
 preinstall: rosserial/rosserial_server/preinstall
@@ -119,6 +121,7 @@ clean: rosserial/rosserial_vex_v5/clean
 clean: rosserial/rosserial_xbee/clean
 clean: rosserial/rosserial_client/clean
 clean: joystick/clean
+clean: motor/clean
 clean: oled/clean
 clean: ros_setup/clean
 clean: rosserial/rosserial_server/clean
@@ -245,6 +248,24 @@ mb_1r2t_ros/clean: mb_1r2t_ros/CMakeFiles/geometry_msgs_generate_messages_lisp.d
 mb_1r2t_ros/clean: mb_1r2t_ros/CMakeFiles/mb_1r2t_publisher.dir/clean
 
 .PHONY : mb_1r2t_ros/clean
+
+#=============================================================================
+# Directory level rules for directory motor
+
+# Recursive "all" directory target.
+motor/all:
+
+.PHONY : motor/all
+
+# Recursive "preinstall" directory target.
+motor/preinstall:
+
+.PHONY : motor/preinstall
+
+# Recursive "clean" directory target.
+motor/clean:
+
+.PHONY : motor/clean
 
 #=============================================================================
 # Directory level rules for directory oled

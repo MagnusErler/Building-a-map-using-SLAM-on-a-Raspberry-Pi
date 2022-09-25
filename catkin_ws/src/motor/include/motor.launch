@@ -1,0 +1,3 @@
+<launch>
+  <node name="motor_node" pkg="motor" type="motor.py" output="log"/>
+</launch>
