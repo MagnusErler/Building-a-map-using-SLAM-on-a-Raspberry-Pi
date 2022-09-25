@@ -46,7 +46,7 @@ const float rad_to_deg = 57.29578;*/
 // MOTOR RIGHT
 const int motorR_in1 = 4;
 const int motorR_in2 = 5;
-const int motorR_pwm = A2; //A0 not working??
+const int motorR_pwm_pin = A2; //A0 not working??
 const int motorR_encoderA = 3;
 const int motorR_encoderB = 2;
   
@@ -55,7 +55,7 @@ volatile int pos_R = 0;
 // MOTOR LEFT
 const int motorL_in1 = 8;
 const int motorL_in2 = 9;
-const int motorL_pwm = A3;
+const int motorL_pwm_pin = A3;
 const int motorL_encoderA = 19;
 const int motorL_encoderB = 18;
   
@@ -140,8 +140,8 @@ void setupMotor() {
   pinMode(motorL_in1, OUTPUT); pinMode(motorL_in2, OUTPUT);
   pinMode(motorR_in1, OUTPUT); pinMode(motorR_in2, OUTPUT);
 
-  pinMode(motorR_pwm, OUTPUT); 
-  pinMode(motorL_pwm, OUTPUT);
+  pinMode(motorR_pwm_pin, OUTPUT); 
+  pinMode(motorL_pwm_pin, OUTPUT);
 
   digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, LOW);
   digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, LOW);
@@ -154,35 +154,35 @@ void setupMotor() {
 
 void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
   //Controlling speed (0 = off and 255 = max speed):
-  int speed1 = cmd_msg.data[0];
-  int speed2 = cmd_msg.data[1];
+  int speed_L = cmd_msg.data[0];
+  int speed_R = cmd_msg.data[1];
 
-  if (speed1 < 0 && speed2 > 0) {
-    digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
+  if (speed_L < 0 && speed_R > 0) {
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
-  } else if (speed1 > 0 && speed2 < 0) {
-    digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
-    digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
-  } else if (speed1 < 0 && speed2 < 0) {
-    //Backward
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
+  } else if (speed_L > 0 && speed_R < 0) {
     digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
+    digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
+  } else if (speed_L < 0 && speed_R < 0) {
+    //Backward
+    digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
+    digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
   } else {
     //Forward
-    digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
+    digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
   }
 
-  if (speed1 < 0) {
-    speed1 = speed1*(-1);
+  if (speed_L < 0) {
+    speed_L = speed_L*(-1);
   }
 
-  if (speed2 < 0) {
-    speed2 = speed2*(-1);
+  if (speed_R < 0) {
+    speed_R = speed_R*(-1);
   }
   
-  analogWrite(motorR_pwm, speed1);
-  analogWrite(motorL_pwm, speed2);
+  analogWrite(motorL_pwm_pin, speed_L);
+  analogWrite(motorR_pwm_pin, speed_R);
 }
 
 void readEncoderA_L(){  

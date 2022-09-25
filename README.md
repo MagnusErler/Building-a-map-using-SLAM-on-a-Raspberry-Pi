@@ -277,6 +277,7 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 | ```/battery/voltage```  | Float32  | Gives the voltage of the battery |
 | ```/IMU/temperatur```  | Float32  | Gives the temperature (from the MPU6050-chip) |
 | ```/IMU/orientation```  | String  | Gives the orientation |
+| ```/joystick```  | String  | Gives pressed and released keys and values from the joystick |
 | ```/motor/encoderTick```  | Int16MultiArray  | Gives the encoder ticks for the two wheels [L, R] |
 | ```/motor/CmdSetSpeedPWM```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
 | ```/odom```  | Odometry  | Gives the odometry of the robot (position, orientation, and linear- and angular velocity) |
