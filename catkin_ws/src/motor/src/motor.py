@@ -81,15 +81,8 @@ def callback_getJoystickValues(data):
         desiredSpeed_L = value
         desiredSpeed_R = value
     elif (key == "rx"):
-        if (value < 0):
-            desiredSpeed_L = -value
-            desiredSpeed_R = value
-        elif (value > 0):
-            desiredSpeed_L = -value
-            desiredSpeed_R = value
-        else:
-            desiredSpeed_L = 0
-            desiredSpeed_R = 0
+        desiredSpeed_L = -value
+        desiredSpeed_R = value
 
     updateSpeed()
 

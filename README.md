@@ -86,7 +86,7 @@ Follow these instructions to enable I2C interface: https://www.instructables.com
 
 
 sudo chmod a+rw /dev/i2c-*
-This is temporary and is lost at next boot so, to fix it permanently you need to do the following:
+This is temporary and is lost at next boot so, to fix it permanently you need to do the following: https://lexruee.ch/setting-i2c-permissions-for-non-root-users.html
 
 </details>
 
