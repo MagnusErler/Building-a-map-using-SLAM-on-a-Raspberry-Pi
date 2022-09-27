@@ -1,11 +1,46 @@
 import cv2
 import numpy as np
-cap1 = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
-while True:
-    ret1,img1 = cap1.read()
-    cv2.imshow('video output1', img1)
-    k=cv2.waitKey(10)& 0xff
-    if k==27:
+import time
+
+cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+
+# For fps
+global prev_frame_time, new_frame_time
+prev_frame_time = 0
+new_frame_time = 0
+
+def getFPS():
+    # time when we finish processing for this frame
+    global prev_frame_time, new_frame_time
+    new_frame_time = time.time()
+ 
+    # Calculating the fps
+    fps = 1/(new_frame_time-prev_frame_time)
+    prev_frame_time = new_frame_time
+ 
+    return "FPS: " + str(int(fps))
+
+while(cap.isOpened()):
+    ret, frame = cap.read()
+
+    # if video finished or no Video Input
+    if not ret:
         break
+ 
+    # resizing the frame size according to our need
+    frame = cv2.resize(frame, (500, 300))
+ 
+    # font which we will be using to display FPS
+    font = cv2.FONT_HERSHEY_SIMPLEX
+
+    # putting the FPS count on the frame
+    cv2.putText(frame, getFPS(), (1, 15), font, 0.5, (100, 255, 0), 1, cv2.LINE_AA)
+
+    cv2.imshow('frame', frame)
+
+    # press 'Q' if you want to exit
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
 cap1. release()
 cv2.destroyAllWindows()
