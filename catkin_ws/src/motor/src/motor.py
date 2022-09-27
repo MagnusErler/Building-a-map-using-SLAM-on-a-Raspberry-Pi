@@ -64,8 +64,9 @@ def callback_getEncoderTicks(data):
     updateSpeed()
 
 def callback_setDesiredSpeed(data):
-    global desiredSpeed_L, desiredSpeed_R
     desiredSpeed = data.data
+
+    global desiredSpeed_L, desiredSpeed_R
     desiredSpeed_L = desiredSpeed
     desiredSpeed_R = desiredSpeed
 
@@ -172,12 +173,13 @@ def updateSpeed():
     pid_D = 0.01
     pid_Limits = (maxRPM/60)*distancePerRevolution
     
-    global desiredSpeed, desiredSpeed_L, desiredSpeed_R
+    global desiredSpeed_L
     pid_L = PID(pid_P, pid_I, pid_D)
     pid_L.setpoint = desiredSpeed_L
     pid_L.output_limits = (-pid_Limits, pid_Limits)
     #pid_L.sample_time = 0.001
 
+    global desiredSpeed_R
     pid_R = PID(pid_P, pid_I, pid_D)
     pid_R.setpoint = desiredSpeed_R
     pid_R.output_limits = (-pid_Limits, pid_Limits)

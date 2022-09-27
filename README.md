@@ -288,7 +288,7 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 | ```/IMU/CmdCaliIMU```  | Empty  | Calibrate the IMU | ```rostopic pub /IMU/CmdCaliIMU std_msgs/Empty```
 | ```/motor/CmdResetOdom```  | Empty  | Reset the odometry | ```rostopic pub /motor/CResetOdom std_msgs/Empty```
 | ```/motor/CmdSetSpeed```  | Float32  | Set the speed of both motors [m/s] | ```rostopic pub /motor/CmdSetSpeed std_msgs/Float32 1.2``` (set the overall wheel speed to 1.2 m/s). Use -- before negativ values (e.g. -- -4).
-| ```/motor/CmdSetSpeedPWM```  | Int16MultiArray  | Set the speed of both motors (0 = off and 255 = max speed) |
+| ```/motor/CmdSetSpeedPWM```  | Int16MultiArray  | Set the speed of both motors (0 = off and 255 = max speed). Negative values will drive the motor backwards |
 | ```/OLED/CmdsetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdsetText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
 ## LiDAR
