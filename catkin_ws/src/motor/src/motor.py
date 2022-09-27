@@ -5,6 +5,7 @@ import rospy
 import tf
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
+from std_msgs.msg import Empty
 from std_msgs.msg import Int16MultiArray
 from std_msgs.msg import Float32
 from std_msgs.msg import String
@@ -50,6 +51,9 @@ def sub_desiredSpeed():
 def sub_joystick():
     rospy.Subscriber("/joystick", String, callback_getJoystickValues)
 
+def sub_resetOdom():
+    rospy.Subscriber("/motor/CmdResetOdom", Empty, callback_resetOdom)
+
 def callback_getEncoderTicks(data):
     delta_encoderTick_L = data.data[0]
     delta_encoderTick_R = data.data[1]
@@ -81,10 +85,24 @@ def callback_getJoystickValues(data):
         desiredSpeed_L = value
         desiredSpeed_R = value
     elif (key == "rx"):
-        desiredSpeed_L = -value
-        desiredSpeed_R = value
+        desiredSpeed_L = value
+        desiredSpeed_R = -value
 
     updateSpeed()
+
+def callback_resetOdom(Empty):
+    rospy.loginfo("Resetting the odometry")
+
+    global x, y, theta
+    x = 0
+    y = 0
+    theta = 0
+
+    current_speed_x = 0
+    current_speed_y = 0
+    current_speed_theta = 0
+
+    updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, rospy.Time.now())
 
 def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     current_time = rospy.Time.now()
@@ -112,10 +130,15 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     delta_x = delta_distance * math.cos(theta + (delta_theta / 2))
     delta_y = delta_distance * math.sin(theta + (delta_theta / 2))
 
-    theta = theta + delta_theta
     x = x + delta_x
     y = y + delta_y
+    theta = theta + delta_theta
 
+    updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, current_time)
+    
+    previous_time = current_time
+
+def updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, current_time):
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
 
@@ -142,8 +165,6 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
 
     # publish the message
     odom_pub.publish(odom)
-
-    previous_time = current_time
 
 def updateSpeed():    
     pid_P = 2
@@ -184,6 +205,7 @@ if __name__ == '__main__':
     sub_encoderTicks()
     sub_desiredSpeed()
     sub_joystick()
+    sub_resetOdom()
 
     rospy.spin()
 

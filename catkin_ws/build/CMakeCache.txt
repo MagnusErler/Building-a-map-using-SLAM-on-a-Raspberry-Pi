@@ -307,6 +307,12 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Value Computed by CMake
+DBoW2_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/ORB-SLAM2_ROS/ORB_SLAM2/orb_slam2_lib/Thirdparty/DBoW2
+
+//Value Computed by CMake
+DBoW2_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/ORB-SLAM2_ROS/ORB_SLAM2/orb_slam2_lib/Thirdparty/DBoW2
+
 //Path to a program.
 DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
 
@@ -346,6 +352,9 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests3
+
+//The directory containing a CMake configuration file for OpenCV.
+OpenCV_DIR:PATH=OpenCV_DIR-NOTFOUND
 
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
@@ -404,6 +413,12 @@ _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/noetic/share/actionlib_msgs/cmake
 
+//Value Computed by CMake
+bittle_driver_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/bittle_ROS
+
+//Value Computed by CMake
+bittle_driver_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/bittle_ROS
+
 //The directory containing a CMake configuration file for boost_atomic.
 boost_atomic_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/boost_atomic-1.71.0
 
@@ -418,6 +433,9 @@ boost_thread_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/boost_thread-1.71.0
 
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/noetic/share/catkin/cmake
+
+//The directory containing a CMake configuration file for compressed_image_transport.
+compressed_image_transport_DIR:PATH=compressed_image_transport_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/noetic/share/cpp_common/cmake
@@ -524,6 +542,18 @@ oled_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-R
 
 //Value Computed by CMake
 oled_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/oled
+
+//Value Computed by CMake
+orb_slam2_lib_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/ORB-SLAM2_ROS/ORB_SLAM2/orb_slam2_lib
+
+//Value Computed by CMake
+orb_slam2_lib_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/ORB-SLAM2_ROS/ORB_SLAM2/orb_slam2_lib
+
+//Value Computed by CMake
+raspicam_node_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/raspicam_node
+
+//Value Computed by CMake
+raspicam_node_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/raspicam_node
 
 //Value Computed by CMake
 ros_setup_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/ros_setup
@@ -865,6 +895,10 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX0X
+COMPILER_SUPPORTS_CXX0X:INTERNAL=1
+//Test COMPILER_SUPPORTS_CXX11
+COMPILER_SUPPORTS_CXX11:INTERNAL=1
 //Details about finding Boost
 FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/aarch64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake][c ][v1.71.0()]
 //Details about finding PY_em

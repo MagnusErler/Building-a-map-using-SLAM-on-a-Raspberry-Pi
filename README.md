@@ -274,20 +274,21 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 #### <b>Publisher</b>
 | Command  | Data types | Action |
 | ------------- | ------------- | ------------- |
-| ```/battery/voltage```  | Float32  | Gives the voltage of the battery |
-| ```/IMU/temperatur```  | Float32  | Gives the temperature (from the MPU6050-chip) |
-| ```/IMU/orientation```  | String  | Gives the orientation |
-| ```/joystick```  | String  | Gives pressed and released keys and values from the joystick |
-| ```/motor/encoderTick```  | Int16MultiArray  | Gives the encoder ticks for the two wheels [L, R] |
-| ```/odom```  | Odometry  | Gives the odometry of the robot (position, orientation, and linear- and angular velocity) |
+| ```/battery/voltage```  | Float32  | Give the voltage of the battery |
+| ```/IMU/temperatur```  | Float32  | Give the temperature (from the MPU6050-chip) |
+| ```/IMU/orientation```  | String  | Give the orientation |
+| ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
+| ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] |
+| ```/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) |
 
 #### <b>Subscriber</b>
 | Command  | Data types | Action | Example |
 | ------------- | ------------- | ------------- | ------------- |
-| ```/CmdSetPubFreq```  | UInt16  | Sets publishing rate |
-| ```/IMU/CmdCaliIMU```  | Bool  | Calibrates the IMU (true: set to calibrate) |
-| ```/motor/CmdSetSpeed```  | Float32  | Sets the speed of both motors [m/s] | ```rostopic pub /motor/CmdSetSpeed std_msgs/Float32 1.2``` (set the overall wheel speed to 1.2 m/s). Use -- before negativ values (e.g. -- -4).
-| ```/motor/CmdSetSpeedPWM```  | Int16MultiArray  | Sets the speed of both motors (0 = off and 255 = max speed) |
+| ```/CmdSetPubFreq```  | UInt16  | Set publishing rate |
+| ```/IMU/CmdCaliIMU```  | Empty  | Calibrate the IMU | ```rostopic pub /IMU/CmdCaliIMU std_msgs/Empty```
+| ```/motor/CmdResetOdom```  | Empty  | Reset the odometry | ```rostopic pub /motor/CResetOdom std_msgs/Empty```
+| ```/motor/CmdSetSpeed```  | Float32  | Set the speed of both motors [m/s] | ```rostopic pub /motor/CmdSetSpeed std_msgs/Float32 1.2``` (set the overall wheel speed to 1.2 m/s). Use -- before negativ values (e.g. -- -4).
+| ```/motor/CmdSetSpeedPWM```  | Int16MultiArray  | Set the speed of both motors (0 = off and 255 = max speed) |
 | ```/OLED/CmdsetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdsetText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
 ## LiDAR

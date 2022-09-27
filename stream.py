@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 import time
 
 cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
@@ -36,11 +35,13 @@ while(cap.isOpened()):
     # putting the FPS count on the frame
     cv2.putText(frame, getFPS(), (1, 15), font, 0.5, (100, 255, 0), 1, cv2.LINE_AA)
 
+    cv2.namedWindow('frame', flags=cv2.WINDOW_GUI_NORMAL)
     cv2.imshow('frame', frame)
 
     # press 'Q' if you want to exit
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-cap1. release()
+cap.release()
 cv2.destroyAllWindows()
+print("Closing video output")

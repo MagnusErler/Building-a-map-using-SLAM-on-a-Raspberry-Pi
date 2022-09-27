@@ -477,3 +477,33 @@ make[1]: Leaving directory '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-o
 
 
 
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeeded with the following output:
+Change Dir: /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_9954d/fast && /usr/bin/make -f CMakeFiles/cmTC_9954d.dir/build.make CMakeFiles/cmTC_9954d.dir/build
+make[1]: Entering directory '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_9954d.dir/src.cxx.o
+/usr/bin/c++    -Wall   -O3 -march=native -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_9954d.dir/src.cxx.o -c /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_9954d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9954d.dir/link.txt --verbose=1
+/usr/bin/c++   -Wall   -O3 -march=native -DCOMPILER_SUPPORTS_CXX11    -rdynamic CMakeFiles/cmTC_9954d.dir/src.cxx.o  -o cmTC_9954d 
+make[1]: Leaving directory '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX0X succeeded with the following output:
+Change Dir: /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_ef4cf/fast && /usr/bin/make -f CMakeFiles/cmTC_ef4cf.dir/build.make CMakeFiles/cmTC_ef4cf.dir/build
+make[1]: Entering directory '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ef4cf.dir/src.cxx.o
+/usr/bin/c++    -Wall   -O3 -march=native -DCOMPILER_SUPPORTS_CXX0X   -std=c++0x -o CMakeFiles/cmTC_ef4cf.dir/src.cxx.o -c /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_ef4cf
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ef4cf.dir/link.txt --verbose=1
+/usr/bin/c++   -Wall   -O3 -march=native -DCOMPILER_SUPPORTS_CXX0X    -rdynamic CMakeFiles/cmTC_ef4cf.dir/src.cxx.o  -o cmTC_ef4cf 
+make[1]: Leaving directory '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+int main() { return 0; }
