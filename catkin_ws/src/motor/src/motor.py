@@ -94,8 +94,8 @@ def callback_setTurnRadius(data):
     desiredAngularVelocity = desiredVelocity / turnRadius
 
     global desiredVelocity_L, desiredVelocity_R
-    desiredVelocity_L = (turnRadius + distanceBetweenWheels) * desiredAngularVelocity
-    desiredVelocity_R = (turnRadius - distanceBetweenWheels) * desiredAngularVelocity
+    desiredVelocity_L = (turnRadius + distanceBetweenWheels/2) * desiredAngularVelocity
+    desiredVelocity_R = (turnRadius - distanceBetweenWheels/2) * desiredAngularVelocity
 
     # https://en.wikipedia.org/wiki/Differential_wheeled_robot
 
