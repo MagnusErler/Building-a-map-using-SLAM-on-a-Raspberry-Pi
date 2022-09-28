@@ -30,11 +30,11 @@ global desiredVelocity_L, desiredVelocity_R
 desiredVelocity_L = 0
 desiredVelocity_R = 0
 
-pub_setVelocityPWM = rospy.Publisher('motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
+pub_setVelocityPWM = rospy.Publisher('/motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
 newPWM_array = Int16MultiArray()
 newPWM_array.data = []
 
-pub_setVelocity = rospy.Publisher('motor/CmdSetVelocity', Float32, queue_size=10)
+pub_setVelocity = rospy.Publisher('/motor/CmdSetVelocity', Float32, queue_size=10)
 
 global event, distanceDriven
 event = "Empty"
