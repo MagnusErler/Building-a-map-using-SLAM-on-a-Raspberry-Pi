@@ -38,8 +38,9 @@ newPWM_array.data = []
 
 pub_setSpeed = rospy.Publisher('motor/CmdSetSpeed', Float32, queue_size=10)
 
-global event
+global event, distanceDriven
 event = "Empty"
+distanceDriven = 0
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
@@ -118,9 +119,10 @@ def callback_setEvent(data):
     [event, eventValue] = data.data.split("=")
 
 def checkEvent(distanceDriven):
-    global event, eventValue
+    global event, eventValue, distanceDriven
     if event == "dist":
         if distanceDriven >= float(eventValue):
+            distanceDriven = 0
             pub_setSpeed.publish(0)
 
 
@@ -154,9 +156,10 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     y = y + delta_y
     theta = theta + delta_theta
 
-    distanceDriven = math.sqrt(x*x + y*y)
+    global distanceDriven
+    distanceDriven = distanceDriven + math.sqrt(delta_x*delta_x + delta_y*delta_y)
 
-    checkEvent(distanceDriven)
+    checkEvent()
 
     updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, current_time)
     
