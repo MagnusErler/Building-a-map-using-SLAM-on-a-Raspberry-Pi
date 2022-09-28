@@ -1,6 +1,6 @@
 <a name="readme-top"></a>
 
-# Robocup2023
+# Building a map using SLAM on a Raspberry Pi
 
 ## Setup personal machine to communicate wih ROS + RP4
 <details>
@@ -281,12 +281,11 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 | ```/IMU/orientation```  | String  | Give the orientation |
 | ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
 | ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] |
-| ```/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) |
+| ```/motor/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) |
 
 #### <b>Subscriber</b>
 | Command  | Data types | Action | Example |
 | ------------- | ------------- | ------------- | ------------- |
-| ```/CmdSetPubFreq```  | UInt16  | Set publishing rate |
 | ```/IMU/CmdCaliIMU```  | Empty  | Calibrate the IMU | ```rostopic pub /IMU/CmdCaliIMU std_msgs/Empty```
 | ```/motor/CmdResetOdom```  | Empty  | Reset the odometry | ```rostopic pub /motor/CResetOdom std_msgs/Empty```
 | ```/motor/CmdSetEvent```  | String  | Set an event, when to stop the motors | ```rostopic pub /motor/CmdSetEvent std_msgs/String dist=1.2``` (drive 1.2m).

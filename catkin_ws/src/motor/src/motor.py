@@ -42,7 +42,7 @@ event = "Empty"
 distanceDriven = 0
 
 
-odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
+odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
 ## SUBSCRIBERS

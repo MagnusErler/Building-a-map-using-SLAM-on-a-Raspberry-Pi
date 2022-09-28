@@ -3,13 +3,11 @@
 //#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
 #include <std_msgs/Empty.h>
-#include <std_msgs/UInt16.h>
 #include <std_msgs/Int16.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
 
-void setPubFreq(const std_msgs::UInt16&);
 void setVelocity(const std_msgs::Int16MultiArray&);
 void caliMPU6050(const std_msgs::Empty&);
 
@@ -24,7 +22,6 @@ ros::Publisher pub_temperature("IMU/temperature", &float32_msg);
 ros::Publisher pub_orientation("IMU/orientation", &str_msg);
 ros::Publisher pub_encoderTicks("motor/encoderTicks", &int16MultiArray);
 
-ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
 ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("motor/CmdSetVelocityPWM", setVelocity);
 ros::Subscriber<std_msgs::Empty> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
 
@@ -62,7 +59,6 @@ const int motorL_encoderB = 18;
 volatile int pos_L = 0;
 
 // -------Timer-------
-int interval = 1000;
 long currentMillis = 0;
 long previousMillis = 0;
 long previousMillis1 = 0;
@@ -83,7 +79,7 @@ void loop() {
   
   currentMillis = millis();
 
-  if (abs(currentMillis - previousMillis) > interval) {
+  if (abs(currentMillis - previousMillis) > 1000) {
     previousMillis = currentMillis;
  
     getVoltage();
@@ -267,12 +263,7 @@ void setupROSSerial() {
   nh.advertise(pub_encoderTicks);
 
   nh.subscribe(sub_velocity);
-  nh.subscribe(sub_pubFreq);
   nh.subscribe(sub_caliIMU);
-}
-
-void setPubFreq(const std_msgs::UInt16& cmd_msg){
-  interval = cmd_msg.data;
 }
 
 void publishData() {
