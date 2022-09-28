@@ -118,7 +118,7 @@ def callback_setEvent(data):
     global event, eventValue
     [event, eventValue] = data.data.split("=")
 
-def checkEvent(distanceDriven):
+def checkEvent():
     global event, eventValue, distanceDriven
     if event == "dist":
         if distanceDriven >= float(eventValue):
