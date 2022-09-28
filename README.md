@@ -138,7 +138,9 @@ SSH onto RP4
 ssh -X ubuntu@185.107.14.82
 ```
 ```-X``` starts up a proxy X11 server on the remote machine.
-  
+
+When ssh-ing with GUI from a windows computer follow these steps (Top answer): https://stackoverflow.com/questions/34932495/forward-x11-failed-network-error-connection-refused
+
 <details>
 <summary>SSH folder from RP onto personal computer</summary>
 <br>
