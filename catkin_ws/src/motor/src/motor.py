@@ -26,7 +26,8 @@ global current_velocity_L, current_velocity_R
 current_velocity_L = 0
 current_velocity_R = 0
 
-global desiredVelocity_L, desiredVelocity_R
+global desiredVelocity, desiredVelocity_L, desiredVelocity_R
+desiredVelocity = 0
 desiredVelocity_L = 0
 desiredVelocity_R = 0
 
@@ -40,17 +41,22 @@ global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
 
+
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
+## SUBSCRIBERS
 def sub_encoderTicks():
     rospy.Subscriber('/motor/encoderTicks', Int16MultiArray, callback_getEncoderTicks)
 
     global previous_time
     previous_time = rospy.Time.now()
 
-def sub_desiredVelocity():
-    rospy.Subscriber('/motor/CmdSetVelocity', Float32, callback_setDesiredVelocity)
+def sub_setVelocity():
+    rospy.Subscriber('/motor/CmdSetVelocity', Float32, callback_setVelocity)
+
+def sub_setTurnRadius():
+    rospy.Subscriber('/motor/CmdSetTurnRadius', Float32, callback_setTurnRadius)
 
 def sub_joystick():
     rospy.Subscriber("/joystick", String, callback_getJoystickValues)
@@ -61,6 +67,7 @@ def sub_resetOdom():
 def sub_setEvent():
     rospy.Subscriber("/motor/CmdSetEvent", String, callback_setEvent)
 
+## CALLBACKS
 def callback_getEncoderTicks(data):
     delta_encoderTick_L = data.data[0]
     delta_encoderTick_R = data.data[1]
@@ -70,12 +77,27 @@ def callback_getEncoderTicks(data):
     calcOdom(delta_encoderTick_L, delta_encoderTick_R)
     updateVelocity()
 
-def callback_setDesiredVelocity(data):
+def callback_setVelocity(data):
+    global desiredVelocity
     desiredVelocity = data.data
 
     global desiredVelocity_L, desiredVelocity_R
     desiredVelocity_L = desiredVelocity
     desiredVelocity_R = desiredVelocity
+
+    updateVelocity()
+
+def callback_setTurnRadius(data):
+    turnRadius = data.data
+
+    global desiredVelocity
+    desiredAngularVelocity = desiredVelocity / turnRadius
+
+    global desiredVelocity_L, desiredVelocity_R
+    desiredVelocity_L = (turnRadius + distanceBetweenWheels) * desiredAngularVelocity
+    desiredVelocity_R = (turnRadius - distanceBetweenWheels) * desiredAngularVelocity
+
+    # https://en.wikipedia.org/wiki/Differential_wheeled_robot
 
     updateVelocity()
 
@@ -116,6 +138,7 @@ def callback_setEvent(data):
     global event, eventValue
     [event, eventValue] = data.data.split("=")
 
+## FUNCTIONS
 def checkEvent():
     global event, eventValue, distanceDriven
     if event == "dist":
@@ -228,7 +251,8 @@ if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)
 
     sub_encoderTicks()
-    sub_desiredVelocity()
+    sub_setVelocity()
+    sub_setTurnRadius()
     sub_joystick()
     sub_resetOdom()
     sub_setEvent()
