@@ -36,6 +36,8 @@ pub_setSpeedPWM = rospy.Publisher('motor/CmdSetSpeedPWM', Int16MultiArray, queue
 newPWM_array = Int16MultiArray()
 newPWM_array.data = []
 
+pub_setSpeed = rospy.Publisher('motor/CmdSetSpeed', Int16MultiArray, queue_size=10)
+
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
@@ -53,6 +55,9 @@ def sub_joystick():
 
 def sub_resetOdom():
     rospy.Subscriber("/motor/CmdResetOdom", Empty, callback_resetOdom)
+
+def sub_setEvent():
+    rospy.Subscriber("/motor/CmdSetEvent", String, callback_setEvent)
 
 def callback_getEncoderTicks(data):
     delta_encoderTick_L = data.data[0]
@@ -105,6 +110,16 @@ def callback_resetOdom(Empty):
 
     updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, rospy.Time.now())
 
+def callback_setEvent(data):
+    [event, eventValue] = data.data.split("=")
+
+def checkEvent(distanceDriven):
+    
+    if event == "dist":
+        if distanceDriven >= eventValue:
+            pub_setSpeed.publish(0)
+
+
 def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     current_time = rospy.Time.now()
 
@@ -134,6 +149,10 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     x = x + delta_x
     y = y + delta_y
     theta = theta + delta_theta
+
+    distanceDriven = math.sqrt(x*x + y*y)
+
+    checkEvent(distanceDriven)
 
     updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, current_time)
     
@@ -167,7 +186,7 @@ def updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_thet
     # publish the message
     odom_pub.publish(odom)
 
-def updateSpeed():    
+def updateSpeed():
     pid_P = 2
     pid_I = 0
     pid_D = 0.01
@@ -208,6 +227,7 @@ if __name__ == '__main__':
     sub_desiredSpeed()
     sub_joystick()
     sub_resetOdom()
+    #sub_setEvent()
 
     rospy.spin()
 
