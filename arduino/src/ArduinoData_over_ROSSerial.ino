@@ -167,7 +167,7 @@ void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
     //Backward
     digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
-  } else {
+  } else if (speed_L > 0 && speed_R > 0) {
     //Forward
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
     digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
