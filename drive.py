@@ -6,14 +6,20 @@ import rospy
 from std_msgs.msg import Float32
 
 
-pub_setSpeedPWM = rospy.Publisher('motor/CmdSetSpeed', Float32, queue_size=10)
+pub_setVelocityPWM = rospy.Publisher('motor/CmdSetVelocity', Float32, queue_size=10)
 
-def drive(speed):
-    pub_setSpeedPWM.publish(speed)
+def drive(velocity):
+    pub_setVelocityPWM.publish(velocity)
 
+def command(command):
+    [driveData, eventData] = command.split(" : ")
+
+    [velocity, velocityValue] = driveData.split("=")
 
 if __name__ == '__main__':
     rospy.init_node('node_drive', anonymous=True)
+
+    command("vel=1.2 : dist=0.4")
 
     driveStraight(1)
 

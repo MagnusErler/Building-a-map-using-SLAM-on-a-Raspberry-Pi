@@ -10,7 +10,7 @@
 #include <std_msgs/String.h>
 
 void setPubFreq(const std_msgs::UInt16&);
-void setSpeed(const std_msgs::Int16MultiArray&);
+void setVelocity(const std_msgs::Int16MultiArray&);
 void caliMPU6050(const std_msgs::Empty&);
 
 ros::NodeHandle nh;
@@ -25,7 +25,7 @@ ros::Publisher pub_orientation("IMU/orientation", &str_msg);
 ros::Publisher pub_encoderTicks("motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::UInt16> sub_pubFreq("CmdSetPubFreq", setPubFreq);
-ros::Subscriber<std_msgs::Int16MultiArray> sub_speed("motor/CmdSetSpeedPWM", setSpeed);
+ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("motor/CmdSetVelocityPWM", setVelocity);
 ros::Subscriber<std_msgs::Empty> sub_caliIMU("IMU/CmdCaliIMU", caliMPU6050);
 
 // ------Voltmeter------
@@ -152,37 +152,37 @@ void setupMotor() {
   attachInterrupt(digitalPinToInterrupt(motorR_encoderB), readEncoderB_R, CHANGE);
 }
 
-void setSpeed(const std_msgs::Int16MultiArray& cmd_msg){
+void setVelocity(const std_msgs::Int16MultiArray& cmd_msg){
   //Controlling speed (0 = off and 255 = max speed):
-  int speed_L = cmd_msg.data[0];
-  int speed_R = cmd_msg.data[1];
+  int velocity_L = cmd_msg.data[0];
+  int velocity_R = cmd_msg.data[1];
 
-  if (speed_L < 0 && speed_R > 0) {
+  if (velocity_L < 0 && velocity_R > 0) {
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
-  } else if (speed_L > 0 && speed_R < 0) {
+  } else if (velocity_L > 0 && velocity_R < 0) {
     digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
     digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
-  } else if (speed_L < 0 && speed_R < 0) {
+  } else if (velocity_L < 0 && velocity_R < 0) {
     //Backward
     digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
-  } else if (speed_L > 0 && speed_R > 0) {
+  } else if (velocity_L > 0 && velocity_R > 0) {
     //Forward
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
     digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
   }
 
-  if (speed_L < 0) {
-    speed_L = speed_L*(-1);
+  if (velocity_L < 0) {
+    velocity_L = velocity_L*(-1);
   }
 
-  if (speed_R < 0) {
-    speed_R = speed_R*(-1);
+  if (velocity_R < 0) {
+    velocity_R = velocity_R*(-1);
   }
   
-  analogWrite(motorL_pwm_pin, speed_L);
-  analogWrite(motorR_pwm_pin, speed_R);
+  analogWrite(motorL_pwm_pin, velocity_L);
+  analogWrite(motorR_pwm_pin, velocity_R);
 }
 
 void readEncoderA_L(){  
@@ -266,7 +266,7 @@ void setupROSSerial() {
   nh.advertise(pub_orientation);
   nh.advertise(pub_encoderTicks);
 
-  nh.subscribe(sub_speed);
+  nh.subscribe(sub_velocity);
   nh.subscribe(sub_pubFreq);
   nh.subscribe(sub_caliIMU);
 }
