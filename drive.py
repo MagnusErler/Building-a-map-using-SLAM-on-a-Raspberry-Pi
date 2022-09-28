@@ -27,3 +27,5 @@ if __name__ == '__main__':
     command("vel=1.2 : dist=1")
 
     rospy.spin()
+
+
