@@ -36,7 +36,10 @@ pub_setSpeedPWM = rospy.Publisher('motor/CmdSetSpeedPWM', Int16MultiArray, queue
 newPWM_array = Int16MultiArray()
 newPWM_array.data = []
 
-pub_setSpeed = rospy.Publisher('motor/CmdSetSpeed', Int16MultiArray, queue_size=10)
+pub_setSpeed = rospy.Publisher('motor/CmdSetSpeed', Float32, queue_size=10)
+
+global event
+event = "Empty"
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
@@ -79,20 +82,20 @@ def callback_setDesiredSpeed(data):
 
 def callback_getJoystickValues(data):
     try:
-        [key, value] = data.data.split(": ")
+        [key, keyValue] = data.data.split(": ")
     except:
         key = data.data.split(": ")
-        value = 0
+        keyValue = 0
 
-    value = int(float(value)*255)
+    keyValue = int(float(keyValue)*255)
 
     global desiredSpeed_L, desiredSpeed_R
     if (key == "ry"):
-        desiredSpeed_L = value
-        desiredSpeed_R = value
+        desiredSpeed_L = keyValue
+        desiredSpeed_R = keyValue
     elif (key == "rx"):
-        desiredSpeed_L = value
-        desiredSpeed_R = -value
+        desiredSpeed_L = keyValue
+        desiredSpeed_R = -keyValue
 
     updateSpeed()
 
@@ -111,12 +114,13 @@ def callback_resetOdom(Empty):
     updateOdom(x, y, theta, current_speed_x, current_speed_y, current_speed_theta, rospy.Time.now())
 
 def callback_setEvent(data):
+    global event, eventValue
     [event, eventValue] = data.data.split("=")
 
 def checkEvent(distanceDriven):
-    
+    global event, eventValue
     if event == "dist":
-        if distanceDriven >= eventValue:
+        if distanceDriven >= float(eventValue):
             pub_setSpeed.publish(0)
 
 
@@ -227,7 +231,7 @@ if __name__ == '__main__':
     sub_desiredSpeed()
     sub_joystick()
     sub_resetOdom()
-    #sub_setEvent()
+    sub_setEvent()
 
     rospy.spin()
 
