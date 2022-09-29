@@ -208,7 +208,7 @@ Terminal 2:
 
 ```
 rostopic list
-rostopic echo /voltage
+rostopic echo /battery/voltage
 ```
 </details>
 

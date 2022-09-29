@@ -45,26 +45,12 @@ distanceDriven = 0
 odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
-## SUBSCRIBERS
-def sub_encoderTicks():
+def setupSubscribers():
     rospy.Subscriber('/motor/encoderTicks', Int16MultiArray, callback_getEncoderTicks)
-
-    global previous_time
-    previous_time = rospy.Time.now()
-
-def sub_setVelocity():
     rospy.Subscriber('/motor/CmdSetVelocity', Float32, callback_setVelocity)
-
-def sub_setTurnRadius():
     rospy.Subscriber('/motor/CmdSetTurnRadius', Float32, callback_setTurnRadius)
-
-def sub_joystick():
     rospy.Subscriber("/joystick", String, callback_getJoystickValues)
-
-def sub_resetOdom():
     rospy.Subscriber("/motor/CmdResetOdom", Empty, callback_resetOdom)
-
-def sub_setEvent():
     rospy.Subscriber("/motor/CmdSetEvent", String, callback_setEvent)
 
 ## CALLBACKS
@@ -250,12 +236,10 @@ def updateVelocity():
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)
 
-    sub_encoderTicks()
-    sub_setVelocity()
-    sub_setTurnRadius()
-    sub_joystick()
-    sub_resetOdom()
-    sub_setEvent()
+    setupSubscribers()
+
+    global previous_time
+    previous_time = rospy.Time.now()
 
     rospy.spin()
 

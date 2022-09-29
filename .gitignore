@@ -34,3 +34,4 @@
 # Added by me
 __pycache__/
 *.py[cod]
+*.pyc
