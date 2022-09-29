@@ -41,51 +41,29 @@ global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
 
+global pitch, roll, yaw
+pitch = 0   # [degrees]
+roll = 0    # [degrees]
+yaw = 0     # [degrees]
 
 odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
 def setupSubscribers():
-    rospy.Subscriber('/motor/encoderTicks', Int16MultiArray, callback_getEncoderTicks)
-    rospy.Subscriber('/motor/CmdSetVelocity', Float32, callback_setVelocity)
-    rospy.Subscriber('/motor/CmdSetTurnRadius', Float32, callback_setTurnRadius)
+    rospy.Subscriber("/IMU/orientation", Int16MultiArray, callback_getOrientation)
     rospy.Subscriber("/joystick", String, callback_getJoystickValues)
     rospy.Subscriber("/motor/CmdResetOdom", Empty, callback_resetOdom)
     rospy.Subscriber("/motor/CmdSetEvent", String, callback_setEvent)
+    rospy.Subscriber('/motor/CmdSetVelocity', Float32, callback_setVelocity)
+    rospy.Subscriber('/motor/CmdSetTurnRadius', Float32, callback_setTurnRadius)
+    rospy.Subscriber('/motor/encoderTicks', Int16MultiArray, callback_getEncoderTicks)
 
 ## CALLBACKS
-def callback_getEncoderTicks(data):
-    delta_encoderTick_L = data.data[0]
-    delta_encoderTick_R = data.data[1]
-
-    #print("Encoder ticks received [L, R]: " + str(delta_encoderTick_L) + ", " + str(delta_encoderTick_R))
-
-    calcOdom(delta_encoderTick_L, delta_encoderTick_R)
-    updateVelocity()
-
-def callback_setVelocity(data):
-    global desiredVelocity
-    desiredVelocity = data.data
-
-    global desiredVelocity_L, desiredVelocity_R
-    desiredVelocity_L = desiredVelocity
-    desiredVelocity_R = desiredVelocity
-
-    updateVelocity()
-
-def callback_setTurnRadius(data):
-    turnRadius = data.data
-
-    global desiredVelocity
-    desiredAngularVelocity = desiredVelocity / turnRadius
-
-    global desiredVelocity_L, desiredVelocity_R
-    desiredVelocity_L = (turnRadius + distanceBetweenWheels/2) * desiredAngularVelocity
-    desiredVelocity_R = (turnRadius - distanceBetweenWheels/2) * desiredAngularVelocity
-
-    # https://en.wikipedia.org/wiki/Differential_wheeled_robot
-
-    updateVelocity()
+def callback_getOrientation(data):
+    global pitch, roll, yaw
+    pitch = data.data[0]    # [degrees]
+    roll = data.data[1]     # [degrees]
+    yaw = data.data[2]      # [degrees]
 
 def callback_getJoystickValues(data):
     try:
@@ -123,6 +101,39 @@ def callback_resetOdom(Empty):
 def callback_setEvent(data):
     global event, eventValue
     [event, eventValue] = data.data.split("=")
+
+def callback_setVelocity(data):
+    global desiredVelocity
+    desiredVelocity = data.data
+
+    global desiredVelocity_L, desiredVelocity_R
+    desiredVelocity_L = desiredVelocity
+    desiredVelocity_R = desiredVelocity
+
+    updateVelocity()
+
+def callback_setTurnRadius(data):
+    turnRadius = data.data
+
+    global desiredVelocity
+    desiredAngularVelocity = desiredVelocity / turnRadius
+
+    global desiredVelocity_L, desiredVelocity_R
+    desiredVelocity_L = (turnRadius + distanceBetweenWheels/2) * desiredAngularVelocity
+    desiredVelocity_R = (turnRadius - distanceBetweenWheels/2) * desiredAngularVelocity
+
+    # https://en.wikipedia.org/wiki/Differential_wheeled_robot
+
+    updateVelocity()
+
+def callback_getEncoderTicks(data):
+    delta_encoderTick_L = data.data[0]
+    delta_encoderTick_R = data.data[1]
+
+    #print("Encoder ticks received [L, R]: " + str(delta_encoderTick_L) + ", " + str(delta_encoderTick_R))
+
+    calcOdom(delta_encoderTick_L, delta_encoderTick_R)
+    updateVelocity()
 
 ## FUNCTIONS
 def checkEvent():
@@ -173,7 +184,9 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
 
 def updateOdom(x, y, theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time):
     # since all odometry is 6DOF we'll need a quaternion created from yaw
-    odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
+    global pitch, roll, yaw # [degrees]
+    #odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
+    odom_quat = tf.transformations.quaternion_from_euler(pitch, roll, yaw)
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(

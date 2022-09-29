@@ -6,7 +6,6 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/Float32.h>
-#include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/String.h>
 
 void setVelocity(const std_msgs::Int16MultiArray&);
@@ -16,12 +15,11 @@ ros::NodeHandle nh;
 
 std_msgs::Int16MultiArray int16MultiArray;
 std_msgs::Float32 float32_msg;
-std_msgs::Float32MultiArray float32MultiArray;
 std_msgs::String str_msg;
 
 ros::Publisher pub_voltage("/battery/voltage", &float32_msg);
 ros::Publisher pub_temperature("/IMU/temperature", &float32_msg);
-ros::Publisher pub_orientation("/IMU/orientation", &float32MultiArray);
+ros::Publisher pub_orientation("/IMU/orientation", &int16MultiArray);
 ros::Publisher pub_encoderTicks("/motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("/motor/CmdSetVelocityPWM", setVelocity);
@@ -35,7 +33,7 @@ float voltage = 0.00;
 #include <MPU6050_tockn.h>
 MPU6050 mpu6050(Wire);
 float temperature;
-float pitch, roll, yaw;
+int pitch, roll, yaw;
 
 // -------Motor-------
 /*const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)   https://automaticaddison.com/calculate-pulses-per-revolution-for-a-dc-motor-with-encoder/
@@ -129,11 +127,11 @@ void caliIMU() {
 void getDataFromMPU6050() {
   mpu6050.update();
   
-  temperature = mpu6050.getTemp();
+  temperature = mpu6050.getTemp();  // [°C]
 
-  pitch = mpu6050.getAngleX();
-  roll = mpu6050.getAngleY();
-  yaw = mpu6050.getAngleZ();
+  pitch = mpu6050.getAngleX();      // [deg]
+  roll = mpu6050.getAngleY();       // [deg]
+  yaw = mpu6050.getAngleZ();        // [deg]
 }
 
 // -------Motor-------
@@ -278,9 +276,9 @@ void publishData() {
   float32_msg.data = temperature;
   pub_temperature.publish(&float32_msg);
 
-  float value[3] = {pitch, roll, yaw};
-  float32MultiArray.data = value;
-  float32MultiArray.data_length = 3;
-  pub_orientation.publish(&float32MultiArray);
+  int value[3] = {pitch, roll, yaw};
+  int16MultiArray.data = value;
+  int16MultiArray.data_length = 3;
+  pub_orientation.publish(&int16MultiArray);
 }
 
