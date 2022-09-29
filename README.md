@@ -278,7 +278,7 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 | ------------- | ------------- | ------------- |
 | ```/battery/voltage```  | Float32  | Give the voltage of the battery |
 | ```/IMU/temperatur```  | Float32  | Give the temperature (from the MPU6050-chip) |
-| ```/IMU/orientation```  | Float32MultiArray  | Give the orientation |
+| ```/IMU/orientation```  | Float32MultiArray  | Give the orientation [pitch, roll, yaw] |
 | ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
 | ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] |
 | ```/motor/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) |
@@ -287,7 +287,7 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 | Command  | Data types | Action | Example |
 | ------------- | ------------- | ------------- | ------------- |
 | ```/IMU/CmdCaliIMU```  | Empty  | Calibrate the IMU | ```rostopic pub /IMU/CmdCaliIMU std_msgs/Empty```
-| ```/motor/CmdResetOdom```  | Empty  | Reset the odometry | ```rostopic pub /motor/CResetOdom std_msgs/Empty```
+| ```/motor/CmdResetOdom```  | Empty  | Reset the odometry | ```rostopic pub /motor/CmdResetOdom std_msgs/Empty```
 | ```/motor/CmdSetEvent```  | String  | Set an event, when to stop the motors | ```rostopic pub /motor/CmdSetEvent std_msgs/String dist=1.2``` (drive 1.2m).
 | ```/motor/CmdSetTurnRadius```  | Float32  | Set the turning radius [m]. O.B.S. set first velocity. | ```rostopic pub /motor/CmdSetTurnRadius std_msgs/Float32 0.4``` (set the turning radius to 0.4 m). Setting the turning radius to 0 will have the robot to spin around its center 
 | ```/motor/CmdSetVelocity```  | Float32  | Set the velocity of both motors [m/s] | ```rostopic pub /motor/CmdSetVelocity std_msgs/Float32 1.2``` (set the overall wheel velocity to 1.2 m/s). Use -- before negativ values (e.g. -- -4).

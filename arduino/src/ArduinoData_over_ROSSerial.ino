@@ -62,8 +62,8 @@ volatile int pos_L = 0;
 
 // -------Timer-------
 long currentMillis = 0;
-long previousMillis = 0;
 long previousMillis1 = 0;
+long previousMillis2 = 0;
 
 // -------Setup-------
 void setup() {
@@ -81,8 +81,9 @@ void loop() {
   
   currentMillis = millis();
 
-  if (abs(currentMillis - previousMillis) > 1000) {
-    previousMillis = currentMillis;
+  // Publish encoder Ticks every 1sec
+  if (abs(currentMillis - previousMillis1) > 1000) {
+    previousMillis1 = currentMillis;
  
     getVoltage();
     getDataFromMPU6050();
@@ -91,8 +92,8 @@ void loop() {
   }
 
   // Publish encoder Ticks every 0.1sec
-  if (abs(currentMillis - previousMillis1) > 100) {
-    previousMillis1 = currentMillis;
+  if (abs(currentMillis - previousMillis2) > 100) {
+    previousMillis2 = currentMillis;
  
     int value[2] = {pos_L, pos_R};
     int16MultiArray.data = value;
