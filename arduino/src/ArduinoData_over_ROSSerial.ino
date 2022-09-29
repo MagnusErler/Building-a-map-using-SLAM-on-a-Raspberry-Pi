@@ -35,7 +35,7 @@ float voltage = 0.00;
 #include <MPU6050_tockn.h>
 MPU6050 mpu6050(Wire);
 float temperature;
-float roll, pitch, yaw;
+float pitch, roll, yaw;
 
 // -------Motor-------
 /*const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)   https://automaticaddison.com/calculate-pulses-per-revolution-for-a-dc-motor-with-encoder/
@@ -130,8 +130,8 @@ void getDataFromMPU6050() {
   
   temperature = mpu6050.getTemp();
 
-  roll = mpu6050.getAngleX();
-  pitch = mpu6050.getAngleY();
+  pitch = mpu6050.getAngleX();
+  roll = mpu6050.getAngleY();
   yaw = mpu6050.getAngleZ();
 }
 
@@ -277,7 +277,7 @@ void publishData() {
   float32_msg.data = temperature;
   pub_temperature.publish(&float32_msg);
 
-  float value[3] = {roll, pitch, yaw};
+  float value[3] = {pitch, roll, yaw};
   float32MultiArray.data = value;
   float32MultiArray.data_length = 3;
   pub_orientation.publish(&float32MultiArray);
