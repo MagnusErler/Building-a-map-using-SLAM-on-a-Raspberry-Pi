@@ -41,10 +41,8 @@ global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
 
-global roll, pitch, yaw
-roll = 0    # [degrees]
-pitch = 0   # [degrees]
-yaw = 0     # [degrees]
+global velocity_offset
+velocity_offset = 0
 
 odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
@@ -131,6 +129,13 @@ def callback_getEncoderTicks(data):
     delta_encoderTick_R = data.data[1]
 
     #print("Encoder ticks received [L, R]: " + str(delta_encoderTick_L) + ", " + str(delta_encoderTick_R))
+
+    global velocity_offset
+    velocity_offset = 0
+    if delta_encoderTick_L > delta_encoderTick_R:
+        velocity_offset = 0.1
+    elif delta_encoderTick_L < delta_encoderTick_R:
+        velocity_offset = -0.1
 
     calcOdom(delta_encoderTick_L, delta_encoderTick_R)
     updateVelocity()
@@ -233,6 +238,10 @@ def updateVelocity():
     global current_velocity_L, current_velocity_R
     newVelocity_L = pid_L(current_velocity_L)
     newVelocity_R = pid_R(current_velocity_R)
+
+    global velocity_offset
+    newVelocity_L += velocity_offset
+    newVelocity_R += velocity_offset
 
     #Convert new velocity [m/s] to RPM
     newRPM_L = (newVelocity_L / distancePerRevolution) * 60

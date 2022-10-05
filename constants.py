@@ -1,7 +1,6 @@
 
 import math
 
-
 # Motor
 encoderTickPerRevolution = 1200
 wheelRadius = 0.04  # [m]
@@ -17,3 +16,8 @@ maxRPM = 600        # [RPM]
 x = 0       # [m]
 y = 0       # [m]
 theta = 0   #
+
+# Start orientation
+roll = 0    # [degrees]
+pitch = 0   # [degrees]
+yaw = 0     # [degrees]
