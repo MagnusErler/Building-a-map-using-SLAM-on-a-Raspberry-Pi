@@ -139,7 +139,16 @@ ssh -X ubuntu@185.107.14.82
 ```
 ```-X``` starts up a proxy X11 server on the remote machine.
 
-When ssh-ing with GUI from a windows computer follow these steps (Top answer): https://stackoverflow.com/questions/34932495/forward-x11-failed-network-error-connection-refused
+When ssh-ing with GUI from a windows computer follow these steps:
+
+- Launch XMing on Windows client
+- Launch Putty
+    * Fill in basic options as you know in session category
+    * Connection -> SSH -> X11
+        -> Enable X11 forwarding
+        -> X display location = :0.0
+        -> MIT-Magic-Cookie-1
+        -> X authority file for local display = point to the Xming.exe executable
 
 <details>
 <summary>SSH folder from RP onto personal computer</summary>
