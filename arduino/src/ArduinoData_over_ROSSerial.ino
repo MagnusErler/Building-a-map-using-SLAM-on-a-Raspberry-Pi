@@ -9,7 +9,7 @@
 #include <std_msgs/String.h>
 
 void setVelocity(const std_msgs::Int16MultiArray&);
-void caliMPU6050(const std_msgs::Empty&);
+void calibrateMPU6050(const std_msgs::Empty&);
 
 ros::NodeHandle nh;
 
@@ -23,23 +23,19 @@ ros::Publisher pub_orientation("/IMU/orientation", &int16MultiArray);
 ros::Publisher pub_encoderTicks("/motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("/motor/CmdSetVelocityPWM", setVelocity);
-ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", caliMPU6050);
+ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU6050);
 
 // ------Voltmeter------
 float voltage = 0.00;
 
 // -------MPU6050-------
-#include <Wire.h>
 #include <MPU6050_tockn.h>
+//#include <Wire.h>     MPU6050_tockn.h is already using Wire.h
 MPU6050 mpu6050(Wire);
 float temperature;
-int roll, pitch, yaw
+int roll, pitch, yaw;
 
 // -------Motor-------
-/*const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)   https://automaticaddison.com/calculate-pulses-per-revolution-for-a-dc-motor-with-encoder/
-const float rpm_to_radians = 0.10471975512;
-const float rad_to_deg = 57.29578;*/
-
 // MOTOR RIGHT
 const int motorR_in1 = 4;
 const int motorR_in2 = 5;
@@ -110,18 +106,11 @@ void setupMPU6050() {
   Wire.begin();
   mpu6050.begin();
 
-  caliIMU();
+  mpu6050.calcGyroOffsets();
 }
 
-void caliMPU6050(const std_msgs::Empty&) {
-  // caliMPU6050() is a callback function and can't be called from other functions.
-  // For other functions to calibrate the IMU a new function has been made: caliIMU()
-  caliIMU();
-}
-
-void caliIMU() {
-  //mpu6050.calcGyroOffsets(true);
-  mpu6050.setGyroOffsets(2.32, 0.22, 0.11);
+void calibrateMPU6050(const std_msgs::Empty&) {
+  mpu6050.calcGyroOffsets();
 }
 
 void getDataFromMPU6050() {
