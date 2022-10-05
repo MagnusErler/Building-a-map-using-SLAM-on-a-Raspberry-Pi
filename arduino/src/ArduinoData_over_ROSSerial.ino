@@ -33,7 +33,7 @@ float voltage = 0.00;
 #include <MPU6050_tockn.h>
 MPU6050 mpu6050(Wire);
 float temperature;
-int pitch, roll, yaw;
+int roll, pitch, yaw
 
 // -------Motor-------
 /*const int ENC_COUNT_REV = 620; // Motor encoder output pulses per 360 degree revolution (measured manually)   https://automaticaddison.com/calculate-pulses-per-revolution-for-a-dc-motor-with-encoder/
@@ -79,8 +79,8 @@ void loop() {
   
   currentMillis = millis();
 
-  // Publish encoder Ticks every 1sec
-  if (abs(currentMillis - previousMillis1) > 1000) {
+  // Publish encoder Ticks every 0.5sec
+  if (abs(currentMillis - previousMillis1) > 500) {
     previousMillis1 = currentMillis;
  
     getVoltage();

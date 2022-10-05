@@ -41,9 +41,9 @@ global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
 
-global pitch, roll, yaw
-pitch = 0   # [degrees]
+global roll, pitch, yaw
 roll = 0    # [degrees]
+pitch = 0   # [degrees]
 yaw = 0     # [degrees]
 
 odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
@@ -60,9 +60,9 @@ def setupSubscribers():
 
 ## CALLBACKS
 def callback_getOrientation(data):
-    global pitch, roll, yaw
-    pitch = data.data[0]    # [degrees]
+    global roll, pitch, yaw
     roll = data.data[1]     # [degrees]
+    pitch = data.data[0]    # [degrees]
     yaw = data.data[2]      # [degrees]
 
 def callback_getJoystickValues(data):
@@ -184,16 +184,16 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
 
 def updateOdom(x, y, theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time):
     # since all odometry is 6DOF we'll need a quaternion created from yaw
-    global pitch, roll, yaw # [degrees]
+    global roll, pitch, yaw# [degrees]
     #odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
-    odom_quat = tf.transformations.quaternion_from_euler(pitch, roll, yaw)
+    odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
         (x, y, 0.),
         odom_quat,
         current_time,
-        "base_link",
+        "robot",
         "odom"
     )
 
@@ -206,7 +206,7 @@ def updateOdom(x, y, theta, current_velocity_x, current_velocity_y, current_velo
     odom.pose.pose = Pose(Point(x, y, 0.), Quaternion(*odom_quat))
 
     # set the velocity
-    odom.child_frame_id = "base_link"
+    odom.child_frame_id = "robot"
     odom.twist.twist = Twist(Vector3(current_velocity_x, current_velocity_y, 0), Vector3(0, 0, current_velocity_theta))
 
     # publish the message
