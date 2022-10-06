@@ -96,15 +96,21 @@ def display(data=OLEDtext):
         if (lineNr == 5):
             global OLEDtext_5
             OLEDtext_5 = str(OLEDtext)
+            rospy.loginfo("Writing \"" + OLEDtext + "\" to line 5")
         elif (lineNr == 6):
             global OLEDtext_6
             OLEDtext_6 = str(OLEDtext)
+            rospy.loginfo("Writing \"" + OLEDtext + "\" to line 6")
         elif (lineNr == 7):
             global OLEDtext_7
             OLEDtext_7 = str(OLEDtext)
+            rospy.loginfo("Writing \"" + OLEDtext + "\" to line 7")
         elif (lineNr == 8):
             global OLEDtext_8
             OLEDtext_8 = str(OLEDtext)
+            rospy.loginfo("Writing \"" + OLEDtext + "\" to line 8")
+        else:
+            rospy.loginfo("Couldn't write to OLED display. The given line number doesn't seem to be between 5 and 8.")
     except:
         OLEDtext = data
 
