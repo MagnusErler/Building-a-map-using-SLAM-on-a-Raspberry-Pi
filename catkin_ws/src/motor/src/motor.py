@@ -23,13 +23,13 @@ previous_encoderTick_L = 0
 previous_encoderTick_R = 0
 
 global current_velocity_L, current_velocity_R
-current_velocity_L = 0
-current_velocity_R = 0
+current_velocity_L = 0  # [m/s]
+current_velocity_R = 0  # [m/s]
 
 global desiredVelocity, desiredVelocity_L, desiredVelocity_R
-desiredVelocity = 0
-desiredVelocity_L = 0
-desiredVelocity_R = 0
+desiredVelocity = 0     # [m/s]
+desiredVelocity_L = 0   # [m/s]
+desiredVelocity_R = 0   # [m/s]
 
 pub_setVelocityPWM = rospy.Publisher('/motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
 newPWM_array = Int16MultiArray()
@@ -40,9 +40,6 @@ pub_setVelocity = rospy.Publisher('/motor/CmdSetVelocity', Float32, queue_size=1
 global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
-
-global velocity_offset
-velocity_offset = 0
 
 odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
@@ -70,15 +67,15 @@ def callback_getJoystickValues(data):
         key = data.data.split(": ")
         keyValue = 0
 
-    keyValue = int(float(keyValue)*255)
-
+    desiredJoystickVelocity = float(keyValue) * maxVelocity # [m/s]
+    
     global desiredVelocity_L, desiredVelocity_R
     if (key == "ry"):
-        desiredVelocity_L = keyValue
-        desiredVelocity_R = keyValue
+        desiredVelocity_L = desiredJoystickVelocity     # [m/s]
+        desiredVelocity_R = desiredJoystickVelocity     # [m/s]
     elif (key == "rx"):
-        desiredVelocity_L = keyValue
-        desiredVelocity_R = -keyValue
+        desiredVelocity_L = desiredJoystickVelocity     # [m/s]
+        desiredVelocity_R = -desiredJoystickVelocity    # [m/s]
 
     updateVelocity()
 
@@ -102,11 +99,11 @@ def callback_setEvent(data):
 
 def callback_setVelocity(data):
     global desiredVelocity
-    desiredVelocity = data.data
+    desiredVelocity = data.data # [m/s]
 
     global desiredVelocity_L, desiredVelocity_R
-    desiredVelocity_L = desiredVelocity
-    desiredVelocity_R = desiredVelocity
+    desiredVelocity_L = desiredVelocity # [m/s]
+    desiredVelocity_R = desiredVelocity # [m/s]
 
     updateVelocity()
 
@@ -130,13 +127,6 @@ def callback_getEncoderTicks(data):
 
     #print("Encoder ticks received [L, R]: " + str(delta_encoderTick_L) + ", " + str(delta_encoderTick_R))
 
-    global velocity_offset
-    velocity_offset = 0
-    if delta_encoderTick_L > delta_encoderTick_R:
-        velocity_offset = 0.1
-    elif delta_encoderTick_L < delta_encoderTick_R:
-        velocity_offset = -0.1
-
     calcOdom(delta_encoderTick_L, delta_encoderTick_R)
     updateVelocity()
 
@@ -152,20 +142,20 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     current_time = rospy.Time.now()
 
     # DISTANCE
-    delta_distance_L = distancePerTick * delta_encoderTick_L
-    delta_distance_R = distancePerTick * delta_encoderTick_R
-    delta_distance = (delta_distance_L + delta_distance_R) / 2
+    delta_distance_L = distancePerTick * delta_encoderTick_L    # [m]
+    delta_distance_R = distancePerTick * delta_encoderTick_R    # [m]
+    delta_distance = (delta_distance_L + delta_distance_R) / 2  # [m]
 
     # VELOCITY
     global current_velocity_L, current_velocity_R, previous_time
     delta_time_sec = (current_time - previous_time).to_sec()
     
-    current_velocity_L = delta_distance_L / delta_time_sec
-    current_velocity_R = delta_distance_R / delta_time_sec
-    delta_velocity = (current_velocity_L + current_velocity_R) / 2
+    current_velocity_L = delta_distance_L / delta_time_sec          # [m/s]
+    current_velocity_R = delta_distance_R / delta_time_sec          # [m/s]
+    delta_velocity = (current_velocity_L + current_velocity_R) / 2  # [m/s]
 
-    current_velocity_x = delta_velocity
-    current_velocity_y = 0
+    current_velocity_x = delta_velocity # [m/s]
+    current_velocity_y = 0              # [m/s]
     current_velocity_theta = ((current_velocity_R - current_velocity_L) / distanceBetweenWheels)
 
     # ODOMETRY
@@ -191,7 +181,8 @@ def updateOdom(x, y, theta, current_velocity_x, current_velocity_y, current_velo
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     global roll, pitch, yaw# [degrees]
     #odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
-    odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
+    #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
+    odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), theta)
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
@@ -218,42 +209,57 @@ def updateOdom(x, y, theta, current_velocity_x, current_velocity_y, current_velo
     odom_pub.publish(odom)
 
 def updateVelocity():
-    pid_P = 2
+    pid_P = 0.00548
+    pid_I = 0.0423
+    pid_D = 0.000177
+
+    pid_P = 1
     pid_I = 0
-    pid_D = 0.01
-    pid_Limits = (maxRPM/60)*distancePerRevolution
+    pid_D = 0
+
+    pid_Limits = maxVelocity  # [m/s]
     
-    global desiredVelocity_L
+    global desiredVelocity_L    # [m/s]
     pid_L = PID(pid_P, pid_I, pid_D)
     pid_L.setpoint = desiredVelocity_L
     pid_L.output_limits = (-pid_Limits, pid_Limits)
     #pid_L.sample_time = 0.001
 
-    global desiredVelocity_R
+    global desiredVelocity_R    # [m/s]
     pid_R = PID(pid_P, pid_I, pid_D)
     pid_R.setpoint = desiredVelocity_R
     pid_R.output_limits = (-pid_Limits, pid_Limits)
     #pid_R.sample_time = 0.001
 
     global current_velocity_L, current_velocity_R
-    newVelocity_L = pid_L(current_velocity_L)
-    newVelocity_R = pid_R(current_velocity_R)
-
-    global velocity_offset
-    newVelocity_L += velocity_offset
-    newVelocity_R += velocity_offset
+    newVelocity_L = pid_L(current_velocity_L)   # [m/s]
+    newVelocity_R = pid_R(current_velocity_R)   # [m/s]
 
     #Convert new velocity [m/s] to RPM
     newRPM_L = (newVelocity_L / distancePerRevolution) * 60
     newRPM_R = (newVelocity_R / distancePerRevolution) * 60
 
     #Convert RPM to PWM-values
-    newPWM_L = int((255/maxRPM) * newRPM_L)
-    newPWM_R = int((255/maxRPM) * newRPM_R)
+    newPWM_L = int((maxPWM/maxRPM) * newRPM_L)
+    newPWM_R = int((maxPWM/maxRPM) * newRPM_R)
 
     newPWM_array.data = [newPWM_L, newPWM_R]
 
     pub_setVelocityPWM.publish(newPWM_array)
+
+def driveStraight():
+
+    velocity_offset = 0
+    if delta_encoderTick_L > delta_encoderTick_R:
+        velocity_offset = 0.1   # [m/s]
+    elif delta_encoderTick_L < delta_encoderTick_R:
+        velocity_offset = -0.1  # [m/s]
+
+    global desiredVelocity_L, desiredVelocity_R
+    desiredVelocity_L += velocity_offset    # [m/s]
+    desiredVelocity_R += velocity_offset    # [m/s]
+
+    updateVelocity()
 
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)

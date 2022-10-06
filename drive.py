@@ -20,6 +20,11 @@ def command(command):
     pub_setEvent.publish(eventData)
     pub_setVelocity.publish(float(velocityValue))
 
+def driveStraight():
+
+    
+    pub_setVelocity.publish(float(velocityValue))
+
 if __name__ == '__main__':
     rospy.init_node('node_drive', anonymous=True)
 

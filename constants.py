@@ -9,6 +9,8 @@ distancePerRevolution = wheelCircumference      # 0.25132 [m]
 distancePerTick = distancePerRevolution / encoderTickPerRevolution  # 0.000209 [m]
 distanceBetweenWheels = 0.24    # [m]
 maxRPM = 600        # [RPM]
+maxPWM = 255
+maxVelocity = (maxRPM/60)*distancePerRevolution  # 2.51327 [m/s]
 #motorGear = 1/10
 
 # Odometry
