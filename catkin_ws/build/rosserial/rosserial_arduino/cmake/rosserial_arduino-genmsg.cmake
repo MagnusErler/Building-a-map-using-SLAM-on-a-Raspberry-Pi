@@ -281,10 +281,11 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/ross
     PATTERN "__init__.pyc" EXCLUDE
   )
   # install init files which are not in the root folder of the generated code
+  string(REGEX REPLACE "([][+.*()^])" "\\\\\\1" ESCAPED_PATH "${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/rosserial_arduino")
   install(
     DIRECTORY ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/rosserial_arduino
     DESTINATION ${genpy_INSTALL_DIR}
     FILES_MATCHING
-    REGEX "${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/rosserial_arduino/.+/__init__.pyc?$"
+    REGEX "${ESCAPED_PATH}/.+/__init__.pyc?$"
   )
 endif()
