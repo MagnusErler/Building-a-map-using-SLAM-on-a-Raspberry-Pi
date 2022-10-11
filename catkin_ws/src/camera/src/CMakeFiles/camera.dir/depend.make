@@ -78,7 +78,6 @@ CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/flann/sampling.
 CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/flann/saving.h
 CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/flann/timer.h
 CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/highgui.hpp
-CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/highgui/highgui.hpp
 CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/imgcodecs.hpp
 CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/imgproc.hpp
 CMakeFiles/camera.dir/camera.cpp.o: /usr/include/opencv4/opencv2/ml.hpp

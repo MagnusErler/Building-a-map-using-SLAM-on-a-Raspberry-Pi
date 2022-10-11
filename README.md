@@ -197,6 +197,16 @@ source /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catk
 Now with every new shell you open, it will source automatically
 </details>
 
+<details>
+<summary><b>Shutdown Raspberry Pi</b></summary>
+<br>
+Don't just pull the plug
+
+```
+sudo shutdown -h now
+```
+</details>
+
 ## Start using ROS
 Terminal 1:
 ```

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  
 
-CXX_DEFINES = -DROS_BUILD_SHARED_LIBS=1
+CXX_DEFINES = 
 
 CXX_INCLUDES = -isystem /usr/include/opencv4 
 
