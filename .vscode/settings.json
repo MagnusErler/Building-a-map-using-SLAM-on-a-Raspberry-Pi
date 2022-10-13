@@ -8,5 +8,8 @@
         "rospy",
         "rostopic",
         "temperatur"
-    ]
+    ],
+    "files.associations": {
+        "bitset": "cpp"
+    }
 }

@@ -212,7 +212,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=pub_video
+CMAKE_PROJECT_NAME:STATIC=streamVideo
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.10.0
@@ -424,6 +424,12 @@ pub_video_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-o
 
 //Value Computed by CMake
 pub_video_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi
+
+//Value Computed by CMake
+streamVideo_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi
+
+//Value Computed by CMake
+streamVideo_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi
 
 
 ########################

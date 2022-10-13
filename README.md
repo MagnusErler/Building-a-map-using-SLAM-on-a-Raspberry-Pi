@@ -198,7 +198,7 @@ Now with every new shell you open, it will source automatically
 </details>
 
 <details>
-<summary><b>Shutdown Raspberry Pi</b></summary>
+<summary><b>Shutdown RP</b></summary>
 <br>
 Don't just pull the plug
 

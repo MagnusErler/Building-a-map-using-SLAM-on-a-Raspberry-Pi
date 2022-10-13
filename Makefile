@@ -111,44 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named pub_video
+# Target rules for targets named streamVideo
 
 # Build rule for target.
-pub_video: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pub_video
-.PHONY : pub_video
+streamVideo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 streamVideo
+.PHONY : streamVideo
 
 # fast build rule for target.
-pub_video/fast:
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/build
-.PHONY : pub_video/fast
+streamVideo/fast:
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/build
+.PHONY : streamVideo/fast
 
-pub_video.o: pub_video.cpp.o
+streamVideo.o: streamVideo.cpp.o
 
-.PHONY : pub_video.o
+.PHONY : streamVideo.o
 
 # target to build an object file
-pub_video.cpp.o:
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/pub_video.cpp.o
-.PHONY : pub_video.cpp.o
+streamVideo.cpp.o:
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/streamVideo.cpp.o
+.PHONY : streamVideo.cpp.o
 
-pub_video.i: pub_video.cpp.i
+streamVideo.i: streamVideo.cpp.i
 
-.PHONY : pub_video.i
+.PHONY : streamVideo.i
 
 # target to preprocess a source file
-pub_video.cpp.i:
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/pub_video.cpp.i
-.PHONY : pub_video.cpp.i
+streamVideo.cpp.i:
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/streamVideo.cpp.i
+.PHONY : streamVideo.cpp.i
 
-pub_video.s: pub_video.cpp.s
+streamVideo.s: streamVideo.cpp.s
 
-.PHONY : pub_video.s
+.PHONY : streamVideo.s
 
 # target to generate assembly for a file
-pub_video.cpp.s:
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/pub_video.cpp.s
-.PHONY : pub_video.cpp.s
+streamVideo.cpp.s:
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/streamVideo.cpp.s
+.PHONY : streamVideo.cpp.s
 
 # Help Target
 help:
@@ -158,10 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... pub_video"
-	@echo "... pub_video.o"
-	@echo "... pub_video.i"
-	@echo "... pub_video.s"
+	@echo "... streamVideo"
+	@echo "... streamVideo.o"
+	@echo "... streamVideo.i"
+	@echo "... streamVideo.s"
 .PHONY : help
 
 

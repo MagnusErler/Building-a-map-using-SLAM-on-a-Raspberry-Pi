@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspb
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/pub_video.dir/all
+all: CMakeFiles/streamVideo.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/pub_video.dir/clean
+clean: CMakeFiles/streamVideo.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/pub_video.dir
+# Target rules for target CMakeFiles/streamVideo.dir
 
 # All Build rule for target.
-CMakeFiles/pub_video.dir/all:
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/depend
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/CMakeFiles --progress-num=1,2 "Built target pub_video"
-.PHONY : CMakeFiles/pub_video.dir/all
+CMakeFiles/streamVideo.dir/all:
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/depend
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/CMakeFiles --progress-num=1,2 "Built target streamVideo"
+.PHONY : CMakeFiles/streamVideo.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/pub_video.dir/rule: cmake_check_build_system
+CMakeFiles/streamVideo.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/pub_video.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/streamVideo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/CMakeFiles 0
-.PHONY : CMakeFiles/pub_video.dir/rule
+.PHONY : CMakeFiles/streamVideo.dir/rule
 
 # Convenience name for target.
-pub_video: CMakeFiles/pub_video.dir/rule
+streamVideo: CMakeFiles/streamVideo.dir/rule
 
-.PHONY : pub_video
+.PHONY : streamVideo
 
 # clean rule for target.
-CMakeFiles/pub_video.dir/clean:
-	$(MAKE) -f CMakeFiles/pub_video.dir/build.make CMakeFiles/pub_video.dir/clean
-.PHONY : CMakeFiles/pub_video.dir/clean
+CMakeFiles/streamVideo.dir/clean:
+	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/clean
+.PHONY : CMakeFiles/streamVideo.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
