@@ -8,5 +8,7 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/camera/src/devel:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH='/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/lib:/opt/ros/noetic/lib:/opt/vc/lib:/opt/vc/lib:/opt/vc/lib'
+export PATH='/opt/ros/noetic/bin:/home/ubuntu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/vc/bin:/opt/vc/bin:/opt/vc/bin'
 export ROSLISP_PACKAGE_DIRECTORIES="/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/camera/src/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/camera/src:$ROS_PACKAGE_PATH"

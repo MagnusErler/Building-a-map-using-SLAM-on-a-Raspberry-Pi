@@ -143,36 +143,4 @@ streamVideo.cpp.i:
 
 streamVideo.s: streamVideo.cpp.s
 
-.PHONY : streamVideo.s
-
-# target to generate assembly for a file
-streamVideo.cpp.s:
-	$(MAKE) -f CMakeFiles/streamVideo.dir/build.make CMakeFiles/streamVideo.dir/streamVideo.cpp.s
-.PHONY : streamVideo.cpp.s
-
-# Help Target
-help:
-	@echo "The following are some of the valid targets for this Makefile:"
-	@echo "... all (the default if no target is provided)"
-	@echo "... clean"
-	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... streamVideo"
-	@echo "... streamVideo.o"
-	@echo "... streamVideo.i"
-	@echo "... streamVideo.s"
-.PHONY : help
-
-
-
-#=============================================================================
-# Special targets to cleanup operation of make.
-
-# Special rule to run CMake to check the build system integrity.
-# No rule that depends on this can have commands that come from listfiles
-# because they might be regenerated.
-cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
-.PHONY : cmake_check_build_system
-
+.PHO
