@@ -12,7 +12,7 @@ For ROS we will install the desktop version of Ubuntu (Ubuntu 20.04 Desktop) as 
 
 There never was a specific desktop version of Ubuntu 20.04 for Raspberry Pi. Instead, we have to install the server version of Ubuntu 20.04, and when that is installed, install the desktop environment from the terminal.
 
-Start with downloading Raspberry Pi Imager on your personal machine, insert your SD card and flash it with Ubuntu 20.04 Server. Insert the SD card into the RP4, connect display and HDMI cable, login (long: ubuntu, password: ubuntu), and change the password. Now install the desktop version (without all the bloat) with:
+Start with downloading Raspberry Pi Imager on your personal machine, insert your SD card and flash it with Ubuntu 20.04 Server. Insert the SD card into the RP4, connect display and HDMI cable, login (login: ubuntu, password: ubuntu), and change the password. Now install the desktop version (without all the bloat) with:
 
 ```
 sudo apt-get update
