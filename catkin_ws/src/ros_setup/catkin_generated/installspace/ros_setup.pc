@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: ros_setup
+Description: Description of ros_setup
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

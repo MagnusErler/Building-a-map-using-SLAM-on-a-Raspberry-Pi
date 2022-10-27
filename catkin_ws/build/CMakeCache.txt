@@ -514,6 +514,12 @@ gtest_hide_internal_symbols:BOOL=OFF
 gtest_main_LIB_DEPENDS:STATIC=general;gtest;
 
 //Value Computed by CMake
+image_transport_ws_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/image_transport_ws
+
+//Value Computed by CMake
+image_transport_ws_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/image_transport_ws
+
+//Value Computed by CMake
 joystick_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/joystick
 
 //Value Computed by CMake

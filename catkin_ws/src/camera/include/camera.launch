@@ -1,3 +1,0 @@
-<launch>
-  <node name="camera_node" pkg="camera" type="camera.cpp" output="log"/>
-</launch>
