@@ -132,7 +132,9 @@ Test with ```raspistill -o test.jpg```
 <details>
 <summary><b>Setup ORB-SLAM3</b></summary>
 <br>
+  
 Pangolin
+  
 ```
 git clone https://github.com/stevenlovegrove/Pangolin.git
 cd Pangolin
@@ -140,7 +142,9 @@ mkdir build && cd build
 cmake ..
 cmake --build .
 ```
+  
 ORB_SLAM3
+  
 ```
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git ORB_SLAM3
 cd ORB_SLAM3
