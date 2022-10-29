@@ -139,8 +139,8 @@ Pangolin
 git clone https://github.com/stevenlovegrove/Pangolin.git
 cd Pangolin
 mkdir build && cd build
-cmake ..
-cmake --build .
+cmake -B build
+cmake --build build
 ```
   
 ORB_SLAM3
