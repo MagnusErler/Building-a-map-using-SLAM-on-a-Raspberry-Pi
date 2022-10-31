@@ -158,6 +158,14 @@ Run ORB-SLAM3-script
 cd ORB_SLAM3/
 ./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/TUM1.yaml 
 ```
+
+Run ROS ORB-SLAM3-script
+  
+```
+cd ORB_SLAM3/
+rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml
+```
+
   
 https://robot-vision-develop-story.tistory.com/10
 
