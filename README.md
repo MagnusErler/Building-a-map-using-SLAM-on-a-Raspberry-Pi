@@ -144,12 +144,19 @@ cmake --build build
 ```
   
 ORB_SLAM3
-  
+
 ```
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git ORB_SLAM3
 cd ORB_SLAM3
 chmod +x build.sh
 ./build.sh
+```
+
+Run ORB-SLAM3-script
+  
+```
+cd ORB_SLAM3/
+./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/TUM1.yaml 
 ```
   
 https://robot-vision-develop-story.tistory.com/10
