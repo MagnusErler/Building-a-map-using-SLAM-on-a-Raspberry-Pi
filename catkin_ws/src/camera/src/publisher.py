@@ -16,8 +16,8 @@ def publish_message():
   # numbers are added to the end of the name.
   rospy.init_node('video_pub_py', anonymous=True)
 
-  # Go through the loop 10 times per second
-  rate = rospy.Rate(10) # 10hz
+  # Go through the loop 2 times per second
+  rate = rospy.Rate(2) # 10hz
 
   # Create a VideoCapture object
   # The argument '0' gets the default webcam.

@@ -152,14 +152,14 @@ chmod +x build.sh
 ./build.sh
 ```
 
-Run ORB-SLAM3-script
+<b>Run ORB-SLAM3-script</b>
   
 ```
 cd ORB_SLAM3/
 ./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/TUM1.yaml 
 ```
 
-Run ROS ORB-SLAM3-script
+<b>Run ROS ORB-SLAM3-script</b>
 
 Terminal 1
 
