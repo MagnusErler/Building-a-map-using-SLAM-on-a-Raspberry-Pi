@@ -160,7 +160,16 @@ cd ORB_SLAM3/
 ```
 
 Run ROS ORB-SLAM3-script
-  
+
+Terminal 1
+
+```
+cd RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/camera/src/
+python publisher.py 
+```
+
+Terminal 2
+
 ```
 cd ORB_SLAM3/
 rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml
