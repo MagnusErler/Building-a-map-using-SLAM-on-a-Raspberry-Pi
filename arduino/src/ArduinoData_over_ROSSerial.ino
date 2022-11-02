@@ -39,7 +39,7 @@ int roll, pitch, yaw;
 // MOTOR RIGHT
 const int motorR_in1 = 4;
 const int motorR_in2 = 5;
-const int motorR_pwm_pin = A2; //A0 not working??
+const int motorR_pwm_pin = 11;
 const int motorR_encoderA = 3;
 const int motorR_encoderB = 2;
   
@@ -48,7 +48,7 @@ volatile int pos_R = 0;
 // MOTOR LEFT
 const int motorL_in1 = 8;
 const int motorL_in2 = 9;
-const int motorL_pwm_pin = A3;
+const int motorL_pwm_pin = 12;
 const int motorL_encoderA = 19;
 const int motorL_encoderB = 18;
   
@@ -159,7 +159,7 @@ void setVelocity(const std_msgs::Int16MultiArray& cmd_msg){
     //Forward
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
     digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
-  }
+  } 
 
   if (velocity_L < 0) {
     velocity_L = velocity_L*(-1);
