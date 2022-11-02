@@ -45,6 +45,9 @@ global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
 
+global odom_quat
+odom_quat = tf.transformations.quaternion_from_euler(0, 0, 0)
+
 odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
@@ -196,6 +199,11 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     y = y + delta_y
     theta = theta + delta_theta
 
+    if theta > math.pi:
+        theta = theta - 2*math.pi
+    elif theta < -math.pi:
+        theta = theta + 2*math.pi
+
     global distanceDriven
     distanceDriven = distanceDriven + math.sqrt(delta_x*delta_x + delta_y*delta_y)
 
@@ -210,7 +218,9 @@ def updateOdom(x, y, theta, current_velocity_x, current_velocity_y, current_velo
     global roll, pitch, yaw# [degrees]
     #odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
     #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
-    odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), theta)
+    #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), theta)
+    global odom_quat
+    odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
@@ -263,10 +273,8 @@ def updateVelocity():
     newVelocity_L = pid_L(current_velocity_L)   # [m/s]
     newVelocity_R = pid_R(current_velocity_R)   # [m/s]
 
-    print("desiredVelocity_L: " + str(desiredVelocity_L))
-
-    newVelocity_L = desiredVelocity_L
-    newVelocity_R = desiredVelocity_R
+    newVelocity_L = newVelocity_L * (100 + wheelSpeedOffset)/100
+    newVelocity_R = newVelocity_R * (100 - wheelSpeedOffset)/100
 
     #Convert new velocity [m/s] to RPM
     newRPM_L = (newVelocity_L / distancePerRevolution) * 60
@@ -295,56 +303,67 @@ def driveStraight():
     updateVelocity()
 
 def drive2Goal():
-    a =0
+    a = 0
 
-    r = rospy.Rate(4)
+    r = rospy.Rate(20)
 
-    while(a < 200):
+    while(a < 20000):
 
         #Goal position
-        global desiredPosition_x, desiredPosition_y
+        global desiredPosition_x, desiredPosition_y, x, y
         inc_x = desiredPosition_x - x
         inc_y = desiredPosition_y - y
 
 
         #print("desiredPosition_x: " + str(desiredPosition_x) + " desiredPosition_x: " + str(desiredPosition_y))
-        print("x: " + str(x) + ", y: " + str(y))
-        print("inc_x: " + str(inc_x) + " inc_x: " + str(inc_y))
+        #print("x: " + str(x) + ", y: " + str(y))
+        #print("inc_x: " + str(inc_x) + " inc_x: " + str(inc_y))
 
-        angle_to_goal = math.atan2(inc_y, inc_x)
-        #angle_to_goal = angle_to_goal *180/math.pi
+        angleToGoal = math.atan2(inc_y, inc_x)    # [rad]
+        #angleToGoal = angleToGoal *180/math.pi
 
-        theta_rad = theta * math.pi/180
-        if theta_rad >= math.pi or theta_rad <= -math.pi:
-            theta_rad = 0
+        #theta_rad = theta * math.pi/180
+        #if theta_rad >= math.pi or theta_rad <= -math.pi:
+        #    theta_rad = 0
 
-        print("angle_to_goal: " + str(angle_to_goal))
-        print("theta_rad: " + str(theta_rad))
+        global odom_quat
+        #print("odom_quat: " + str(odom_quat))
+        odom_euler = tf.transformations.euler_from_quaternion(odom_quat)
+        theta = odom_euler[2]
 
-        global desiredVelocity_L, desiredVelocity_R
-        if abs(angle_to_goal - theta_rad) > 0.1:
-            #speed.linear.x = 0.0
-            #speed.angular.z = 0.3
+        #global theta
+        #print("angle_to_goal_from_current_position: " + str(angleToGoal))
+        #print("Which way the robot faces (theta) [rad]: " + str(theta))
+        #print("abs(angleToGoal - theta): " + str(abs(angleToGoal - theta)))
 
-            desiredVelocity_L = 1.6   # [m/s]
-            desiredVelocity_R = -1.6  # [m/s]
-        else:
-            desiredVelocity_L = 2   # [m/s]
-            desiredVelocity_R = 2   # [m/s]
+        
+        global desiredVelocity, desiredVelocity_L, desiredVelocity_R
 
-        if inc_x < 0.2 and inc_y < 0.2:
-            print("I should stop now")
-            a = 1000
+        distanceToGoal = math.sqrt(inc_x*inc_x + inc_y*inc_y)
+        if distanceToGoal < 0.1:
+            print("Goal has been reached")
             desiredVelocity_L = 0   # [m/s]
-            desiredVelocity_R = 0
+            desiredVelocity_R = 0   # [m/s]
             updateVelocity()
             return
+
+        if abs(angleToGoal - theta) > 0.5:
+            desiredVelocity_L = -0.5    # [m/s]
+            desiredVelocity_R = 0.5     # [m/s]
+        else:
+            desiredVelocity_L = 1   # [m/s]
+            desiredVelocity_R = 1   # [m/s]
 
         updateVelocity()
 
         a = a +1
 
         r.sleep()  
+    
+    print("2 I should stop now")
+    desiredVelocity_L = 0   # [m/s]
+    desiredVelocity_R = 0
+    updateVelocity()
 
 
 if __name__ == '__main__':
