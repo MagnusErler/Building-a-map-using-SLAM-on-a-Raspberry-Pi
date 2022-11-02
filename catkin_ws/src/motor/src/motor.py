@@ -4,7 +4,7 @@
 import rospy
 import tf
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
+from geometry_msgs.msg import Point, Pose, PoseStamped, Quaternion, Twist, Vector3
 from std_msgs.msg import Empty
 from std_msgs.msg import Int16MultiArray
 from std_msgs.msg import Float32
@@ -31,6 +31,10 @@ desiredVelocity = 0     # [m/s]
 desiredVelocity_L = 0   # [m/s]
 desiredVelocity_R = 0   # [m/s]
 
+global desiredPosition_x, desiredPosition_y, desiredPosition_z
+desiredPosition_x = 0   # [m]
+desiredPosition_y = 0   # [m]
+
 pub_setVelocityPWM = rospy.Publisher('/motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
 newPWM_array = Int16MultiArray()
 newPWM_array.data = []
@@ -52,6 +56,7 @@ def setupSubscribers():
     rospy.Subscriber('/motor/CmdSetVelocity', Float32, callback_setVelocity)
     rospy.Subscriber('/motor/CmdSetTurnRadius', Float32, callback_setTurnRadius)
     rospy.Subscriber('/motor/encoderTicks', Int16MultiArray, callback_getEncoderTicks)
+    rospy.Subscriber('/move_base_simple/goal', PoseStamped, callback_getPoseGoal)
 
 ## CALLBACKS
 def callback_getOrientation(data):
@@ -67,7 +72,7 @@ def callback_getJoystickValues(data):
         key = data.data.split(": ")
         keyValue = 0
 
-    desiredJoystickVelocity = float(keyValue) * maxVelocity # [m/s]
+    desiredJoystickVelocity = float(keyValue) * maxVelocity # 2.51327 [m/s]
     
     global desiredVelocity_L, desiredVelocity_R
     if (key == "ry"):
@@ -130,6 +135,28 @@ def callback_getEncoderTicks(data):
     calcOdom(delta_encoderTick_L, delta_encoderTick_R)
     updateVelocity()
 
+def callback_getPoseGoal(data):
+    #rospy.loginfo("Received at goal message!")
+    #rospy.loginfo("Timestamp: " + str(data.header.stamp))
+    #rospy.loginfo("frame_id: " + str(data.header.frame_id))
+
+    position = data.pose.position
+
+    global desiredPosition_x, desiredPosition_y
+    desiredPosition_x = data.pose.position.x
+    desiredPosition_y = data.pose.position.y
+    
+    rospy.loginfo("Point Position: [ %f, %f ]"%(desiredPosition_x, desiredPosition_y))
+
+    drive2Goal()
+    
+    #quat = data.pose.orientation
+    #rospy.loginfo("Quat Orientation: [ %f, %f, %f, %f]"%(quat.x, quat.y, quat.z, quat.w))
+
+    #euler = tf.transformations.euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
+    #rospy.loginfo("Euler Angles: %s"%str(euler))
+
+
 ## FUNCTIONS
 def checkEvent():
     global event, eventValue, distanceDriven
@@ -164,6 +191,7 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     delta_x = delta_distance * math.cos(theta + (delta_theta / 2))
     delta_y = delta_distance * math.sin(theta + (delta_theta / 2))
 
+    # Current position according to odometry
     x = x + delta_x
     y = y + delta_y
     theta = theta + delta_theta
@@ -217,7 +245,7 @@ def updateVelocity():
     pid_I = 0
     pid_D = 0
 
-    pid_Limits = maxVelocity  # [m/s]
+    pid_Limits = maxVelocity  # 2.51327 [m/s]
     
     global desiredVelocity_L    # [m/s]
     pid_L = PID(pid_P, pid_I, pid_D)
@@ -234,6 +262,11 @@ def updateVelocity():
     global current_velocity_L, current_velocity_R
     newVelocity_L = pid_L(current_velocity_L)   # [m/s]
     newVelocity_R = pid_R(current_velocity_R)   # [m/s]
+
+    print("desiredVelocity_L: " + str(desiredVelocity_L))
+
+    newVelocity_L = desiredVelocity_L
+    newVelocity_R = desiredVelocity_R
 
     #Convert new velocity [m/s] to RPM
     newRPM_L = (newVelocity_L / distancePerRevolution) * 60
@@ -260,6 +293,59 @@ def driveStraight():
     desiredVelocity_R += velocity_offset    # [m/s]
 
     updateVelocity()
+
+def drive2Goal():
+    a =0
+
+    r = rospy.Rate(4)
+
+    while(a < 200):
+
+        #Goal position
+        global desiredPosition_x, desiredPosition_y
+        inc_x = desiredPosition_x - x
+        inc_y = desiredPosition_y - y
+
+
+        #print("desiredPosition_x: " + str(desiredPosition_x) + " desiredPosition_x: " + str(desiredPosition_y))
+        print("x: " + str(x) + ", y: " + str(y))
+        print("inc_x: " + str(inc_x) + " inc_x: " + str(inc_y))
+
+        angle_to_goal = math.atan2(inc_y, inc_x)
+        #angle_to_goal = angle_to_goal *180/math.pi
+
+        theta_rad = theta * math.pi/180
+        if theta_rad >= math.pi or theta_rad <= -math.pi:
+            theta_rad = 0
+
+        print("angle_to_goal: " + str(angle_to_goal))
+        print("theta_rad: " + str(theta_rad))
+
+        global desiredVelocity_L, desiredVelocity_R
+        if abs(angle_to_goal - theta_rad) > 0.1:
+            #speed.linear.x = 0.0
+            #speed.angular.z = 0.3
+
+            desiredVelocity_L = 1.6   # [m/s]
+            desiredVelocity_R = -1.6  # [m/s]
+        else:
+            desiredVelocity_L = 2   # [m/s]
+            desiredVelocity_R = 2   # [m/s]
+
+        if inc_x < 0.2 and inc_y < 0.2:
+            print("I should stop now")
+            a = 1000
+            desiredVelocity_L = 0   # [m/s]
+            desiredVelocity_R = 0
+            updateVelocity()
+            return
+
+        updateVelocity()
+
+        a = a +1
+
+        r.sleep()  
+
 
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)

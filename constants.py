@@ -17,7 +17,7 @@ maxVelocity = (maxRPM/60)*distancePerRevolution  # 2.51327 [m/s]
 # Start position
 x = 0       # [m]
 y = 0       # [m]
-theta = 0   #
+theta = 0   # [degrees]
 
 # Start orientation
 roll = 0    # [degrees]

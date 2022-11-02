@@ -1,8 +1,9 @@
 #include <ros/ros.h>
 #include <image_transport/image_transport.h>
-#include <opencv>
 //#include <opencv2/highgui/highgui.hpp>
-#include <opencv/modules/highgui/include/opencv2/highgui.hpp>
+//#include <opencv>
+#include <../opencv>
+//#include <../opencv/modules/highgui/include/opencv2/highgui.hpp>
 #include <cv_bridge/cv_bridge.h>
 
 int main(int argc, char** argv)
