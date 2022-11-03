@@ -3,12 +3,9 @@
 # ROS
 import rospy
 import tf
-from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point, Pose, PoseStamped, Quaternion, Twist, Vector3
-from std_msgs.msg import Empty
-from std_msgs.msg import Int16MultiArray
-from std_msgs.msg import Float32
-from std_msgs.msg import String
+from nav_msgs.msg import Odometry
+from std_msgs.msg import Empty, Int16MultiArray, Float32, String
 
 # Other
 import sys
@@ -47,8 +44,8 @@ odom_broadcaster = tf.TransformBroadcaster()
 
 # VELOCITY
 global currentVelocity_L, currentVelocity_R
-currentVelocity_L = 0  # [m/s]
-currentVelocity_R = 0  # [m/s]
+currentVelocity_L = 0   # [m/s]
+currentVelocity_R = 0   # [m/s]
 
 global desiredVelocity, desiredVelocity_L, desiredVelocity_R
 desiredVelocity = 0     # [m/s]
@@ -290,16 +287,16 @@ def updateVelocity():
     newVelocity_L = pid_L(currentVelocity_L)   # [m/s]
     newVelocity_R = pid_R(currentVelocity_R)   # [m/s]
 
-    newVelocity_L = newVelocity_L * (100 + wheelSpeedOffset)/100
-    newVelocity_R = newVelocity_R * (100 - wheelSpeedOffset)/100
+    newVelocity_L = newVelocity_L * (100 + wheelSpeedOffset)/100    # [m/s]
+    newVelocity_R = newVelocity_R * (100 - wheelSpeedOffset)/100    # [m/s]
 
     #Convert new velocity [m/s] to RPM
-    newRPM_L = (newVelocity_L / distancePerRevolution) * 60
-    newRPM_R = (newVelocity_R / distancePerRevolution) * 60
+    newRPM_L = (newVelocity_L / distancePerRevolution) * 60 # [RPM]
+    newRPM_R = (newVelocity_R / distancePerRevolution) * 60 # [RPM]
 
     #Convert RPM to PWM-values
-    newPWM_L = int((maxPWM/maxRPM) * newRPM_L)
-    newPWM_R = int((maxPWM/maxRPM) * newRPM_R)
+    newPWM_L = int((maxPWM/maxRPM) * newRPM_L)  # [PWM]
+    newPWM_R = int((maxPWM/maxRPM) * newRPM_R)  # [PWM]
 
     newPWM_array.data = [newPWM_L, newPWM_R]
 
@@ -323,17 +320,17 @@ def driveToXYPosition():
 
     r = rospy.Rate(20)
 
-    a = 0
+    tries = 0
 
-    while(a < 20000):
+    while(tries < 1000):
 
         #Goal position
         global desiredPosition_x, desiredPosition_y, currentPosition_x, currentPosition_y
-        distanceToGoal_x = desiredPosition_x - currentPosition_x
-        distanceToGoal_y = desiredPosition_y - currentPosition_y
+        distanceToGoal_x = desiredPosition_x - currentPosition_x    # [m]
+        distanceToGoal_y = desiredPosition_y - currentPosition_y    # [m]
 
         distanceToGoal = math.sqrt(distanceToGoal_x*distanceToGoal_x + distanceToGoal_y*distanceToGoal_y)   # [m]
-        angleToGoal = math.atan2(distanceToGoal_y, distanceToGoal_x)                  # [rad]
+        angleToGoal = math.atan2(distanceToGoal_y, distanceToGoal_x)    # [rad]
 
         global desiredVelocity_L, desiredVelocity_R
 
@@ -354,19 +351,21 @@ def driveToXYPosition():
         if abs(angleToGoal - currentOrientation_theta) > 0.5:
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
+
+            tries = tries + 1
         else:
             desiredVelocity_L = 1   # [m/s]
             desiredVelocity_R = 1   # [m/s]
 
-        updateVelocity()
+            tries = 0
 
-        a = a +1
+        updateVelocity()
 
         r.sleep()  
     
     print("Could NOT find the goal")
     desiredVelocity_L = 0   # [m/s]
-    desiredVelocity_R = 0
+    desiredVelocity_R = 0   # [m/s]
     updateVelocity()
 
 def driveToThetaOrientation():
