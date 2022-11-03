@@ -90,16 +90,16 @@ def callback_getJoystickValues(data):
 def callback_resetOdom(Empty):
     rospy.loginfo("Resetting the odometry")
 
-    global current_position_x, current_position_y, theta
-    current_position_x = 0
-    current_position_y = 0
-    theta = 0
+    global currentPosition_x, currentPosition_y, currentOrientation_theta
+    currentPosition_x = 0
+    currentPosition_y = 0
+    currentOrientation_theta = 0
 
     current_velocity_x = 0
     current_velocity_y = 0
     current_velocity_theta = 0
 
-    updateOdom(current_position_x, current_position_y, theta, current_velocity_x, current_velocity_y, current_velocity_theta, rospy.Time.now())
+    updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, rospy.Time.now())
 
 def callback_setEvent(data):
     global event, eventValue
@@ -143,7 +143,7 @@ def callback_getPoseGoal(data):
     #rospy.loginfo("Timestamp: " + str(data.header.stamp))
     #rospy.loginfo("frame_id: " + str(data.header.frame_id))
 
-    position = data.pose.position
+    #position = data.pose.position
 
     global desiredPosition_x, desiredPosition_y
     desiredPosition_x = data.pose.position.x
@@ -151,7 +151,7 @@ def callback_getPoseGoal(data):
     
     rospy.loginfo("Point Position: [ %f, %f ]"%(desiredPosition_x, desiredPosition_y))
 
-    driveToPosition()
+    driveToXYPosition()
     
     #quat = data.pose.orientation
     #rospy.loginfo("Quat Orientation: [ %f, %f, %f, %f]"%(quat.x, quat.y, quat.z, quat.w))
@@ -189,38 +189,40 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     current_velocity_theta = ((current_velocity_R - current_velocity_L) / distanceBetweenWheels)
 
     # ODOMETRY
-    global current_position_x, current_position_y, theta
+    global currentPosition_x, currentPosition_y, currentOrientation_theta
     delta_theta = (delta_distance_R - delta_distance_L) / (distanceBetweenWheels)
     delta_x = delta_distance * math.cos(theta + (delta_theta / 2))
     delta_y = delta_distance * math.sin(theta + (delta_theta / 2))
 
     # Current position according to odometry
-    current_position_x = current_position_x + delta_x
-    current_position_y = current_position_y + delta_y
-    theta = theta + delta_theta
+    currentPosition_x = currentPosition_x + delta_x
+    currentPosition_y = currentPosition_y + delta_y
 
-    if theta > math.pi:
-        theta = theta - 2*math.pi
-    elif theta < -math.pi:
-        theta = theta + 2*math.pi
+    # Current orientation according to odometry
+    currentOrientation_theta = currentOrientation_theta + delta_theta
+
+    if currentOrientation_theta > math.pi:
+        currentOrientation_theta = currentOrientation_theta - 2*math.pi
+    elif currentOrientation_theta < -math.pi:
+        currentOrientation_theta = currentOrientation_theta + 2*math.pi
 
     global distanceDriven
     distanceDriven = distanceDriven + math.sqrt(delta_x*delta_x + delta_y*delta_y)
 
     checkEvent()
 
-    updateOdom(current_position_x, current_position_y, theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time)
+    updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time)
     
     previous_time = current_time
 
-def updateOdom(current_position_x, current_position_y, theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time):
+def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time):
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     global roll, pitch, yaw # [degrees]
-    #odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
+    #odom_quat = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
     #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
-    #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), theta)
+    #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), currentOrientation_theta)
     global odom_quat
-    odom_quat = tf.transformations.quaternion_from_euler(0, 0, theta)
+    odom_quat = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
@@ -237,7 +239,7 @@ def updateOdom(current_position_x, current_position_y, theta, current_velocity_x
     odom.header.frame_id = "odom"
 
     # set the position
-    odom.pose.pose = Pose(Point(current_position_x, current_position_y, 0.), Quaternion(*odom_quat))
+    odom.pose.pose = Pose(Point(currentPosition_x, currentPosition_y, 0.), Quaternion(*odom_quat))
 
     # set the velocity
     odom.child_frame_id = "robot"
@@ -302,17 +304,18 @@ def driveStraight():
 
     updateVelocity()
 
-def driveToPosition():
-    a = 0
+def driveToXYPosition():
 
     r = rospy.Rate(20)
+
+    a = 0
 
     while(a < 20000):
 
         #Goal position
-        global desiredPosition_x, desiredPosition_y, current_position_x, current_position_y
-        distanceToGoal_x = desiredPosition_x - current_position_x
-        distanceToGoal_y = desiredPosition_y - current_position_y
+        global desiredPosition_x, desiredPosition_y, currentPosition_x, currentPosition_y
+        distanceToGoal_x = desiredPosition_x - currentPosition_x
+        distanceToGoal_y = desiredPosition_y - currentPosition_y
 
         distanceToGoal = math.sqrt(distanceToGoal_x*distanceToGoal_x + distanceToGoal_y*distanceToGoal_y)   # [m]
         angleToGoal = math.atan2(distanceToGoal_y, distanceToGoal_x)                  # [rad]
@@ -329,9 +332,9 @@ def driveToPosition():
         global odom_quat
         #print("odom_quat: " + str(odom_quat))
         odom_euler = tf.transformations.euler_from_quaternion(odom_quat)
-        theta = odom_euler[2]
+        currentOrientation_theta = odom_euler[2]
 
-        if abs(angleToGoal - theta) > 0.5:
+        if abs(angleToGoal - currentOrientation_theta) > 0.5:
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
         else:

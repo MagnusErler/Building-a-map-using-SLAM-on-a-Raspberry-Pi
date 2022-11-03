@@ -16,11 +16,11 @@ maxVelocity = (maxRPM/60)*distancePerRevolution  # 2.51327 [m/s]
 
 # Odometry
 # Start position
-x = 0       # [m]
-y = 0       # [m]
-theta = 0   # [rad]
+currentPosition_x = 0       # [m]
+currentPosition_y = 0       # [m]
 
 # Start orientation
 roll = 0    # [degrees]
 pitch = 0   # [degrees]
 yaw = 0     # [degrees]
+currentOrientation_theta = 0   # [rad]
