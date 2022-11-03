@@ -18,10 +18,34 @@ from simple_pid import PID
 sys.path.insert(1, '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi')
 from constants import *
 
+# ENCODER
 global previous_encoderTick_L, previous_encoderTick_R
 previous_encoderTick_L = 0
 previous_encoderTick_R = 0
 
+# POSITION
+global currentPosition_x, currentPosition_y
+currentPosition_x = 0   # [m]
+currentPosition_y = 0   # [m]
+
+global desiredPosition_x, desiredPosition_y, desiredPosition_z
+desiredPosition_x = 0   # [m]
+desiredPosition_y = 0   # [m]
+
+# ORIENTATION
+global roll, pitch, yaw, currentOrientation_theta
+roll = 0    # [degrees]
+pitch = 0   # [degrees]
+yaw = 0     # [degrees]
+currentOrientation_theta = 0
+
+global odom_quat
+odom_quat = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
+
+odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
+odom_broadcaster = tf.TransformBroadcaster()
+
+# VELOCITY
 global currentVelocity_L, currentVelocity_R
 currentVelocity_L = 0  # [m/s]
 currentVelocity_R = 0  # [m/s]
@@ -31,25 +55,16 @@ desiredVelocity = 0     # [m/s]
 desiredVelocity_L = 0   # [m/s]
 desiredVelocity_R = 0   # [m/s]
 
-global desiredPosition_x, desiredPosition_y, desiredPosition_z
-desiredPosition_x = 0   # [m]
-desiredPosition_y = 0   # [m]
-
 pub_setVelocityPWM = rospy.Publisher('/motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
 newPWM_array = Int16MultiArray()
 newPWM_array.data = []
 
 pub_setVelocity = rospy.Publisher('/motor/CmdSetVelocity', Float32, queue_size=10)
 
+# EVENT
 global event, distanceDriven
 event = "Empty"
 distanceDriven = 0
-
-global odom_quat
-odom_quat = tf.transformations.quaternion_from_euler(0, 0, 0)
-
-odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
-odom_broadcaster = tf.TransformBroadcaster()
 
 def setupSubscribers():
     rospy.Subscriber("/IMU/orientation", Int16MultiArray, callback_getOrientation)
@@ -323,7 +338,7 @@ def driveToXYPosition():
         global desiredVelocity_L, desiredVelocity_R
 
         if distanceToGoal < 0.1:
-            driveToThetaOrientation()
+            #driveToThetaOrientation()
 
             print("Goal has been reached")
             desiredVelocity_L = 0   # [m/s]
@@ -356,9 +371,9 @@ def driveToXYPosition():
 
 def driveToThetaOrientation():
 
-    #if abs(angleToGoal - currentOrientation_theta) > 0.5:
-    #    desiredVelocity_L = -0.5    # [m/s]
-    #    desiredVelocity_R = 0.5     # [m/s]
+    if abs(angleToGoal - currentOrientation_theta) > 0.5:
+        desiredVelocity_L = -0.5    # [m/s]
+        desiredVelocity_R = 0.5     # [m/s]
 
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)

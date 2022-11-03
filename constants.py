@@ -16,11 +16,11 @@ wheelSpeedOffset = 0.4          # [% (eg. 70 means 70%)]
 
 # Odometry
 # Start position
-currentPosition_x = 0       # [m]
-currentPosition_y = 0       # [m]
+#startPosition_x = 0       # [m]
+#startPosition_y = 0       # [m]
 
 # Start orientation
-roll = 0    # [degrees]
-pitch = 0   # [degrees]
-yaw = 0     # [degrees]
-currentOrientation_theta = 0   # [rad]
+#roll = 0    # [degrees]
+#pitch = 0   # [degrees]
+#yaw = 0     # [degrees]
+#startOrientation_theta = 0   # [rad]
