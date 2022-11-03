@@ -25,16 +25,12 @@ global currentPosition_x, currentPosition_y
 currentPosition_x = 0   # [m]
 currentPosition_y = 0   # [m]
 
-global desiredPosition_x, desiredPosition_y, desiredPosition_z
-desiredPosition_x = 0   # [m]
-desiredPosition_y = 0   # [m]
-
 # ORIENTATION
 global roll, pitch, yaw, currentOrientation_theta
 roll = 0    # [degrees]
 pitch = 0   # [degrees]
 yaw = 0     # [degrees]
-currentOrientation_theta = 0
+currentOrientation_theta = 0    # [rad]
 
 global odom_quat
 odom_quat = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
@@ -157,20 +153,18 @@ def callback_getPoseGoal(data):
 
     #position = data.pose.position
 
-    global desiredPosition_x, desiredPosition_y
     desiredPosition_x = data.pose.position.x
     desiredPosition_y = data.pose.position.y
-    
-    rospy.loginfo("Point Position: [ %f, %f ]"%(desiredPosition_x, desiredPosition_y))
 
-    driveToXYPosition()
+    driveToXYPosition(desiredPosition_x, desiredPosition_y)
     
-    #quat = data.pose.orientation
+    quat = data.pose.orientation
     #rospy.loginfo("Quat Orientation: [ %f, %f, %f, %f]"%(quat.x, quat.y, quat.z, quat.w))
 
-    #euler = tf.transformations.euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
-    #rospy.loginfo("Euler Angles: %s"%str(euler))
+    euler = tf.transformations.euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
+    rospy.loginfo("Euler Angles: %s"%str(euler))
 
+    driveToThetaOrientation(euler[2])
 
 ## FUNCTIONS
 def checkEvent():
@@ -287,8 +281,8 @@ def updateVelocity():
     newVelocity_L = pid_L(currentVelocity_L)   # [m/s]
     newVelocity_R = pid_R(currentVelocity_R)   # [m/s]
 
-    newVelocity_L = newVelocity_L * (100 + wheelSpeedOffset)/100    # [m/s]
-    newVelocity_R = newVelocity_R * (100 - wheelSpeedOffset)/100    # [m/s]
+    newVelocity_L = newVelocity_L * (100 + motorSpeedOffset)/100    # [m/s]
+    newVelocity_R = newVelocity_R * (100 - motorSpeedOffset)/100    # [m/s]
 
     #Convert new velocity [m/s] to RPM
     newRPM_L = (newVelocity_L / distancePerRevolution) * 60 # [RPM]
@@ -316,16 +310,17 @@ def driveStraight():
 
     updateVelocity()
 
-def driveToXYPosition():
+def driveToXYPosition(desiredPosition_x, desiredPosition_y):
+
+    rospy.loginfo("Driving to position: " + str(desiredPosition_x) + ", " + str(desiredPosition_y))
 
     r = rospy.Rate(20)
 
     tries = 0
 
-    while(tries < 1000):
+    while tries < 1000:
 
-        #Goal position
-        global desiredPosition_x, desiredPosition_y, currentPosition_x, currentPosition_y
+        global currentPosition_x, currentPosition_y
         distanceToGoal_x = desiredPosition_x - currentPosition_x    # [m]
         distanceToGoal_y = desiredPosition_y - currentPosition_y    # [m]
 
@@ -335,9 +330,8 @@ def driveToXYPosition():
         global desiredVelocity_L, desiredVelocity_R
 
         if distanceToGoal < 0.1:
-            #driveToThetaOrientation()
+            rospy.loginfo("Desired position (" + str(desiredPosition_x) + ", " + str(desiredPosition_y) + ") has been reached")
 
-            print("Goal has been reached")
             desiredVelocity_L = 0   # [m/s]
             desiredVelocity_R = 0   # [m/s]
             updateVelocity()
@@ -348,7 +342,9 @@ def driveToXYPosition():
         odom_euler = tf.transformations.euler_from_quaternion(odom_quat)
         currentOrientation_theta = odom_euler[2]
 
-        if abs(angleToGoal - currentOrientation_theta) > 0.5:
+        angleFromRobotToGoal = angleToGoal - currentOrientation_theta
+
+        if abs(angleFromRobotToGoal) > 0.5:
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
 
@@ -368,11 +364,22 @@ def driveToXYPosition():
     desiredVelocity_R = 0   # [m/s]
     updateVelocity()
 
-def driveToThetaOrientation():
+def driveToThetaOrientation(desiredOrientation_theta):
 
-    if abs(angleToGoal - currentOrientation_theta) > 0.5:
-        desiredVelocity_L = -0.5    # [m/s]
-        desiredVelocity_R = 0.5     # [m/s]
+    rospy.loginfo("Driving to orientation: " + str(desiredOrientation_theta) + " rad")
+
+    r = rospy.Rate(20)
+
+    tries = 0
+
+    while tries < 1000:
+        if abs(desiredOrientation_theta) > 0.5:
+            desiredVelocity_L = -0.5    # [m/s]
+            desiredVelocity_R = 0.5     # [m/s]
+
+            tries = tries + 1
+
+    rospy.loginfo("Desired orientation (" + str(desiredOrientation_theta) + ") has been reached")
 
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)

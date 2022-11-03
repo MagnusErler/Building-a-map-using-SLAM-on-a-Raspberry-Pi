@@ -85,8 +85,7 @@ sudo dpkg -i /tmp/raspi-config_20200601_all.deb
 Follow these instructions to enable I2C interface: https://www.instructables.com/Raspberry-Pi-Monitoring-System-Via-OLED-Display-Mo/
 
 
-sudo chmod a+rw /dev/i2c-*
-This is temporary and is lost at next boot so, to fix it permanently you need to do the following: https://lexruee.ch/setting-i2c-permissions-for-non-root-users.html
+```sudo chmod a+rw /dev/i2c-*``` is temporary a solution and is lost at next boot. To fix it permanently you need to do the following: https://lexruee.ch/setting-i2c-permissions-for-non-root-users.html
 
 </details>
 
@@ -263,7 +262,7 @@ Terminal 1:
 ```
 roslaunch ros_setup ros_setup.launch
 ```
-This runs alle nodes for the <b>joystick</b>, <b>Arduino</b> and <b>OLED display</b>
+This runs alle nodes for the <b>joystick</b> and <b>Arduino</b> (the node for <b>OLED display</b> is already called when Raspberry Pi boots)
 
 OBS! ```roscore``` will be called automatically - no need to do that manually
 
