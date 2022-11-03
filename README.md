@@ -356,6 +356,7 @@ Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upst
 #### <b>Subscriber</b>
 | Command  | Data types | Action | Example |
 | ------------- | ------------- | ------------- | ------------- |
+| ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera |
 | ```/IMU/CmdCaliIMU```  | Empty  | Calibrate the IMU | ```rostopic pub /IMU/CmdCaliIMU std_msgs/Empty```
 | ```/motor/CmdResetOdom```  | Empty  | Reset the odometry | ```rostopic pub /motor/CmdResetOdom std_msgs/Empty```
 | ```/motor/CmdSetEvent```  | String  | Set an event, when to stop the motors | ```rostopic pub /motor/CmdSetEvent std_msgs/String dist=1.2``` (drive 1.2m).
