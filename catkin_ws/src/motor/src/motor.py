@@ -22,9 +22,9 @@ global previous_encoderTick_L, previous_encoderTick_R
 previous_encoderTick_L = 0
 previous_encoderTick_R = 0
 
-global current_velocity_L, current_velocity_R
-current_velocity_L = 0  # [m/s]
-current_velocity_R = 0  # [m/s]
+global currentVelocity_L, currentVelocity_R
+currentVelocity_L = 0  # [m/s]
+currentVelocity_R = 0  # [m/s]
 
 global desiredVelocity, desiredVelocity_L, desiredVelocity_R
 desiredVelocity = 0     # [m/s]
@@ -177,20 +177,20 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     delta_distance = (delta_distance_L + delta_distance_R) / 2  # [m]
 
     # VELOCITY
-    global current_velocity_L, current_velocity_R, previous_time
+    global currentVelocity_L, currentVelocity_R, previous_time
     delta_time_sec = (current_time - previous_time).to_sec()
     
-    current_velocity_L = delta_distance_L / delta_time_sec          # [m/s]
-    current_velocity_R = delta_distance_R / delta_time_sec          # [m/s]
-    delta_velocity = (current_velocity_L + current_velocity_R) / 2  # [m/s]
+    currentVelocity_L = delta_distance_L / delta_time_sec          # [m/s]
+    currentVelocity_R = delta_distance_R / delta_time_sec          # [m/s]
+    delta_velocity = (currentVelocity_L + currentVelocity_R) / 2  # [m/s]
 
     current_velocity_x = delta_velocity # [m/s]
     current_velocity_y = 0              # [m/s]
-    current_velocity_theta = ((current_velocity_R - current_velocity_L) / distanceBetweenWheels)
+    current_velocity_theta = (currentVelocity_R - currentVelocity_L) / distanceBetweenWheels
 
     # ODOMETRY
     global currentPosition_x, currentPosition_y, currentOrientation_theta
-    delta_theta = (delta_distance_R - delta_distance_L) / (distanceBetweenWheels)
+    delta_theta = (delta_distance_R - delta_distance_L) / distanceBetweenWheels
     delta_x = delta_distance * math.cos(theta + (delta_theta / 2))
     delta_y = delta_distance * math.sin(theta + (delta_theta / 2))
 
@@ -271,9 +271,9 @@ def updateVelocity():
     pid_R.output_limits = (-pid_Limits, pid_Limits)
     #pid_R.sample_time = 0.001
 
-    global current_velocity_L, current_velocity_R
-    newVelocity_L = pid_L(current_velocity_L)   # [m/s]
-    newVelocity_R = pid_R(current_velocity_R)   # [m/s]
+    global currentVelocity_L, currentVelocity_R
+    newVelocity_L = pid_L(currentVelocity_L)   # [m/s]
+    newVelocity_R = pid_R(currentVelocity_R)   # [m/s]
 
     newVelocity_L = newVelocity_L * (100 + wheelSpeedOffset)/100
     newVelocity_R = newVelocity_R * (100 - wheelSpeedOffset)/100
@@ -323,6 +323,8 @@ def driveToXYPosition():
         global desiredVelocity_L, desiredVelocity_R
 
         if distanceToGoal < 0.1:
+            driveToThetaOrientation()
+
             print("Goal has been reached")
             desiredVelocity_L = 0   # [m/s]
             desiredVelocity_R = 0   # [m/s]
@@ -351,6 +353,12 @@ def driveToXYPosition():
     desiredVelocity_L = 0   # [m/s]
     desiredVelocity_R = 0
     updateVelocity()
+
+def driveToThetaOrientation():
+
+    #if abs(angleToGoal - currentOrientation_theta) > 0.5:
+    #    desiredVelocity_L = -0.5    # [m/s]
+    #    desiredVelocity_R = 0.5     # [m/s]
 
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)
