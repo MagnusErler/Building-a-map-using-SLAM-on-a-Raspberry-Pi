@@ -5,7 +5,7 @@ import math
 encoderTickPerRevolution = 1200
 wheelRadius = 0.04              # [m]
 wheelCircumference = 2 * math.pi * wheelRadius  # 0.25132 [m]
-wheelSpeedOffset = 0.4    # [%]
+wheelSpeedOffset = 0.4          # [% (eg. 70 means 70%)]
 distancePerRevolution = wheelCircumference      # 0.25132 [m]
 distancePerTick = distancePerRevolution / encoderTickPerRevolution  # 0.000209 [m]
 distanceBetweenWheels = 0.24    # [m]
