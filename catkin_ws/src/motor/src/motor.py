@@ -15,10 +15,9 @@ from simple_pid import PID
 sys.path.insert(1, '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi')
 from constants import *
 
-# ENCODER
-global previous_encoderTick_L, previous_encoderTick_R
-previous_encoderTick_L = 0
-previous_encoderTick_R = 0
+global delta_encoderTick_L, delta_encoderTick_R
+delta_encoderTick_L = 0
+delta_encoderTick_R = 0
 
 # POSITION
 global currentPosition_x, currentPosition_y
@@ -138,6 +137,7 @@ def callback_setTurnRadius(data):
     updateVelocity()
 
 def callback_getEncoderTicks(data):
+    global delta_encoderTick_L, delta_encoderTick_R
     delta_encoderTick_L = data.data[0]
     delta_encoderTick_R = data.data[1]
 
@@ -162,9 +162,9 @@ def callback_getPoseGoal(data):
     #rospy.loginfo("Quat Orientation: [ %f, %f, %f, %f]"%(quat.x, quat.y, quat.z, quat.w))
 
     euler = tf.transformations.euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
-    rospy.loginfo("Euler Angles: %s"%str(euler))
+    #rospy.loginfo("Euler Angles: %s"%str(euler))
 
-    driveToThetaOrientation(euler[2])
+    #driveToThetaOrientation(euler[2])
 
 ## FUNCTIONS
 def checkEvent():
@@ -197,8 +197,8 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     # ODOMETRY
     global currentPosition_x, currentPosition_y, currentOrientation_theta
     delta_theta = (delta_distance_R - delta_distance_L) / distanceBetweenWheels
-    delta_x = delta_distance * math.cos(theta + (delta_theta / 2))
-    delta_y = delta_distance * math.sin(theta + (delta_theta / 2))
+    delta_x = delta_distance * math.cos(currentOrientation_theta + (delta_theta / 2))
+    delta_y = delta_distance * math.sin(currentOrientation_theta + (delta_theta / 2))
 
     # Current position according to odometry
     currentPosition_x = currentPosition_x + delta_x
@@ -232,7 +232,7 @@ def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, c
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
-        (x, y, 0.),
+        (currentPosition_x, currentPosition_y, 0.),
         odom_quat,
         current_time,
         "robot",
@@ -298,17 +298,35 @@ def updateVelocity():
 
 def driveStraight():
 
-    velocity_offset = 0
-    if delta_encoderTick_L > delta_encoderTick_R:
-        velocity_offset = 0.1   # [m/s]
-    elif delta_encoderTick_L < delta_encoderTick_R:
-        velocity_offset = -0.1  # [m/s]
+    r = rospy.Rate(2)
 
     global desiredVelocity_L, desiredVelocity_R
-    desiredVelocity_L += velocity_offset    # [m/s]
-    desiredVelocity_R += velocity_offset    # [m/s]
+    desiredVelocity_L = 1
+    desiredVelocity_R = 1
 
-    updateVelocity()
+    while True:
+
+        print("Inside driveStraight")
+        global delta_encoderTick_L, delta_encoderTick_R
+
+        print(delta_encoderTick_L)
+
+        velocity_offset = 0
+        if delta_encoderTick_L > delta_encoderTick_R:
+            velocity_offset = 0.1   # [m/s]
+        elif delta_encoderTick_L < delta_encoderTick_R:
+            velocity_offset = -0.1  # [m/s]
+
+        #global desiredVelocity_L, desiredVelocity_R
+        desiredVelocity_L += velocity_offset    # [m/s]
+        desiredVelocity_R -= velocity_offset    # [m/s]
+
+        print(desiredVelocity_L)
+        print(desiredVelocity_R)
+
+        updateVelocity()
+
+        r.sleep() 
 
 def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
@@ -329,8 +347,8 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         global desiredVelocity_L, desiredVelocity_R
 
-        if distanceToGoal < 0.1:
-            rospy.loginfo("Desired position (" + str(desiredPosition_x) + ", " + str(desiredPosition_y) + ") has been reached")
+        if distanceToGoal < 0.05:
+            rospy.loginfo("DONE: Desired position (" + str(desiredPosition_x) + ", " + str(desiredPosition_y) + ") has been reached")
 
             desiredVelocity_L = 0   # [m/s]
             desiredVelocity_R = 0   # [m/s]
@@ -338,13 +356,12 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
             return
 
         global odom_quat
-        #print("odom_quat: " + str(odom_quat))
         odom_euler = tf.transformations.euler_from_quaternion(odom_quat)
         currentOrientation_theta = odom_euler[2]
 
         angleFromRobotToGoal = angleToGoal - currentOrientation_theta
 
-        if abs(angleFromRobotToGoal) > 0.5:
+        if abs(angleFromRobotToGoal) > 0.1:
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
 
@@ -359,7 +376,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         r.sleep()  
     
-    print("Could NOT find the goal")
+    print("Could NOT find the goal after 1000 tries")
     desiredVelocity_L = 0   # [m/s]
     desiredVelocity_R = 0   # [m/s]
     updateVelocity()
@@ -373,13 +390,25 @@ def driveToThetaOrientation(desiredOrientation_theta):
     tries = 0
 
     while tries < 1000:
+
+        if desiredOrientation_theta < 0.1:
+            rospy.loginfo("DONE: Desired orientation (" + str(desiredOrientation_theta) + ") has been reached")
+
+            desiredVelocity_L = 0   # [m/s]
+            desiredVelocity_R = 0   # [m/s]
+            updateVelocity()
+            return
+
         if abs(desiredOrientation_theta) > 0.5:
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
 
             tries = tries + 1
 
-    rospy.loginfo("Desired orientation (" + str(desiredOrientation_theta) + ") has been reached")
+    print("Could NOT find the goal after 1000 tries")
+    desiredVelocity_L = 0   # [m/s]
+    desiredVelocity_R = 0   # [m/s]
+    updateVelocity()
 
 if __name__ == '__main__':
     rospy.init_node('node_motor', anonymous=True)
