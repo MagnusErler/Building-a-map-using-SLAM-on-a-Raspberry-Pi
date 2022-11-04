@@ -333,9 +333,32 @@ Follow http://wiki.ros.org/ROS/Tutorials/CreatingPackage
 </details>
 
 <details>
-<summary>Make a ROS Launch Start on Boot</summary>
+<summary>Create script to launch at Boot</summary>
 <br>
 Follow https://roboticsbackend.com/make-ros-launch-start-on-boot-with-robot_upstart/
+
+```
+sudo apt-get install ros-noetic-robot-upstart 
+```
+
+<b>Install script to launch at boot</b>
+```
+cd RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/
+rosrun robot_upstart install ros_setup/launch/ros_setup.launch --job ros_setup --symlink
+sudo systemctl daemon-reload 
+```
+
+<b>Disabling</b>
+
+```
+sudo systemctl disable OLEDDisplay.py.service
+```
+
+<b>Re-enable</b>
+
+```
+sudo systemctl enable OLEDDisplay.py.service
+```
 </details>
 
 <br />

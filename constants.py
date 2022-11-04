@@ -10,5 +10,5 @@ distancePerTick = distancePerRevolution / encoderTickPerRevolution  # 0.000209 [
 distanceBetweenWheels = 0.24    # [m]
 maxRPM = 600                    # [RPM = rounds per minute]
 maxPWM = 255                    # [PWM]
-maxVelocity = (maxRPM/60)*distancePerRevolution  # 2.51327 [m/s]
+maxVelocity = (maxRPM/60)*distancePerRevolution # 2.51327 [m/s]
 motorSpeedOffset = 0.4          # [% (eg. 70 means 70%)]

@@ -300,35 +300,43 @@ def updateVelocity():
 
 def driveStraight():
 
-    r = rospy.Rate(2)
+    global delta_encoderTick_L, delta_encoderTick_R
+    velocity_offset = 0
+    if delta_encoderTick_L > delta_encoderTick_R:
+        velocity_offset = -0.1  # [m/s]
+    elif delta_encoderTick_L < delta_encoderTick_R:
+        velocity_offset = 0.1   # [m/s]
 
     global desiredVelocity_L, desiredVelocity_R
-    desiredVelocity_L = 1
-    desiredVelocity_R = 1
+    desiredVelocity_L = desiredVelocity_L + velocity_offset    # [m/s]
+    desiredVelocity_R = desiredVelocity_R - velocity_offset    # [m/s]
 
-    while True:
+    print(desiredVelocity_L)
+    print(desiredVelocity_R)
 
-        print("Inside driveStraight")
-        global delta_encoderTick_L, delta_encoderTick_R
+    updateVelocity()
+    
 
-        print(delta_encoderTick_L)
+    """
+    global currentOrientation_theta
 
-        velocity_offset = 0
-        if delta_encoderTick_L > delta_encoderTick_R:
-            velocity_offset = 0.1   # [m/s]
-        elif delta_encoderTick_L < delta_encoderTick_R:
-            velocity_offset = -0.1  # [m/s]
+    driveStraight_desiredOrientation_theta = currentOrientation_theta
 
-        #global desiredVelocity_L, desiredVelocity_R
-        desiredVelocity_L += velocity_offset    # [m/s]
-        desiredVelocity_R -= velocity_offset    # [m/s]
+    velocity_offset = 0
+    if driveStraight_desiredOrientation_theta < currentOrientation_theta:
+        velocity_offset = -0.1  # [m/s]
+    elif driveStraight_desiredOrientation_theta > currentOrientation_theta:
+        velocity_offset = 0.1  # [m/s]
 
-        print(desiredVelocity_L)
-        print(desiredVelocity_R)
+    global desiredVelocity_L, desiredVelocity_R
+    desiredVelocity_L = desiredVelocity_L + velocity_offset    # [m/s]
+    desiredVelocity_R = desiredVelocity_R - velocity_offset    # [m/s]
 
-        updateVelocity()
+    print(desiredVelocity_L)
+    print(desiredVelocity_R)
 
-        r.sleep() 
+    updateVelocity()
+    """
 
 def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
@@ -359,9 +367,8 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         global quaternion
         odom_euler = tf.transformations.euler_from_quaternion(quaternion)
-        currentOrientation_theta = odom_euler[2]
 
-        angleFromRobotToGoal = angleToGoal - currentOrientation_theta
+        angleFromRobotToGoal = angleToGoal - odom_euler[2]
 
         if abs(angleFromRobotToGoal) > 0.1:
             desiredVelocity_L = -0.5    # [m/s]
