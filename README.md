@@ -247,16 +247,6 @@ source /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catk
 Now with every new shell you open, it will source automatically
 </details>
 
-<details>
-<summary><b>Shutdown RP</b></summary>
-<br>
-Don't just pull the plug
-
-```
-sudo shutdown -h now
-```
-</details>
-
 ## Start using ROS
 Terminal 1:
 ```
@@ -387,7 +377,16 @@ sudo systemctl enable OLEDDisplay.py.service
 | ```/motor/CmdSetVelocityPWM```  | Int16MultiArray  | Set the velocity of both motors (0 = off and 255 = max speed). Negative values will drive the motor backwards |
 | ```/OLED/CmdsetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdsetText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
-## LiDAR
+## Other
+
+### Shutdown RP
+Don't just pull the plug. Use instead:
+
+```
+sudo shutdown -h now
+```
+
+### LiDAR
 ```
 cd ~/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/
 roslaunch mb_1r2t_ros view.launch port:=/dev/ttyUSB1
@@ -396,7 +395,7 @@ If ```ttyUSB1``` can't be found look for the USB-device with ```ls /dev/tty*```
 
 This will open RViz and show the LiDAR data
 
-## Control power to RP4 USB-ports
+### Control power to RP4 USB-ports
 https://github.com/mvp/uhubctl#raspberry-pi-b2b3b
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
