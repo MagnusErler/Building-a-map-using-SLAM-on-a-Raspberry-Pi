@@ -363,7 +363,7 @@ sudo systemctl enable OLEDDisplay.py.service
 | ```/motor/CmdSetTurnRadius```  | Float32  | Set the turning radius [m]. O.B.S. set first velocity. | ```rostopic pub /motor/CmdSetTurnRadius std_msgs/Float32 0.4``` (set the turning radius to 0.4 m). Setting the turning radius to 0 will have the robot to spin around its center 
 | ```/motor/CmdSetVelocity```  | Float32  | Set the velocity of both motors [m/s] | ```rostopic pub /motor/CmdSetVelocity std_msgs/Float32 1.2``` (set the overall wheel velocity to 1.2 m/s). Use -- before negativ values (e.g. -- -4).
 | ```/motor/CmdSetVelocityPWM```  | Int16MultiArray  | Set the velocity of both motors (0 = off and 255 = max speed). Negative values will drive the motor backwards |
-| ```/OLED/CmdsetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdsetText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
+| ```/OLED/CmdSetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdSetText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
 
 ## Other
 
