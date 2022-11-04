@@ -31,11 +31,8 @@ pitch = 0   # [degrees]
 yaw = 0     # [degrees]
 currentOrientation_theta = 0    # [rad]
 
-global odom_quat
-odom_quat = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
-
-odom_pub = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
-odom_broadcaster = tf.TransformBroadcaster()
+global quaternion
+quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
 
 # VELOCITY
 global currentVelocity_L, currentVelocity_R
@@ -47,10 +44,16 @@ desiredVelocity = 0     # [m/s]
 desiredVelocity_L = 0   # [m/s]
 desiredVelocity_R = 0   # [m/s]
 
-pub_setVelocityPWM = rospy.Publisher('/motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
 newPWM_array = Int16MultiArray()
 newPWM_array.data = []
 
+# ODOMETRY
+odom_broadcaster = tf.TransformBroadcaster()
+odom = Odometry()
+
+# SETUP PUBLISHERS
+pub_odom = rospy.Publisher("/motor/odom", Odometry, queue_size=50)
+pub_setVelocityPWM = rospy.Publisher('/motor/CmdSetVelocityPWM', Int16MultiArray, queue_size=10)
 pub_setVelocity = rospy.Publisher('/motor/CmdSetVelocity', Float32, queue_size=10)
 
 # EVENT
@@ -224,35 +227,34 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
 def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time):
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     global roll, pitch, yaw # [degrees]
-    #odom_quat = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
-    #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
-    #odom_quat = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), currentOrientation_theta)
-    global odom_quat
-    odom_quat = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
+    #quaternion = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
+    #quaternion = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
+    #quaternion = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), currentOrientation_theta)
+    global quaternion
+    quaternion = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
         (currentPosition_x, currentPosition_y, 0.),
-        odom_quat,
+        quaternion,
         current_time,
         "robot",
         "odom"
     )
 
     # next, we'll publish the odometry message over ROS
-    odom = Odometry()
     odom.header.stamp = current_time
     odom.header.frame_id = "odom"
 
     # set the position
-    odom.pose.pose = Pose(Point(currentPosition_x, currentPosition_y, 0.), Quaternion(*odom_quat))
+    odom.pose.pose = Pose(Point(currentPosition_x, currentPosition_y, 0.), Quaternion(*quaternion))
 
     # set the velocity
     odom.child_frame_id = "robot"
     odom.twist.twist = Twist(Vector3(current_velocity_x, current_velocity_y, 0), Vector3(0, 0, current_velocity_theta))
 
     # publish the message
-    odom_pub.publish(odom)
+    pub_odom.publish(odom)
 
 def updateVelocity():
     pid_P = 0.00548
@@ -355,8 +357,8 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
             updateVelocity()
             return
 
-        global odom_quat
-        odom_euler = tf.transformations.euler_from_quaternion(odom_quat)
+        global quaternion
+        odom_euler = tf.transformations.euler_from_quaternion(quaternion)
         currentOrientation_theta = odom_euler[2]
 
         angleFromRobotToGoal = angleToGoal - currentOrientation_theta
