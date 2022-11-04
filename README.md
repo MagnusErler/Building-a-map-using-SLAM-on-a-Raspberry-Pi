@@ -248,22 +248,11 @@ Now with every new shell you open, it will source automatically
 </details>
 
 ## Start using ROS
-Terminal 1:
-```
-roslaunch ros_setup ros_setup.launch
-```
-This runs alle nodes for the <b>joystick</b> and <b>Arduino</b> (the node for <b>OLED display</b> is already called when Raspberry Pi boots)
-
-OBS! ```roscore``` will be called automatically - no need to do that manually
-
-If ```ttyUSB0``` can't be found look for the USB-device with ```ls /dev/tty*```
-
 <br />
 
 <details>
-<summary>Get Data from Arduino (Rosrun)</summary>
+<summary>Get Data from Arduino</summary>
 <br>
-Terminal 2:
 
 ```
 rostopic list
@@ -272,9 +261,8 @@ rostopic echo /battery/voltage
 </details>
 
 <details>
-<summary>Send Data to Arduino (Rosrun)</summary>
+<summary>Send Data to Arduino</summary>
 <br>
-Terminal 2:
 
 ```
 rostopic list
