@@ -643,10 +643,16 @@ rosserial_arduino_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-usin
 rosserial_arduino_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_arduino
 
 //Value Computed by CMake
-rosserial_chibios_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_chibios
+rosserial_chibios1_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_chibios1
 
 //Value Computed by CMake
-rosserial_chibios_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_chibios
+rosserial_chibios1_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_chibios1
+
+//Value Computed by CMake
+rosserial_chibios_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_chibios1
+
+//Value Computed by CMake
+rosserial_chibios_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_chibios1
 
 //Value Computed by CMake
 rosserial_client_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_client

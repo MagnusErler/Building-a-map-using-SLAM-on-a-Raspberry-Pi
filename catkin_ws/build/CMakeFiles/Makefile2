@@ -56,7 +56,7 @@ CMAKE_BINARY_DIR = /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspb
 all: gtest/all
 all: rosserial/rosserial/all
 all: rosserial/rosserial_arduino/all
-all: rosserial/rosserial_chibios/all
+all: rosserial/rosserial_chibios1/all
 all: rosserial/rosserial_mbed/all
 all: rosserial/rosserial_msgs/all
 all: rosserial/rosserial_python/all
@@ -82,7 +82,7 @@ all: rosserial/rosserial_windows/all
 preinstall: gtest/preinstall
 preinstall: rosserial/rosserial/preinstall
 preinstall: rosserial/rosserial_arduino/preinstall
-preinstall: rosserial/rosserial_chibios/preinstall
+preinstall: rosserial/rosserial_chibios1/preinstall
 preinstall: rosserial/rosserial_mbed/preinstall
 preinstall: rosserial/rosserial_msgs/preinstall
 preinstall: rosserial/rosserial_python/preinstall
@@ -113,7 +113,7 @@ clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: rosserial/rosserial/clean
 clean: rosserial/rosserial_arduino/clean
-clean: rosserial/rosserial_chibios/clean
+clean: rosserial/rosserial_chibios1/clean
 clean: rosserial/rosserial_mbed/clean
 clean: rosserial/rosserial_msgs/clean
 clean: rosserial/rosserial_python/clean
@@ -373,22 +373,22 @@ rosserial/rosserial_arduino/clean: rosserial/rosserial_arduino/CMakeFiles/rosser
 .PHONY : rosserial/rosserial_arduino/clean
 
 #=============================================================================
-# Directory level rules for directory rosserial/rosserial_chibios
+# Directory level rules for directory rosserial/rosserial_chibios1
 
 # Recursive "all" directory target.
-rosserial/rosserial_chibios/all:
+rosserial/rosserial_chibios1/all:
 
-.PHONY : rosserial/rosserial_chibios/all
+.PHONY : rosserial/rosserial_chibios1/all
 
 # Recursive "preinstall" directory target.
-rosserial/rosserial_chibios/preinstall:
+rosserial/rosserial_chibios1/preinstall:
 
-.PHONY : rosserial/rosserial_chibios/preinstall
+.PHONY : rosserial/rosserial_chibios1/preinstall
 
 # Recursive "clean" directory target.
-rosserial/rosserial_chibios/clean:
+rosserial/rosserial_chibios1/clean:
 
-.PHONY : rosserial/rosserial_chibios/clean
+.PHONY : rosserial/rosserial_chibios1/clean
 
 #=============================================================================
 # Directory level rules for directory rosserial/rosserial_client
