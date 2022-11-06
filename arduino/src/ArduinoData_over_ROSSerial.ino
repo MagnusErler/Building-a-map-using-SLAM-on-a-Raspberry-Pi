@@ -49,8 +49,8 @@ volatile int pos_R = 0;
 const int motorL_in1 = 8;
 const int motorL_in2 = 9;
 const int motorL_pwm_pin = 12;
-const int motorL_encoderA = 19;
-const int motorL_encoderB = 18;
+const int motorL_encoderA = 7; //19 on Mega
+const int motorL_encoderB = 6; //18 on Mega
   
 volatile int pos_L = 0;
 
