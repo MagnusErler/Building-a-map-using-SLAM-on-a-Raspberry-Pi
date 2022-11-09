@@ -9,7 +9,7 @@
 #include <std_msgs/String.h>
 
 void setVelocity(const std_msgs::Int16MultiArray&);
-void calibrateMPU6050(const std_msgs::Empty&);
+void calibrateMPU9250(const std_msgs::Empty&);
 
 ros::NodeHandle nh;
 
@@ -23,15 +23,14 @@ ros::Publisher pub_orientation("/IMU/orientation", &int16MultiArray);
 ros::Publisher pub_encoderTicks("/motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("/motor/CmdSetVelocityPWM", setVelocity);
-ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU6050);
+ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU9250);
 
 // ------Voltmeter------
 float voltage = 0.00;
 
-// -------MPU6050-------
-#include <MPU6050_tockn.h>
-//#include <Wire.h>     MPU6050_tockn.h is already using Wire.h
-MPU6050 mpu6050(Wire);
+// -------MPU9250-------
+#include <MPU9250.h>
+MPU9250 MPU9250;
 float temperature;
 int roll, pitch, yaw;
 
@@ -66,7 +65,7 @@ void setup() {
 
   setupROSSerial();
   
-  setupMPU6050();
+  setupMPU9250();
 
   setupMotor();
 }
@@ -80,7 +79,7 @@ void loop() {
     previousMillis1 = currentMillis;
  
     getVoltage();
-    getDataFromMPU6050();
+    getDataFromMPU9250();
     
     publishData();
   }
@@ -102,25 +101,27 @@ void loop() {
 }
 
 // -------IMU-------
-void setupMPU6050() {
+void setupMPU9250() {
   Wire.begin();
-  mpu6050.begin();
+  mpu9250.setup(0x68);
 
-  mpu6050.calcGyroOffsets();
+  mpu9250.calibrateAccelGyro();
+  mpu9250.calibrateMag();
 }
 
-void calibrateMPU6050(const std_msgs::Empty&) {
-  mpu6050.calcGyroOffsets();
+void calibrateMPU9250(const std_msgs::Empty&) {
+  mpu9250.calibrateAccelGyro();
+  mpu9250.calibrateMag();
 }
 
-void getDataFromMPU6050() {
-  mpu6050.update();
+void getDataFromMPU9250() {
+  mpu9250.update();
   
-  temperature = mpu6050.getTemp();  // [°C]
+  temperature = mpu9250.getTemperature(); // [°C]
 
-  pitch = mpu6050.getAngleX();      // [deg]
-  roll = mpu6050.getAngleY();       // [deg]
-  yaw = mpu6050.getAngleZ();        // [deg]
+  pitch = mpu9250.getEulerX();            // [deg]
+  roll = mpu9250.getEulerY();             // [deg]
+  yaw = mpu9250.getEulerZ();              // [deg]
 }
 
 // -------Motor-------
