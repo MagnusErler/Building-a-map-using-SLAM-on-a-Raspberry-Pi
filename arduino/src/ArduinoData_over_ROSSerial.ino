@@ -9,7 +9,7 @@
 #include <std_msgs/String.h>
 
 void setVelocity(const std_msgs::Int16MultiArray&);
-void calibrateMPU9250(const std_msgs::Empty&);
+void calibrateMPU6050(const std_msgs::Empty&);
 
 ros::NodeHandle nh;
 
@@ -23,33 +23,34 @@ ros::Publisher pub_orientation("/IMU/orientation", &int16MultiArray);
 ros::Publisher pub_encoderTicks("/motor/encoderTicks", &int16MultiArray);
 
 ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("/motor/CmdSetVelocityPWM", setVelocity);
-ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU9250);
+ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU6050);
 
 // ------Voltmeter------
 float voltage = 0.00;
 
-// -------MPU9250-------
-#include <MPU9250.h>
-MPU9250 mpu9250;
+// -------MPU6050-------
+#include <MPU6050_tockn.h>
+//#include <Wire.h>     MPU6050_tockn.h is already using Wire.h
+MPU6050 mpu6050(Wire);
 float temperature;
 int roll, pitch, yaw;
 
 // -------Motor-------
 // MOTOR RIGHT
-const int motorR_in1 = 4;
-const int motorR_in2 = 5;
-const int motorR_pwm_pin = 11;
+const int motorR_in1 = 11;
+const int motorR_in2 = 12;
+const int motorR_pwm_pin = 13;
 const int motorR_encoderA = 3;
 const int motorR_encoderB = 2;
   
 volatile int pos_R = 0;
 
 // MOTOR LEFT
-const int motorL_in1 = 8;
+const int motorL_in1 = 10;
 const int motorL_in2 = 9;
-const int motorL_pwm_pin = 12;
-const int motorL_encoderA = 7; //19 on Mega
-const int motorL_encoderB = 6; //18 on Mega
+const int motorL_pwm_pin = 8;
+const int motorL_encoderA = 18;
+const int motorL_encoderB = 19;
   
 volatile int pos_L = 0;
 
@@ -65,7 +66,7 @@ void setup() {
 
   setupROSSerial();
   
-  setupMPU9250();
+  setupMPU6050();
 
   setupMotor();
 }
@@ -79,7 +80,7 @@ void loop() {
     previousMillis1 = currentMillis;
  
     getVoltage();
-    getDataFromMPU9250();
+    getDataFromMPU6050();
     
     publishData();
   }
@@ -88,7 +89,7 @@ void loop() {
   if (abs(currentMillis - previousMillis2) > 100) {
     previousMillis2 = currentMillis;
  
-    int16_t value[2] = {pos_L, pos_R};
+    int value[2] = {pos_L, pos_R};
     int16MultiArray.data = value;
     int16MultiArray.data_length = 2;
     pub_encoderTicks.publish(&int16MultiArray);
@@ -101,27 +102,25 @@ void loop() {
 }
 
 // -------IMU-------
-void setupMPU9250() {
+void setupMPU6050() {
   Wire.begin();
-  mpu9250.setup(0x68);
+  mpu6050.begin();
 
-  mpu9250.calibrateAccelGyro();
-  mpu9250.calibrateMag();
+  mpu6050.calcGyroOffsets();
 }
 
-void calibrateMPU9250(const std_msgs::Empty&) {
-  mpu9250.calibrateAccelGyro();
-  mpu9250.calibrateMag();
+void calibrateMPU6050(const std_msgs::Empty&) {
+  mpu6050.calcGyroOffsets();
 }
 
-void getDataFromMPU9250() {
-  mpu9250.update();
+void getDataFromMPU6050() {
+  mpu6050.update();
   
-  temperature = mpu9250.getTemperature(); // [°C]
+  temperature = mpu6050.getTemp();  // [°C]
 
-  pitch = mpu9250.getEulerX();            // [deg]
-  roll = mpu9250.getEulerY();             // [deg]
-  yaw = mpu9250.getEulerZ();              // [deg]
+  pitch = mpu6050.getAngleX();      // [deg]
+  roll = mpu6050.getAngleY();       // [deg]
+  yaw = mpu6050.getAngleZ();        // [deg]
 }
 
 // -------Motor-------
@@ -266,7 +265,7 @@ void publishData() {
   float32_msg.data = temperature;
   pub_temperature.publish(&float32_msg);
 
-  int16_t value[3] = {pitch, roll, yaw};
+  int value[3] = {pitch, roll, yaw};
   int16MultiArray.data = value;
   int16MultiArray.data_length = 3;
   pub_orientation.publish(&int16MultiArray);

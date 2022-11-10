@@ -279,11 +279,6 @@ Using platformio to send code to Arduino
 ```
 cd RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/arduino/
 ```
-Arduino Micro Pro
-```
-pio run -e micro -t upload
-```
-
 Arduino Mega 2560
 ```
 pio run -e megaatmega2560 -t upload
@@ -385,5 +380,18 @@ This will open RViz and show the LiDAR data
 
 ### Control power to RP4 USB-ports
 https://github.com/mvp/uhubctl#raspberry-pi-b2b3b
+
+### Microcontroller
+
+Digital input (interrupt): 4 
+Digital output (PWM): 6
+
+Analog input: 1
+Analog output: 0
+
+I2C: 1
+
+RAM: 2758 bytes
+Flash: 21752 bytes
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
