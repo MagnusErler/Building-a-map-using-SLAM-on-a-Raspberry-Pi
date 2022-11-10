@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE svg>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" gorn="0" enable-background="new 0 0 77.977 78" version="1.1" width="1.08301in" x="0px"  xmlns:xml="http://www.w3.org/XML/1998/namespace" y="0px" viewBox="0 0 77.977 78" height="1.08333in" xml:space="preserve" id="Layer_1">
+    <desc >
+        <referenceFile >svg.pcb.OLED 128x64 I2C Monochrome Display_9873fa8c93ca189432bda07f048c02ba_1_pcb.svg</referenceFile>
+    </desc>
+    <g gorn="0.1"  id="silkscreen">
+        <g transform="matrix(1 0 0 1 24.9895 12.7085)" >
+            <g >
+                <text font-family="DroidSans"  font-size="3" fill="#555555">GND</text>
+            </g>
+        </g>
+        <g transform="matrix(1 0 0 1 32.4421 12.7085)" >
+            <g >
+                <text font-family="DroidSans"  font-size="3" fill="#555555">VDD</text>
+            </g>
+        </g>
+        <g transform="matrix(1 0 0 1 39.9958 12.7085)" >
+            <g >
+                <text font-family="DroidSans"  font-size="3" fill="#555555">SCK</text>
+            </g>
+        </g>
+        <g transform="matrix(1 0 0 1 47.031 12.7085)" >
+            <g >
+                <text font-family="DroidSans"  font-size="3" fill="#555555">SDA</text>
+            </g>
+        </g>
+        <line x2="77.256" y1="0.72" x1="77.256" stroke="#000000" stroke-width="0.75"  y2="77.28" fill="none"/>
+        <line x2="77.256" y1="0.72" x1="0.72" stroke="#000000" stroke-width="0.75"  y2="0.72" fill="none"/>
+        <line x2="0.72" y1="0.72" x1="0.72" stroke="#000000" stroke-width="0.75"  y2="77.28" fill="none"/>
+        <line x2="77.256" y1="77.28" x1="0.72" stroke="#000000" stroke-width="0.75"  y2="77.28" fill="none"/>
+    </g>
+    <g gorn="0.2"  id="copper1">
+        <g gorn="0.2.0"  id="copper0_1_">
+            <rect gorn="0.2.0.0" width="4.175" stroke="#F7BD13" stroke-width="1.44" x="26.056"  y="4.303" height="4.172" id="square" fill="none"/>
+            <circle gorn="0.2.0.1" stroke="#F7BD13" stroke-width="1.44" cy="6.389"  r="2.089" id="connector8pin" fill="none" cx="49.748"/>
+            <circle gorn="0.2.0.2" stroke="#F7BD13" stroke-width="1.44" cy="6.39"  r="2.088" id="connector7pin" fill="none" cx="42.548"/>
+            <circle gorn="0.2.0.3" stroke="#F7BD13" stroke-width="1.44" cy="6.39"  r="2.088" id="connector5pin" fill="none" cx="35.346"/>
+            <circle gorn="0.2.0.4" stroke="#F7BD13" stroke-width="1.44" cy="6.39"  r="2.088" id="connector4pin" fill="none" cx="28.143"/>
+        </g>
+    </g>
+</svg>

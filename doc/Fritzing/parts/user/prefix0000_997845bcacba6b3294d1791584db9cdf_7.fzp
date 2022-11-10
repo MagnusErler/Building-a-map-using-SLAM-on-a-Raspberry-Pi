@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module referenceFile="generic_ic_dip_8_300mil.fzp" moduleId="prefix0000_997845bcacba6b3294d1791584db9cdf_7">
+ <version>4</version>
+ <author>Tobias Weis</author>
+ <title>DC Motor with two-phase hall-encoder</title>
+ <label>DC_Mot_Enc</label>
+ <date>So. Mai 14 2017</date>
+ <tags>
+  <tag>hall</tag>
+  <tag>dc motor</tag>
+  <tag>encoder</tag>
+  <tag>motor</tag>
+ </tags>
+ <properties>
+  <property name="family">dc motor</property>
+  <property name="variant">variant 1</property>
+  <property name="part number">VT-E-G25A-06-177E</property>
+ </properties>
+ <taxonomy>part.dip.8.pins</taxonomy>
+ <description>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">DC Motor with two-phase hall-encoder&lt;/p>&lt;/body>&lt;/html></description>
+ <views>
+  <iconView>
+   <layers image="icon/prefix0000_997845bcacba6b3294d1791584db9cdf_36_icon.svg">
+    <layer layerId="icon"/>
+   </layers>
+  </iconView>
+  <breadboardView>
+   <layers image="breadboard/prefix0000_997845bcacba6b3294d1791584db9cdf_36_breadboard.svg">
+    <layer layerId="breadboard"/>
+   </layers>
+  </breadboardView>
+  <schematicView>
+   <layers image="schematic/prefix0000_997845bcacba6b3294d1791584db9cdf_36_schematic.svg">
+    <layer layerId="schematic"/>
+   </layers>
+  </schematicView>
+  <pcbView>
+   <layers image="pcb/prefix0000_997845bcacba6b3294d1791584db9cdf_36_pcb.svg">
+    <layer layerId="silkscreen"/>
+    <layer layerId="copper0"/>
+    <layer layerId="copper1"/>
+   </layers>
+  </pcbView>
+ </views>
+ <connectors>
+  <connector name="pin1" id="connector0" type="male">
+   <description>pin 1</description>
+   <views>
+    <breadboardView>
+     <p layer="breadboard" terminalId="connector0terminal" svgId="connector0pin"/>
+    </breadboardView>
+    <schematicView>
+     <p layer="schematic" terminalId="connector0terminal" svgId="connector0pin"/>
+    </schematicView>
+    <pcbView>
+     <p layer="copper0" svgId="connector0pin"/>
+     <p layer="copper1" svgId="connector0pin"/>
+    </pcbView>
+   </views>
+  </connector>
+  <connector name="pin2" id="connector1" type="male">
+   <description>pin 2</description>
+   <views>
+    <breadboardView>
+     <p layer="breadboard" terminalId="connector1terminal" svgId="connector1pin"/>
+    </breadboardView>
+    <schematicView>
+     <p layer="schematic" terminalId="connector1terminal" svgId="connector1pin"/>
+    </schematicView>
+    <pcbView>
+     <p layer="copper0" svgId="connector1pin"/>
+     <p layer="copper1" svgId="connector1pin"/>
+    </pcbView>
+   </views>
+  </connector>
+  <connector name="pin3" id="connector2" type="male">
+   <description>pin 3</description>
+   <views>
+    <breadboardView>
+     <p layer="breadboard" terminalId="connector2terminal" svgId="connector2pin"/>
+    </breadboardView>
+    <schematicView>
+     <p layer="schematic" terminalId="connector2terminal" svgId="connector2pin"/>
+    </schematicView>
+    <pcbView>
+     <p layer="copper0" svgId="connector2pin"/>
+     <p layer="copper1" svgId="connector2pin"/>
+    </pcbView>
+   </views>
+  </connector>
+  <connector name="pin4" id="connector3" type="male">
+   <description>pin 4</description>
+   <views>
+    <breadboardView>
+     <p layer="breadboard" terminalId="connector3terminal" svgId="connector3pin"/>
+    </breadboardView>
+    <schematicView>
+     <p layer="schematic" terminalId="connector3terminal" svgId="connector3pin"/>
+    </schematicView>
+    <pcbView>
+     <p layer="copper0" svgId="connector3pin"/>
+     <p layer="copper1" svgId="connector3pin"/>
+    </pcbView>
+   </views>
+  </connector>
+  <connector name="pin5" id="connector4" type="male">
+   <description>pin 5</description>
+   <views>
+    <breadboardView>
+     <p layer="breadboard" terminalId="connector4terminal" svgId="connector4pin"/>
+    </breadboardView>
+    <schematicView>
+     <p layer="schematic" terminalId="connector4terminal" svgId="connector4pin"/>
+    </schematicView>
+    <pcbView>
+     <p layer="copper0" svgId="connector4pin"/>
+     <p layer="copper1" svgId="connector4pin"/>
+    </pcbView>
+   </views>
+  </connector>
+  <connector name="pin6" id="connector5" type="male">
+   <description>pin 6</description>
+   <views>
+    <breadboardView>
+     <p layer="breadboard" terminalId="connector5terminal" svgId="connector5pin"/>
+    </breadboardView>
+    <schematicView>
+     <p layer="schematic" terminalId="connector5terminal" svgId="connector5pin"/>
+    </schematicView>
+    <pcbView>
+     <p layer="copper0" svgId="connector5pin"/>
+     <p layer="copper1" svgId="connector5pin"/>
+    </pcbView>
+   </views>
+  </connector>
+ </connectors>
+</module>

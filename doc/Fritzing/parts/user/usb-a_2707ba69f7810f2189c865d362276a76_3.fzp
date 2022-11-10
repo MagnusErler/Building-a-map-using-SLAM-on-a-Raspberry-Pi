@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module moduleId="usb-a_2707ba69f7810f2189c865d362276a76_3" referenceFile="USB_TTL_Serial_Cable__48f59aac877dd787a20a0d85cc2b2cb2.fzp" fritzingVersion="0.7.5b.07.02.6130">
+ <author>Franz Pucher</author>
+ <title>USB A Plug</title>
+ <label>USBTTL</label>
+ <date>Wed Dec 30 2020</date>
+ <url></url>
+ <tags>
+  <tag>plug</tag>
+  <tag>a</tag>
+  <tag>serial</tag>
+  <tag>usb</tag>
+ </tags>
+ <properties>
+  <property name="family">USB Plugs</property>
+  <property name="part number"></property>
+  <property name="variant">variant 1</property>
+  <property name="layer"></property>
+ </properties>
+ <description>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">USB A Plug&lt;/p>&lt;/body>&lt;/html></description>
+ <views>
+  <iconView>
+   <layers image="icon/usb-a_2707ba69f7810f2189c865d362276a76_3_icon.svg">
+    <layer layerId="icon"/>
+   </layers>
+  </iconView>
+  <breadboardView>
+   <layers image="breadboard/usb-a_2707ba69f7810f2189c865d362276a76_3_breadboard.svg">
+    <layer layerId="breadboard"/>
+   </layers>
+  </breadboardView>
+  <schematicView>
+   <layers image="schematic/usb-a_2707ba69f7810f2189c865d362276a76_3_schematic.svg">
+    <layer layerId="schematic"/>
+   </layers>
+  </schematicView>
+  <pcbView>
+   <layers image="pcb/usb-a_2707ba69f7810f2189c865d362276a76_3_pcb.svg">
+    <layer layerId="copper0"/>
+    <layer layerId="silkscreen"/>
+   </layers>
+  </pcbView>
+ </views>
+ <connectors>
+  <connector type="male" name="usb" id="connector1">
+   <description>USB A</description>
+   <views>
+    <breadboardView>
+     <p svgId="connector1pin" terminalId="connector1terminal" layer="breadboard"/>
+    </breadboardView>
+    <schematicView>
+     <p svgId="connector1pin" layer="schematic"/>
+    </schematicView>
+    <pcbView>
+     <p svgId="connector1pin" layer="copper0"/>
+    </pcbView>
+   </views>
+  </connector>
+ </connectors>
+</module>

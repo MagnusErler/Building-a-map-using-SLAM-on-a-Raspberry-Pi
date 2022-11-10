@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module fritzingVersion="0.9.3b.04.19.5c895d327c44a3114e5fcc9d8260daf0cbb52806" icon="Mine.png">
+    <title>My Parts</title>
+    <instances>
+        <instance moduleIdRef="Ponte-H L298N_dc34ee980426c09a6ce219f055923b75_2" modelIndex="5758" path="/home/magnus/Documents/Fritzing/parts/user/Ponte-H L298N_dc34ee980426c09a6ce219f055923b75_2.fzp" flippedSMD="true">
+            <property name="flippedSMD" value="true"/>
+            <views/>
+        </instance>
+        <instance moduleIdRef="raspberry_pi_4_b" modelIndex="5763" path="/home/magnus/Documents/Fritzing/parts/user/raspberry_pi_4.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="prefix0000_997845bcacba6b3294d1791584db9cdf_7" modelIndex="6135" path="/home/magnus/Documents/Fritzing/parts/user/prefix0000_997845bcacba6b3294d1791584db9cdf_7.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="usb-micro-b_854684e06aacaae479fab76935c777ba_2" modelIndex="6885" path="/home/magnus/Documents/Fritzing/parts/user/usb-micro-b_854684e06aacaae479fab76935c777ba_2.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="usb-a_2707ba69f7810f2189c865d362276a76_3" modelIndex="6890" path="/home/magnus/Documents/Fritzing/parts/user/usb-a_2707ba69f7810f2189c865d362276a76_3.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="OLED 128x64 I2C Monochrome Display_bb571c5409e7e6421c7206ca6943925f_2" modelIndex="6909" path="/home/magnus/Documents/Fritzing/parts/user/OLED 128x64 I2C Monochrome Display_bb571c5409e7e6421c7206ca6943925f_2.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="fan_Ventilador_8d9c1b834fb87e9bd979cc237f408b44_4" modelIndex="7007" path="/home/magnus/Documents/Fritzing/parts/user/fan_Ventilador_8d9c1b834fb87e9bd979cc237f408b44_4.fzp">
+            <views/>
+        </instance>
+        <instance moduleIdRef="MPU-6050 GY-521_27d4eab32ad654bb2011bfb7d4e898dd_3" modelIndex="7489" path="/home/magnus/Documents/Fritzing/parts/user/MPU-6050 GY-521_27d4eab32ad654bb2011bfb7d4e898dd_3.fzp">
+            <views/>
+        </instance>
+    </instances>
+</module>

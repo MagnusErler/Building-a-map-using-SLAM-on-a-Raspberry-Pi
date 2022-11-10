@@ -25,7 +25,7 @@ sudo apt-get install lightdm
 ```
 Choose lightdm in the popup window
 ```
-sudo systemctl start lightdm.service    #You are maybe forced to press ctrl+alt+F2 to come back to the terminal)
+sudo systemctl start lightdm.service    #You are maybe forced to press ctrl+alt+F2 to come back to the terminal
 sudo service ligthdm start
 sudo reboot
 ```

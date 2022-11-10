@@ -26,6 +26,7 @@ ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("/motor/CmdSetVelocityPW
 ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU9250);
 
 // ------Voltmeter------
+const int voltage_in = A0
 float voltage = 0.00;
 
 // -------MPU9250-------
@@ -36,20 +37,20 @@ int roll, pitch, yaw;
 
 // -------Motor-------
 // MOTOR RIGHT
-const int motorR_in1 = 4;
-const int motorR_in2 = 5;
-const int motorR_pwm_pin = 11;
-const int motorR_encoderA = 3;
-const int motorR_encoderB = 2;
+const int motorR_in1 = 2;
+const int motorR_in2 = 3;
+const int motorR_pwm_pin = 4;
+const int motorR_encoderA = 5;
+const int motorR_encoderB = 6;
   
 volatile int pos_R = 0;
 
 // MOTOR LEFT
-const int motorL_in1 = 8;
-const int motorL_in2 = 9;
-const int motorL_pwm_pin = 12;
-const int motorL_encoderA = 7; //19 on Mega
-const int motorL_encoderB = 6; //18 on Mega
+const int motorL_in1 = 7;
+const int motorL_in2 = 8;
+const int motorL_pwm_pin = 9;
+const int motorL_encoderA = 10; //19 on Mega
+const int motorL_encoderB = 11; //18 on Mega
   
 volatile int pos_L = 0;
 
@@ -241,7 +242,7 @@ void readEncoderB_R(){
 
 // -------Voltage-------
 void getVoltage() {
-  voltage = (analogRead(A0) * 5.0) / 1024.00;
+  voltage = (analogRead(voltage_in) * 5.0) / 1024.00;
 }
 
 // -------Ros-------
