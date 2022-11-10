@@ -105,11 +105,11 @@ def callback_resetOdom(Empty):
     currentPosition_y = 0
     currentOrientation_theta = 0
 
-    current_velocity_x = 0
-    current_velocity_y = 0
-    current_velocity_theta = 0
+    currentVelocity_x = 0
+    currentVelocity_y = 0
+    currentVelocity_theta = 0
 
-    updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, rospy.Time.now())
+    updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, currentVelocity_x, currentVelocity_y, currentVelocity_theta, rospy.Time.now())
 
 def callback_setEvent(data):
     global event, eventValue
@@ -189,13 +189,13 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     global currentVelocity_L, currentVelocity_R, previous_time
     delta_time_sec = (current_time - previous_time).to_sec()
     
-    currentVelocity_L = delta_distance_L / delta_time_sec          # [m/s]
-    currentVelocity_R = delta_distance_R / delta_time_sec          # [m/s]
-    delta_velocity = (currentVelocity_L + currentVelocity_R) / 2  # [m/s]
+    currentVelocity_L = delta_distance_L / delta_time_sec           # [m/s]
+    currentVelocity_R = delta_distance_R / delta_time_sec           # [m/s]
+    delta_velocity = (currentVelocity_L + currentVelocity_R) / 2    # [m/s]
 
-    current_velocity_x = delta_velocity # [m/s]
-    current_velocity_y = 0              # [m/s]
-    current_velocity_theta = (currentVelocity_R - currentVelocity_L) / distanceBetweenWheels
+    currentVelocity_x = delta_velocity # [m/s]
+    currentVelocity_y = 0              # [m/s]
+    currentVelocity_theta = (currentVelocity_R - currentVelocity_L) / distanceBetweenWheels
 
     # ODOMETRY
     global currentPosition_x, currentPosition_y, currentOrientation_theta
@@ -220,11 +220,11 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
 
     checkEvent()
 
-    updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time)
+    updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, currentVelocity_x, currentVelocity_y, currentVelocity_theta, current_time)
     
     previous_time = current_time
 
-def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, current_velocity_x, current_velocity_y, current_velocity_theta, current_time):
+def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, currentVelocity_x, currentVelocity_y, currentVelocity_theta, current_time):
     # since all odometry is 6DOF we'll need a quaternion created from yaw
     global roll, pitch, yaw # [degrees]
     #quaternion = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
@@ -251,7 +251,7 @@ def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, c
 
     # set the velocity
     odom.child_frame_id = "robot"
-    odom.twist.twist = Twist(Vector3(current_velocity_x, current_velocity_y, 0), Vector3(0, 0, current_velocity_theta))
+    odom.twist.twist = Twist(Vector3(currentVelocity_x, currentVelocity_y, 0), Vector3(0, 0, currentVelocity_theta))
 
     # publish the message
     pub_odom.publish(odom)

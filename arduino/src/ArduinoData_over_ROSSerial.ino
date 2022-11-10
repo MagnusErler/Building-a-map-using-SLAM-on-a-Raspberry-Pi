@@ -1,6 +1,5 @@
 
 // ------ROS Serial------
-//#define USE_USBCON  //Used with Arduino Micro Pro
 #include <ros.h>
 #include <std_msgs/Empty.h>
 #include <std_msgs/Int16.h>
