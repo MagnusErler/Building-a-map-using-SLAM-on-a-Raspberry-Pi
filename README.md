@@ -59,7 +59,7 @@ sudo apt-get install ros-noetic-rosserial
 <summary><b>Setup PlatformIO</b></summary>
 <br>
 
-PlatformIO is used to uploade code to arduino from the terminal
+PlatformIO is used to upload code to arduino from the terminal
 ```
 sudo apt-get install python3 python3-pip
 sudo python3 -m pip install -U platformio
@@ -343,7 +343,7 @@ sudo systemctl enable OLEDDisplay.py.service
 | ------------- | ------------- | ------------- |
 | ```/battery/voltage```  | Float32  | Give the voltage of the battery |
 | ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera |
-| ```/IMU/temperatur```  | Float32  | Give the temperature (from the MPU6050-chip) |
+| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) |
 | ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] |
 | ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
 | ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] |
@@ -383,15 +383,15 @@ https://github.com/mvp/uhubctl#raspberry-pi-b2b3b
 
 ### Microcontroller
 
-Digital input (interrupt): 4 
-Digital output (PWM): 6
-
-Analog input: 1
-Analog output: 0
-
-I2C: 1
-
-RAM: 2758 bytes
-Flash: 21752 bytes
+Minimum requirements:
+- Ports
+    - Digital input (interrupt): 4
+    - Digital output (PWM): 6
+    - Analog input: 1
+    - Analog output: 0
+    - I2C: 1
+- Storage
+    - RAM: 2758 bytes
+    - Flash: 21752 bytes
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
