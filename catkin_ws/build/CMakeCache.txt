@@ -537,11 +537,20 @@ image_transport_ws_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-usi
 //Value Computed by CMake
 image_transport_ws_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/image_transport_ws
 
+//The directory containing a CMake configuration file for joy.
+joy_DIR:PATH=joy_DIR-NOTFOUND
+
 //Value Computed by CMake
 joystick_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/joystick
 
 //Value Computed by CMake
 joystick_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/joystick
+
+//Value Computed by CMake
+learning_joy_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/husarion-rosbot-2-gazebo-simulation/learning_joy
+
+//Value Computed by CMake
+learning_joy_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/husarion-rosbot-2-gazebo-simulation/learning_joy
 
 //Path to a library.
 lib:FILEPATH=/opt/ros/noetic/lib/librostime.so
@@ -603,6 +612,30 @@ ros_setup_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-o
 //Value Computed by CMake
 ros_setup_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/ros_setup
 
+//Value Computed by CMake
+rosbot_description_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/husarion-rosbot-2-gazebo-simulation/rosbot_description
+
+//Value Computed by CMake
+rosbot_description_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/husarion-rosbot-2-gazebo-simulation/rosbot_description
+
+//Value Computed by CMake
+rosbot_gazebo_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/husarion-rosbot-2-gazebo-simulation/rosbot_gazebo
+
+//Value Computed by CMake
+rosbot_gazebo_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/husarion-rosbot-2-gazebo-simulation/rosbot_gazebo
+
+//Value Computed by CMake
+rosbot_navigation_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/husarion-rosbot-2-gazebo-simulation/rosbot_navigation
+
+//Value Computed by CMake
+rosbot_navigation_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/husarion-rosbot-2-gazebo-simulation/rosbot_navigation
+
+//Value Computed by CMake
+rosbot_teleop_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/husarion-rosbot-2-gazebo-simulation/rosbot_teleop
+
+//Value Computed by CMake
+rosbot_teleop_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/husarion-rosbot-2-gazebo-simulation/rosbot_teleop
+
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/noetic/share/rosconsole/cmake
 
@@ -649,10 +682,10 @@ rosserial_chibios1_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-usi
 rosserial_chibios1_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_chibios1
 
 //Value Computed by CMake
-rosserial_chibios_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_chibios1
+rosserial_chibios_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_chibios
 
 //Value Computed by CMake
-rosserial_chibios_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_chibios1
+rosserial_chibios_SOURCE_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/rosserial/rosserial_chibios
 
 //Value Computed by CMake
 rosserial_client_BINARY_DIR:STATIC=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/build/rosserial/rosserial_client
@@ -926,7 +959,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=25
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=26
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

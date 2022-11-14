@@ -238,19 +238,19 @@ def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, c
         (currentPosition_x, currentPosition_y, 0.),
         quaternion,
         current_time,
-        "robot",
-        "odom"
+        "camera",
+        "world"
     )
 
     # next, we'll publish the odometry message over ROS
     odom.header.stamp = current_time
-    odom.header.frame_id = "odom"
+    odom.header.frame_id = "world"
 
     # set the position
     odom.pose.pose = Pose(Point(currentPosition_x, currentPosition_y, 0.), Quaternion(*quaternion))
 
     # set the velocity
-    odom.child_frame_id = "robot"
+    odom.child_frame_id = "camera"
     odom.twist.twist = Twist(Vector3(currentVelocity_x, currentVelocity_y, 0), Vector3(0, 0, currentVelocity_theta))
 
     # publish the message
@@ -290,6 +290,19 @@ def updateVelocity():
     newRPM_L = (newVelocity_L / distancePerRevolution) * 60 # [RPM]
     newRPM_R = (newVelocity_R / distancePerRevolution) * 60 # [RPM]
 
+    #Make sure that the calcualted RPM can't be above maxRPM (=600)
+    if (newRPM_L > maxRPM):
+        newRPM_L = maxRPM
+    
+    if (newRPM_R > maxRPM):
+        newRPM_R = maxRPM
+
+    if (newRPM_L < -maxRPM):
+        newRPM_L = -maxRPM
+    
+    if (newRPM_R < -maxRPM):
+        newRPM_R = -maxRPM
+
     #Convert RPM to PWM-values
     newPWM_L = int((maxPWM/maxRPM) * newRPM_L)  # [PWM]
     newPWM_R = int((maxPWM/maxRPM) * newRPM_R)  # [PWM]
@@ -310,9 +323,6 @@ def driveStraight():
     global desiredVelocity_L, desiredVelocity_R
     desiredVelocity_L = desiredVelocity_L + velocity_offset    # [m/s]
     desiredVelocity_R = desiredVelocity_R - velocity_offset    # [m/s]
-
-    print(desiredVelocity_L)
-    print(desiredVelocity_R)
 
     updateVelocity()
     

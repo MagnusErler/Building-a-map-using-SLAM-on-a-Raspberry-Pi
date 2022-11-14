@@ -145,9 +145,11 @@ void setVelocity(const std_msgs::Int16MultiArray& cmd_msg){
   int velocity_R = cmd_msg.data[1];
 
   if (velocity_L < 0 && velocity_R > 0) {
+    //Turning left
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
     digitalWrite(motorR_in1, LOW); digitalWrite(motorR_in2, HIGH);
   } else if (velocity_L > 0 && velocity_R < 0) {
+    //Turning right
     digitalWrite(motorL_in1, HIGH); digitalWrite(motorL_in2, LOW);
     digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
   } else if (velocity_L < 0 && velocity_R < 0) {
@@ -158,18 +160,10 @@ void setVelocity(const std_msgs::Int16MultiArray& cmd_msg){
     //Forward
     digitalWrite(motorL_in1, LOW); digitalWrite(motorL_in2, HIGH);
     digitalWrite(motorR_in1, HIGH); digitalWrite(motorR_in2, LOW);
-  } 
-
-  if (velocity_L < 0) {
-    velocity_L = velocity_L*(-1);
-  }
-
-  if (velocity_R < 0) {
-    velocity_R = velocity_R*(-1);
   }
   
-  analogWrite(motorL_pwm_pin, velocity_L);
-  analogWrite(motorR_pwm_pin, velocity_R);
+  analogWrite(motorL_pwm_pin, abs(velocity_L));
+  analogWrite(motorR_pwm_pin, abs(velocity_R));
 }
 
 void readEncoderA_L(){  

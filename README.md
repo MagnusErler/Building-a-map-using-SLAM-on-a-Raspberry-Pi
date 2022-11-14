@@ -334,6 +334,15 @@ sudo systemctl enable OLEDDisplay.py.service
 ```
 </details>
 
+<details>
+<summary>Kill a ROS node</summary>
+
+```
+rosnode kill --all
+```
+
+</details>
+
 <br />
 
 ### Communication (Subscriber and publisher)

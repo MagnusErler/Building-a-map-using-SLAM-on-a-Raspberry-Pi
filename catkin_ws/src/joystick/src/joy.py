@@ -142,7 +142,7 @@ for btn in buf[:num_buttons]:
 ##print('%d buttons found: %s' % (num_buttons, ', '.join(button_map)))
 
 
-pub = rospy.Publisher('joystick', String, queue_size=10)
+pub = rospy.Publisher('/joystick', String, queue_size=10)
 rospy.init_node('talker_joystick_node')
 rate = rospy.Rate(10) # 10hz
 

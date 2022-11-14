@@ -4,10 +4,9 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Status1
+        - /TF1
         - /TF1/Frames1
-        - /TF1/Frames1/odom1
-        - /TF1/Frames1/robot1
-        - /TF1/Tree1/odom1
         - /Image1
       Splitter Ratio: 0.5
     Tree Height: 482
@@ -59,9 +58,9 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        odom:
-          Value: true
         robot:
+          Value: true
+        world:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
@@ -70,7 +69,7 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
+        world:
           robot:
             {}
       Update Interval: 0
@@ -91,7 +90,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: odom
+    Fixed Frame: world
     Frame Rate: 30
   Name: root
   Tools:
@@ -115,7 +114,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 5.999141693115234
+      Distance: 2.157498836517334
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1

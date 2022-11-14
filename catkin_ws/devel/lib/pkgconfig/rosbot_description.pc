@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel
+
+Name: rosbot_description
+Description: Description of rosbot_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
