@@ -131,7 +131,19 @@ Test with ```raspistill -o test.jpg```
 <details>
 <summary><b>Setup ORB-SLAM3</b></summary>
 <br>
-  
+
+OpenCV
+
+```
+git clone https://github.com/opencv/opencv.git
+cd opencv
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_GTK=ON -D WITH_OPENGL=ON ..
+make
+sudo make install
+```
+
 Pangolin
   
 ```
@@ -149,6 +161,8 @@ git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git ORB_SLAM3
 cd ORB_SLAM3
 chmod +x build.sh
 ./build.sh
+chmod +x build_ros.sh
+./build_ros.sh
 ```
 
 <b>Run ORB-SLAM3-script</b>

@@ -6,8 +6,8 @@ from cv_bridge import CvBridge
 import cv2
 
 def publish_message():
-  #pub = rospy.Publisher('/camera/image_raw', Image, queue_size=10)
-  pub = rospy.Publisher('/cam0/image_raw', Image, queue_size=10)
+  pub = rospy.Publisher('/camera/image_raw', Image, queue_size=10)
+  #pub = rospy.Publisher('/cam0/image_raw', Image, queue_size=10)
 
   rospy.init_node('video_pub_py', anonymous=True)
 

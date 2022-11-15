@@ -380,7 +380,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         angleFromRobotToGoal = angleToGoal - odom_euler[2]
 
-        if abs(angleFromRobotToGoal) > 0.1:
+        if abs(angleFromRobotToGoal) > 0.2:
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
 
