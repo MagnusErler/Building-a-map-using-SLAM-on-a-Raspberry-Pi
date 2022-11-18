@@ -62,6 +62,8 @@ event = "Empty"
 distanceDriven = 0
 
 def setupSubscribers():
+    rospy.init_node('node_motor', anonymous=True)
+    
     rospy.Subscriber("/IMU/orientation", Int16MultiArray, callback_getOrientation)
     rospy.Subscriber("/joystick", String, callback_getJoystickValues)
     rospy.Subscriber("/motor/CmdResetOdom", Empty, callback_resetOdom)
@@ -430,8 +432,7 @@ def driveToThetaOrientation(desiredOrientation_theta):
     updateVelocity()
 
 if __name__ == '__main__':
-    rospy.init_node('node_motor', anonymous=True)
-
+    
     setupSubscribers()
 
     global previous_time

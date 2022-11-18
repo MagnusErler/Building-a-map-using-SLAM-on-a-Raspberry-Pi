@@ -364,7 +364,7 @@ rosnode kill --all
 #### <b>Publisher</b>
 | Command  | Data types | Action |
 | ------------- | ------------- | ------------- |
-| ```/battery/voltage```  | Float32  | Give the voltage of the battery |
+| ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP |
 | ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera |
 | ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) |
 | ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] |
