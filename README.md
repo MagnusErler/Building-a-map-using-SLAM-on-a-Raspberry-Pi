@@ -349,7 +349,7 @@ sudo systemctl enable OLEDDisplay.py.service
 </details>
 
 <details>
-<summary>Kill a ROS node</summary>
+<summary>Kill all ROS nodes</summary>
 
 ```
 rosnode kill --all
@@ -414,7 +414,7 @@ Minimum requirements:
     - Analog output: 0
     - I2C: 1
 - Storage
-    - RAM: 2758 bytes
-    - Flash: 21752 bytes
+    - RAM: 3 kB
+    - Flash: 23 kB
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
