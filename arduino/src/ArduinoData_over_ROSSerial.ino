@@ -5,6 +5,7 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/Float32.h>
+#include <std_msgs/Float32MultiArray.h>
 #include <std_msgs/String.h>
 
 void setVelocity(const std_msgs::Int16MultiArray&);
@@ -14,9 +15,10 @@ ros::NodeHandle nh;
 
 std_msgs::Int16MultiArray int16MultiArray;
 std_msgs::Float32 float32_msg;
+std_msgs::Float32MultiArray float32MultiArray;
 std_msgs::String str_msg;
 
-ros::Publisher pub_voltage("/battery/voltage", &float32_msg);
+ros::Publisher pub_voltage("/battery/voltage", &float32MultiArray);
 ros::Publisher pub_temperature("/IMU/temperature", &float32_msg);
 ros::Publisher pub_orientation("/IMU/orientation", &int16MultiArray);
 ros::Publisher pub_encoderTicks("/motor/encoderTicks", &int16MultiArray);
@@ -25,7 +27,10 @@ ros::Subscriber<std_msgs::Int16MultiArray> sub_velocity("/motor/CmdSetVelocityPW
 ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU6050);
 
 // ------Voltmeter------
-float voltage = 0.00;
+const int voltageRP_pin = A0;
+const int voltageMotor_pin = A2;
+float voltageRP = 0.00;
+float voltageMotor = 0.00;
 
 // -------MPU6050-------
 #include <MPU6050_tockn.h>
@@ -60,8 +65,6 @@ long previousMillis2 = 0;
 
 // -------Setup-------
 void setup() {
-
-  //Serial.begin(9600);
 
   setupROSSerial();
   
@@ -233,7 +236,8 @@ void readEncoderB_R(){
 
 // -------Voltage-------
 void getVoltage() {
-  voltage = (analogRead(A0) * 5.0) / 1024.00;
+  voltageRP = (analogRead(A0) * 11.1) / 1024.00;
+  voltageMotor = (analogRead(A2) * 11.1) / 1024.00;
 }
 
 // -------Ros-------
@@ -252,14 +256,16 @@ void setupROSSerial() {
 }
 
 void publishData() {
-  float32_msg.data = voltage;
-  pub_voltage.publish(&float32_msg);
+  float value_voltage[2] = {voltageRP, voltageMotor};
+  float32MultiArray.data = value_voltage;
+  float32MultiArray.data_length = 2;
+  pub_voltage.publish(&float32MultiArray);
   
   float32_msg.data = temperature;
   pub_temperature.publish(&float32_msg);
 
-  int value[3] = {pitch, roll, yaw};
-  int16MultiArray.data = value;
+  int value_orientation[3] = {pitch, roll, yaw};
+  int16MultiArray.data = value_orientation;
   int16MultiArray.data_length = 3;
   pub_orientation.publish(&int16MultiArray);
 }
