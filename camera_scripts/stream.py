@@ -2,6 +2,12 @@ import cv2
 import time
 
 cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 500)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
+cap.set(cv2.CAP_PROP_FPS,20)
+
+cv2.namedWindow('frame', flags=cv2.WINDOW_GUI_NORMAL)
 
 # For fps
 global prev_frame_time, new_frame_time
@@ -9,6 +15,7 @@ prev_frame_time = 0
 new_frame_time = 0
 
 def getFPS():
+    return cap.get(CAP_PROP_FPS)
     # time when we finish processing for this frame
     global prev_frame_time, new_frame_time
     new_frame_time = time.time()
@@ -20,6 +27,8 @@ def getFPS():
     return "FPS: " + str(int(fps))
 
 while(cap.isOpened()):
+    cv2.waitKey(10)
+
     ret, frame = cap.read()
 
     # if video finished or no Video Input
@@ -27,20 +36,16 @@ while(cap.isOpened()):
         break
  
     # resizing the frame size according to our need
-    frame = cv2.resize(frame, (500, 300))
- 
-    # font which we will be using to display FPS
-    font = cv2.FONT_HERSHEY_SIMPLEX
+    #frame = cv2.resize(frame, (500, 300))
 
     # putting the FPS count on the frame
-    cv2.putText(frame, getFPS(), (1, 15), font, 0.5, (100, 255, 0), 1, cv2.LINE_AA)
+    cv2.putText(frame, str(cap.get(cv2.CAP_PROP_FPS)), (1, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (100, 255, 0), 1, cv2.LINE_AA)
 
-    cv2.namedWindow('frame', flags=cv2.WINDOW_GUI_NORMAL)
     cv2.imshow('frame', frame)
 
     # press 'Q' if you want to exit
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    #if cv2.waitKey(1) & 0xFF == ord('q'):
+    #    break
 
 cap.release()
 cv2.destroyAllWindows()
