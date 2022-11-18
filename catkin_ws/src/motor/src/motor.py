@@ -91,9 +91,9 @@ def callback_getJoystickValues(data):
     if (key == "ry"):
         desiredVelocity_L = desiredJoystickVelocity     # [m/s]
         desiredVelocity_R = desiredJoystickVelocity     # [m/s]
-    elif (key == "rx"):
-        desiredVelocity_L = desiredJoystickVelocity     # [m/s]
-        desiredVelocity_R = -desiredJoystickVelocity    # [m/s]
+    elif (key == "rx"): # Turning to left or right
+        desiredVelocity_L = desiredJoystickVelocity * 0.8     # [m/s]
+        desiredVelocity_R = -desiredJoystickVelocity * 0.8    # [m/s]
 
     updateVelocity()
 
