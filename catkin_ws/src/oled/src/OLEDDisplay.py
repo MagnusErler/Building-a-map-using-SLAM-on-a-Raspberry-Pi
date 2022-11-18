@@ -15,7 +15,7 @@ import subprocess
 
 #ROS
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import Float32MultiArray, String
 
 
 # Raspberry Pi pin configuration:
@@ -62,9 +62,13 @@ update_display_interval = 1.0 #sec
 
 global OLEDtext
 OLEDtext = ""
-OLEDtext_5 = OLEDtext_6 = OLEDtext_7 = OLEDtext_8 = ""
+OLEDtext_6 = OLEDtext_7 = OLEDtext_8 = ""
 
-def display(data=OLEDtext):
+global voltageRP, voltageMotor
+voltageRP = voltageMotor = 0
+
+## CALLBACKS
+def callback_setText(data=OLEDtext):
     # Draw a black filled box to clear the image.
     draw.rectangle((0,0,width,height), outline=0, fill=0)
 
@@ -86,6 +90,7 @@ def display(data=OLEDtext):
     OLEDtext_2 = str(CPU)
     OLEDtext_3 = str(MemUsage)
     OLEDtext_4 = str(Disk)
+    OLEDtext_5 = "RP: " + str(round(voltageRP, 2)) + ", Motor: " + str(round(voltageMotor, 2))
 
     global lineNr, OLEDtext
     try:
@@ -93,11 +98,7 @@ def display(data=OLEDtext):
         [lineNr, OLEDtext] = OLEDtext_raw.split("_")
         lineNr = int(lineNr.replace("_", ""))
 
-        if (lineNr == 5):
-            global OLEDtext_5
-            OLEDtext_5 = str(OLEDtext)
-            rospy.loginfo("Writing \"" + OLEDtext + "\" to line 5")
-        elif (lineNr == 6):
+        if (lineNr == 6):
             global OLEDtext_6
             OLEDtext_6 = str(OLEDtext)
             rospy.loginfo("Writing \"" + OLEDtext + "\" to line 6")
@@ -126,24 +127,25 @@ def display(data=OLEDtext):
     disp.image(image)
     disp.display()
 
-def listener():
+def callback_voltage(data):
+    global voltageRP, voltageMotor
+    voltageRP = data.data[1]    # [V]
+    voltageMotor = data.data[0] # [V]
 
-    # In ROS, nodes are uniquely named. If two nodes with the same
-    # name are launched, the previous one is kicked off. The
-    # anonymous=True flag means that rospy will choose a unique
-    # name for our 'listener' node so that multiple listeners can
-    # run simultaneously.
-    rospy.init_node('listener', anonymous=True)
-    rospy.Subscriber("/OLED/CmdSetText", String, display)
+def setupSubscribers():
+    rospy.init_node('node_OLED', anonymous=True)
+
+    rospy.Subscriber("/OLED/CmdSetText", String, callback_setText)
+    rospy.Subscriber("/battery/voltage", Float32MultiArray, callback_voltage)
     rospy.loginfo("Starting subscribing to text to oled")
 
 if __name__ == '__main__':
 
-    listener()
+    setupSubscribers()
 
     starttime = time.time()
     while True:
-        display(OLEDtext)
+        callback_setText(OLEDtext)
         time.sleep(update_display_interval - ((time.time() - starttime) % update_display_interval))
 
         # spin() simply keeps python from exiting until this node is stopped
