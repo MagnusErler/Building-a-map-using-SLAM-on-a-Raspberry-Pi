@@ -435,11 +435,8 @@ if __name__ == '__main__':
 
     setupSubscribers()
 
-    rate = rospy.Rate(20)
-    
     global previous_time
-    while not rospy.is_shutdown():
-        previous_time = rospy.Time.now()
+    previous_time = rospy.Time.now()
 
-        rate.sleep()
+    rospy.spin()
 
