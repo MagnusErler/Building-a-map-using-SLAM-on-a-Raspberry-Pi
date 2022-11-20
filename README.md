@@ -126,6 +126,33 @@ sudo usermod -a -G video $USER
 sudo reboot
 ```
 Test with ```raspistill -o test.jpg```
+
+<details>
+<summary>Calibrate camera</summary>
+<br>
+Install calibration package
+
+Terminal 1
+```
+sudo apt-get install ros-noetic-camera-calibration
+sudo apt-get install python3-rosdep
+sudo rosdep init
+rosdep update
+rosdep install camera_calibration
+
+cd RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/src/camera/src/
+python publisher.py 
+```
+
+Terminal 2
+```
+rosrun camera_calibration cameracalibrator.py --size 8x6 --square 0.026 image:=/camera/image_raw camera:=/camera/image_raw --no-service-check
+```
+
+</details>
+
+<br />
+
 </details>
 
 <details>
@@ -296,20 +323,6 @@ cd RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/arduino/
 Arduino Mega 2560
 ```
 pio run -e megaatmega2560 -t upload
-```
-</details>
-
-<details>
-<summary>Calibrate camera</summary>
-<br>
-Install calibration package
-
-```
-sudo apt-get install ros-noetic-camera-calibration
-sudo apt-get install python3-rosdep
-sudo rosdep init
-rosdep update
-rosdep install camera_calibration
 ```
 </details>
 
