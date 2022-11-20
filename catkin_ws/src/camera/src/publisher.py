@@ -5,37 +5,32 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import cv2
 
-def publish_message():
-  pub = rospy.Publisher('/camera/image_raw', Image, queue_size=10)
-  #pub = rospy.Publisher('/cam0/image_raw', Image, queue_size=10)
+cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 500)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
+cap.set(cv2.CAP_PROP_FPS,20)
 
-  rospy.init_node('video_pub_py', anonymous=True)
+rospy.init_node('video_pub_py', anonymous=True)
+pub = rospy.Publisher('/camera/image_raw', Image, queue_size=10)
 
-  # Go through the loop 2 times per second
-  rate = rospy.Rate(2)  # 2 Hz
+# Used to convert between ROS and OpenCV images
+br = CvBridge()
 
-  cap = cv2.VideoCapture(0)
-  #cap = cv2.VideoCapture('../video/ros.mp4')
+rate = rospy.Rate(10)
 
-  # Used to convert between ROS and OpenCV images
-  br = CvBridge()
+while(cap.isOpened()):
 
-  while not rospy.is_shutdown():
+    ret, frame = cap.read()
 
-      # Capture frame-by-frame
-      # This method returns True/False as well as the video frame.
-      ret, frame = cap.read()
+    # if video finished or no Video Input
+    if not ret:
+        break
 
-      if ret == True:
-        rospy.loginfo('publishing video frame')
+    # The 'cv2_to_imgmsg' method converts an OpenCV image to a ROS image message
+    pub.publish(br.cv2_to_imgmsg(frame, "rgb8"))
 
-        # The 'cv2_to_imgmsg' method converts an OpenCV image to a ROS image message
-        pub.publish(br.cv2_to_imgmsg(frame))
+    rospy.loginfo('publishing video frame')
 
-      rate.sleep()
+    rate.sleep()  
 
-if __name__ == '__main__':
-  try:
-    publish_message()
-  except rospy.ROSInterruptException:
-    pass
