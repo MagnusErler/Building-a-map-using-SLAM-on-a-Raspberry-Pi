@@ -1,6 +1,6 @@
 <launch>
-  <node name="listener_oled_node" pkg="oled" type="OLEDDisplay.py" output="screen"/>
-  <node name="talker_joystick_node" pkg="joystick" type="joy.py" output="screen"/>
+  <node name="node_OLED" pkg="oled" type="OLEDDisplay.py" output="screen"/>
+  <node name="node_joystick" pkg="joystick" type="joy.py" output="screen"/>
   <node name="serial_node" pkg="rosserial_arduino" type="serial_node.py" args="/dev/ttyUSB0" output="screen"/>
   <!--<node name="serial_node" pkg="rosserial_arduino" type="serial_node.py" args="/dev/ttyUSB0" output="screen"/>-->
   <!--<node name="motor_node" pkg="motor" type="motor.py" output="screen"/>-->

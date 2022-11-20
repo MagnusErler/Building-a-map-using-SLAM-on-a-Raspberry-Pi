@@ -34,18 +34,11 @@ while(cap.isOpened()):
     # if video finished or no Video Input
     if not ret:
         break
- 
-    # resizing the frame size according to our need
-    #frame = cv2.resize(frame, (500, 300))
 
     # putting the FPS count on the frame
     cv2.putText(frame, str(cap.get(cv2.CAP_PROP_FPS)), (1, 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (100, 255, 0), 1, cv2.LINE_AA)
 
     cv2.imshow('frame', frame)
-
-    # press 'Q' if you want to exit
-    #if cv2.waitKey(1) & 0xFF == ord('q'):
-    #    break
 
 cap.release()
 cv2.destroyAllWindows()

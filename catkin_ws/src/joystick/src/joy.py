@@ -141,35 +141,36 @@ for btn in buf[:num_buttons]:
 ##print('%d axes found: %s' % (num_axes, ', '.join(axis_map)))
 ##print('%d buttons found: %s' % (num_buttons, ', '.join(button_map)))
 
+if __name__ == '__main__':
 
-pub = rospy.Publisher('/joystick', String, queue_size=10)
-rospy.init_node('talker_joystick_node')
-rate = rospy.Rate(10) # 10hz
+    rospy.init_node('node_joystick')
+    
+    pub = rospy.Publisher('/joystick', String, queue_size=10)
 
-try:
-    # Main event loop
-    while True:
+    rate = rospy.Rate(5)
+    
+    while not rospy.is_shutdown():
         evbuf = jsdev.read(8)
         if evbuf:
             time, value, type, number = struct.unpack('IhBB', evbuf)
 
-            ##if type & 0x80:
-                ##pub.publish("(initial)", end="")
-                ##rospy.loginfo("(initial)", end="")
-                ##print("(initial)", end="")
+            # if type & 0x80:
+            #     pub.publish("(initial)", end="")
+            #     rospy.loginfo("(initial)", end="")
+            #     print("(initial)", end="")
 
-            if type & 0x01:
-                button = button_map[number]
-                if button:
-                    button_states[button] = value
-                    if value:
-                        pub.publish("%s pressed" % (button))
-                        rospy.loginfo("%s pressed" % (button))
-                        #print("%s pressed" % (button))
-                    else:
-                        pub.publish("%s released" % (button))
-                        rospy.loginfo("%s released" % (button))
-                        #print("%s released" % (button))
+            # if type & 0x01:
+            #     button = button_map[number]
+            #     if button:
+            #         button_states[button] = value
+            #         if value:
+            #             pub.publish("%s pressed" % (button))
+            #             rospy.loginfo("%s pressed" % (button))
+            #             #print("%s pressed" % (button))
+            #         else:
+            #             pub.publish("%s released" % (button))
+            #             rospy.loginfo("%s released" % (button))
+            #             #print("%s released" % (button))
 
             if type & 0x02:
                 axis = axis_map[number]
@@ -180,6 +181,5 @@ try:
                     pub.publish("%s: %.3f" % (axis, fvalue))
                     rospy.loginfo("%s: %.3f" % (axis, fvalue))
                     #print("%s: %.3f" % (axis, fvalue))
-except rospy.ROSInterruptException:
-    pass
-        
+
+        rate.sleep()  

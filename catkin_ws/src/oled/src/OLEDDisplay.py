@@ -144,9 +144,7 @@ if __name__ == '__main__':
     setupSubscribers()
 
     starttime = time.time()
-    while True:
+    
+    while not rospy.is_shutdown():
         callback_setText(OLEDtext)
         time.sleep(update_display_interval - ((time.time() - starttime) % update_display_interval))
-
-        # spin() simply keeps python from exiting until this node is stopped
-        #rospy.spin()

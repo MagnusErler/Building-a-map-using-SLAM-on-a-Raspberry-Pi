@@ -354,7 +354,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
     rospy.loginfo("Driving to position: " + str(desiredPosition_x) + ", " + str(desiredPosition_y))
 
-    r = rospy.Rate(20)
+    rate = rospy.Rate(20)
 
     tries = 0
 
@@ -395,7 +395,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         updateVelocity()
 
-        r.sleep()  
+        rate.sleep()  
     
     print("Could NOT find the goal after 1000 tries")
     desiredVelocity_L = 0   # [m/s]
@@ -432,11 +432,14 @@ def driveToThetaOrientation(desiredOrientation_theta):
     updateVelocity()
 
 if __name__ == '__main__':
-    
+
     setupSubscribers()
 
+    rate = rospy.Rate(20)
+    
     global previous_time
-    previous_time = rospy.Time.now()
+    while not rospy.is_shutdown():
+        previous_time = rospy.Time.now()
 
-    rospy.spin()
+        rate.sleep()
 
