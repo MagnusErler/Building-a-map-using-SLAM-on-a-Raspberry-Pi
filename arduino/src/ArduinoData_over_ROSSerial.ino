@@ -30,13 +30,16 @@ ros::Subscriber<std_msgs::Empty> sub_caliIMU("/IMU/CmdCaliIMU", calibrateMPU6050
 const int voltageRP_pin = A0;
 const int voltageMotor_pin = A2;
 float voltageRP = 0.00;
+float voltageRP_previous = 0.00;
 float voltageMotor = 0.00;
+float voltageMotor_previous = 0.00;
 
 // -------MPU6050-------
 #include <MPU6050_tockn.h>
 //#include <Wire.h>     MPU6050_tockn.h is already using Wire.h
 MPU6050 mpu6050(Wire);
-float temperature;
+float temperature = 0.00;
+float temperature_previous = 0.00;
 int roll, pitch, yaw;
 
 // -------Motor-------
@@ -58,7 +61,7 @@ const int motorL_encoderB = 19;
   
 volatile int pos_L = 0;
 
-bool ableToStopMotor = true;
+bool differentFromLastTime_Motor = true;
 
 // -------Timer-------
 long currentMillis = 0;
@@ -94,13 +97,13 @@ void loop() {
     previousMillis2 = currentMillis;
 
     if (pos_L == 0 && pos_R  == 0) {
-      if (ableToStopMotor) {
+      if (differentFromLastTime_Motor) {
         int value[2] = {0, 0};
         int16MultiArray.data = value;
         int16MultiArray.data_length = 2;
         pub_encoderTicks.publish(&int16MultiArray);
 
-        ableToStopMotor = false;
+        differentFromLastTime_Motor = false;
       }
     } else {
       int value[2] = {pos_L, pos_R};
@@ -108,7 +111,7 @@ void loop() {
       int16MultiArray.data_length = 2;
       pub_encoderTicks.publish(&int16MultiArray);
 
-      ableToStopMotor = true;
+      differentFromLastTime_Motor = true;
     }
 
     pos_L = 0;
@@ -271,13 +274,18 @@ void setupROSSerial() {
 }
 
 void publishData() {
-  float value_voltage[2] = {voltageRP, voltageMotor};
-  float32MultiArray.data = value_voltage;
-  float32MultiArray.data_length = 2;
-  pub_voltage.publish(&float32MultiArray);
-  
-  float32_msg.data = temperature;
-  pub_temperature.publish(&float32_msg);
+
+  if (voltageRP_previous != voltageRP && voltageMotor_previous != voltageMotor) {
+    float value_voltage[2] = {voltageRP, voltageMotor};
+    float32MultiArray.data = value_voltage;
+    float32MultiArray.data_length = 2;
+    pub_voltage.publish(&float32MultiArray);
+  }
+
+  if (temperature_previous != temperature) {
+    float32_msg.data = temperature;
+    pub_temperature.publish(&float32_msg);
+  }
 
   int value_orientation[3] = {pitch, roll, yaw};
   int16MultiArray.data = value_orientation;
