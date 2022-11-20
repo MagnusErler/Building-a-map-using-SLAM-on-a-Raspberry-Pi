@@ -58,6 +58,8 @@ const int motorL_encoderB = 19;
   
 volatile int pos_L = 0;
 
+bool ableToStopMotor = true;
+
 // -------Timer-------
 long currentMillis = 0;
 long previousMillis1 = 0;
@@ -90,11 +92,24 @@ void loop() {
   // Publish encoder Ticks every 0.1sec
   if (abs(currentMillis - previousMillis2) > 100) {
     previousMillis2 = currentMillis;
- 
-    int value[2] = {pos_L, pos_R};
-    int16MultiArray.data = value;
-    int16MultiArray.data_length = 2;
-    pub_encoderTicks.publish(&int16MultiArray);
+
+    if (pos_L == 0 && pos_R  == 0) {
+      if (ableToStopMotor) {
+        int value[2] = {0, 0};
+        int16MultiArray.data = value;
+        int16MultiArray.data_length = 2;
+        pub_encoderTicks.publish(&int16MultiArray);
+
+        ableToStopMotor = false;
+      }
+    } else {
+      int value[2] = {pos_L, pos_R};
+      int16MultiArray.data = value;
+      int16MultiArray.data_length = 2;
+      pub_encoderTicks.publish(&int16MultiArray);
+
+      ableToStopMotor = true;
+    }
 
     pos_L = 0;
     pos_R = 0;
