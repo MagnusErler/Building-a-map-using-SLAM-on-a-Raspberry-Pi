@@ -196,7 +196,7 @@ chmod +x build_ros.sh
   
 ```
 cd ORB_SLAM3/
-./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/TUM1.yaml 
+./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/RP4.yaml 
 ```
 
 <b>Run ROS ORB-SLAM3-script</b>
@@ -212,7 +212,7 @@ Terminal 2
 
 ```
 cd ORB_SLAM3/
-rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/TUM1.yaml
+rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/RP4.yaml
 ```
 
   
