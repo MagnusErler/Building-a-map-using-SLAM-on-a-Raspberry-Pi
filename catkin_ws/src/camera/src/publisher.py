@@ -11,7 +11,7 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, 500)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
 cap.set(cv2.CAP_PROP_FPS,20)
 
-rospy.init_node('video_pub_py', anonymous=True)
+rospy.init_node('node_image', anonymous=True)
 pub = rospy.Publisher('/camera/image_raw', Image, queue_size=10)
 
 # Used to convert between ROS and OpenCV images
