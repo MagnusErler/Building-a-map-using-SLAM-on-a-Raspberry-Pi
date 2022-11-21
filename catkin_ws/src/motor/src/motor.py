@@ -121,6 +121,8 @@ def callback_setVelocity(data):
     global desiredVelocity
     desiredVelocity = data.data # [m/s]
 
+    rospy.loginfo("Setting the velocity to " + str(desiredVelocity))
+
     global desiredVelocity_L, desiredVelocity_R
     desiredVelocity_L = desiredVelocity # [m/s]
     desiredVelocity_R = desiredVelocity # [m/s]
@@ -129,6 +131,8 @@ def callback_setVelocity(data):
 
 def callback_setTurnRadius(data):
     turnRadius = data.data
+
+    rospy.loginfo("Setting the turning radius to " + str(turnRadius))
 
     global desiredVelocity
     desiredAngularVelocity = desiredVelocity / turnRadius

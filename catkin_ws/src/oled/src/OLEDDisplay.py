@@ -137,7 +137,6 @@ def setupSubscribers():
 
     rospy.Subscriber("/OLED/CmdSetText", String, callback_setText)
     rospy.Subscriber("/battery/voltage", Float32MultiArray, callback_voltage)
-    rospy.loginfo("Starting subscribing to text to oled")
 
 if __name__ == '__main__':
 

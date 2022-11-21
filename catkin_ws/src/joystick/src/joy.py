@@ -147,7 +147,7 @@ if __name__ == '__main__':
     
     pub = rospy.Publisher('/joystick', String, queue_size=10)
 
-    rate = rospy.Rate(5)
+    rate = rospy.Rate(10)
     
     while not rospy.is_shutdown():
         evbuf = jsdev.read(8)
@@ -159,24 +159,24 @@ if __name__ == '__main__':
             #     rospy.loginfo("(initial)", end="")
             #     print("(initial)", end="")
 
-            # if type & 0x01:
-            #     button = button_map[number]
-            #     if button:
-            #         button_states[button] = value
-            #         if value:
-            #             pub.publish("%s pressed" % (button))
-            #             rospy.loginfo("%s pressed" % (button))
-            #             #print("%s pressed" % (button))
-            #         else:
-            #             pub.publish("%s released" % (button))
-            #             rospy.loginfo("%s released" % (button))
-            #             #print("%s released" % (button))
+            if type & 0x01:
+                button = button_map[number]
+                if button:
+                    #button_states[button] = value
+                    if value:
+                        pub.publish("%s pressed" % (button))
+                        rospy.loginfo("%s pressed" % (button))
+                        #print("%s pressed" % (button))
+                    else:
+                        pub.publish("%s released" % (button))
+                        rospy.loginfo("%s released" % (button))
+                        #print("%s released" % (button))
 
             if type & 0x02:
                 axis = axis_map[number]
                 if axis:
                     fvalue = -value / 32767.0   #2^15-1, so the maximum value of a 16-bit signed integer
-                    axis_states[axis] = fvalue
+                    #axis_states[axis] = fvalue
 
                     pub.publish("%s: %.3f" % (axis, fvalue))
                     rospy.loginfo("%s: %.3f" % (axis, fvalue))
