@@ -10,6 +10,7 @@ if __name__ == '__main__':
     # ROS
     rospy.init_node('node_image', anonymous=True)
     pub = rospy.Publisher('/camera/image_raw', Image, queue_size=10)
+    pub1 = rospy.Publisher('/cam0/image_raw', Image, queue_size=10)
 
     rate = rospy.Rate(10)
 
@@ -35,6 +36,7 @@ if __name__ == '__main__':
 
             # The 'cv2_to_imgmsg' method converts an OpenCV image to a ROS image message
             pub.publish(br.cv2_to_imgmsg(frame, "rgb8"))
+            pub1.publish(br.cv2_to_imgmsg(frame, "rgb8"))
 
             rospy.loginfo('publishing video frame')
 
