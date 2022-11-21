@@ -292,27 +292,6 @@ Now with every new shell you open, it will source automatically
 <br />
 
 <details>
-<summary>Get Data from Arduino</summary>
-<br>
-
-```
-rostopic list
-rostopic echo /battery/voltage
-```
-</details>
-
-<details>
-<summary>Send Data to Arduino</summary>
-<br>
-
-```
-rostopic list
-rostopic pub /motor/CmdSetMotor std_msgs/UInt16 255
-```
-(Controlling speed: 0 = off and 255 = max speed)
-</details>
-
-<details>
 <summary>Upload Arduino-code from terminal</summary>
 <br>
 Using platformio to send code to Arduino
@@ -379,11 +358,13 @@ rosnode kill --all
 | ------------- | ------------- | ------------- |
 | ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP |
 | ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera |
-| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) |
 | ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] |
+| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) |
 | ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
 | ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] |
 | ```/motor/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) |
+ ```/move_base_simple/goal```  | PoseStamped | Give the position and orientation of the desired location|
+| ```/tf```  | TFMessage | Give the odometry of the robot (position, orientation) |
 
 #### <b>Subscriber</b>
 | Command  | Data types | Action | Example |
