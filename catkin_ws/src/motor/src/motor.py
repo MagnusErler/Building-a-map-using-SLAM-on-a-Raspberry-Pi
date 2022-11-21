@@ -83,21 +83,31 @@ def callback_getOrientation(data):
 def callback_getJoystickValues(data):
     try:
         [key, keyValue] = data.data.split(": ")
-    except:
-        key = data.data.split(": ")
-        keyValue = 0
 
-    desiredJoystickVelocity = float(keyValue) * maxVelocity # 2.51327 [m/s]
+        desiredJoystickVelocity = float(keyValue) * maxVelocity # 2.51327 [m/s]
+    except:
+        try:
+            [key, keyValue] = data.data.split(" ")
+        except:
+            key = data.data.split(" ")
+            keyValue = 999
+
+    
+
+    if key == "x":
+        print("Stop what you are doing")
     
     global desiredVelocity_L, desiredVelocity_R
-    if (key == "ry"):
+    if key == "ry":
         desiredVelocity_L = desiredJoystickVelocity     # [m/s]
         desiredVelocity_R = desiredJoystickVelocity     # [m/s]
-    elif (key == "rx"): # Turning to left or right
+
+        updateVelocity()
+    elif key == "rx": # Turning to left or right
         desiredVelocity_L = desiredJoystickVelocity * 0.8     # [m/s]
         desiredVelocity_R = -desiredJoystickVelocity * 0.8    # [m/s]
 
-    updateVelocity()
+        updateVelocity()
 
 def callback_resetOdom(Empty):
     rospy.loginfo("Resetting the odometry")
@@ -356,7 +366,7 @@ def driveStraight():
 
 def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
-    rospy.loginfo("Driving to position: " + str(desiredPosition_x) + ", " + str(desiredPosition_y))
+    rospy.loginfo("Driving to position: " + str(round(desiredPosition_x,3)) + ", " + str(round(desiredPosition_y,3)))
 
     rate = rospy.Rate(20)
 
@@ -386,12 +396,22 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         angleFromRobotToGoal = angleToGoal - odom_euler[2]
 
-        if abs(angleFromRobotToGoal) > 0.2:
+        print("angleFromRobotToGoal: " + str(angleFromRobotToGoal))
+
+        if angleFromRobotToGoal > 0.2:
+            print("Turning left")
             desiredVelocity_L = -0.5    # [m/s]
             desiredVelocity_R = 0.5     # [m/s]
 
             tries = tries + 1
+        elif angleFromRobotToGoal < 0.2:
+            print("Turning right")
+            desiredVelocity_L = 0.5    # [m/s]
+            desiredVelocity_R = -0.5     # [m/s]
+
+            tries = tries + 1
         else:
+            print("Driving straight")
             desiredVelocity_L = 1   # [m/s]
             desiredVelocity_R = 1   # [m/s]
 
@@ -413,6 +433,8 @@ def driveToThetaOrientation(desiredOrientation_theta):
     r = rospy.Rate(20)
 
     tries = 0
+
+    global desiredVelocity_L, desiredVelocity_R
 
     while tries < 1000:
 
