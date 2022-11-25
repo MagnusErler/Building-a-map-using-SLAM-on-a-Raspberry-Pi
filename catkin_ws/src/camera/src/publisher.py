@@ -38,7 +38,9 @@ if __name__ == '__main__':
             pub.publish(br.cv2_to_imgmsg(frame, "rgb8"))
             pub1.publish(br.cv2_to_imgmsg(frame, "rgb8"))
 
-            rospy.loginfo('publishing video frame')
+        #     rospy.loginfo('Publishing video frame')
+        # else:
+        #     rospy.loginfo("Can't open camera video feed")
 
             
         rate.sleep()  

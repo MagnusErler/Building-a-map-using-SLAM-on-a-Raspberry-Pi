@@ -90,7 +90,7 @@ def callback_setText(data=OLEDtext):
     OLEDtext_2 = str(CPU)
     OLEDtext_3 = str(MemUsage)
     OLEDtext_4 = str(Disk)
-    OLEDtext_5 = "RP: " + str(round(voltageRP, 2)) + ", Motor: " + str(round(voltageMotor, 2))
+    OLEDtext_5 = "RP: %0.2f, Motor: %0.2f" % (voltageRP, voltageMotor)
 
     global lineNr, OLEDtext
     try:
