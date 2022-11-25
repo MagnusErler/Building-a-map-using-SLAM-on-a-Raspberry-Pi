@@ -2,21 +2,18 @@
 // ------ROS Serial------
 #include <ros.h>
 #include <std_msgs/Empty.h>
-#include <std_msgs/Int16.h>
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/Float32MultiArray.h>
-#include <std_msgs/String.h>
 
-void setVelocity(const std_msgs::Int16MultiArray&);
 void calibrateMPU6050(const std_msgs::Empty&);
+void setVelocity(const std_msgs::Int16MultiArray&);
 
 ros::NodeHandle nh;
 
 std_msgs::Int16MultiArray int16MultiArray;
 std_msgs::Float32 float32_msg;
 std_msgs::Float32MultiArray float32MultiArray;
-std_msgs::String str_msg;
 
 ros::Publisher pub_voltage("/battery/voltage", &float32MultiArray);
 ros::Publisher pub_temperature("/IMU/temperature", &float32_msg);

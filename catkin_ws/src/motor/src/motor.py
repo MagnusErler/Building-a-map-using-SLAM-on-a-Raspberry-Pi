@@ -26,13 +26,13 @@ currentPosition_y = 0   # [m]
 
 # ORIENTATION
 global roll, pitch, yaw, currentOrientation_theta
-roll = 0    # [degrees]
-pitch = 0   # [degrees]
-yaw = 0     # [degrees]
+roll = 0    # [rad]
+pitch = 0   # [rad]
+yaw = 0     # [rad]
 currentOrientation_theta = 0    # [rad]
 
 global quaternion
-quaternion = tf.transformations.quaternion_from_euler(roll, pitch, yaw)
+quaternion = tf.transformations.quaternion_from_euler(roll, pitch, currentOrientation_theta)
 
 # VELOCITY
 global currentVelocity_L, currentVelocity_R
@@ -76,9 +76,10 @@ def setupSubscribers():
 ## CALLBACKS
 def callback_getOrientation(data):
     global roll, pitch, yaw
-    roll = data.data[1]     # [degrees]
-    pitch = data.data[0]    # [degrees]
-    yaw = data.data[2]      # [degrees]
+
+    roll = math.radians(data.data[1])   # [rad]
+    pitch = math.radians(data.data[0])  # [rad]
+    yaw = math.radians(data.data[2])    # [rad]
 
 def callback_getJoystickValues(data):
     try:
@@ -249,7 +250,7 @@ def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, c
     #quaternion = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
     #quaternion = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), currentOrientation_theta)
     global quaternion
-    quaternion = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
+    quaternion = tf.transformations.quaternion_from_euler(roll, pitch, currentOrientation_theta)
 
     # first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
@@ -464,14 +465,14 @@ def driveToThetaOrientation(desiredOrientation_theta):
 
         if angleOfRobotToGoal < -0.2:
             #print("Turning right")
-            desiredVelocity_L = 0.8   # [m/s]
-            desiredVelocity_R = -0.8   # [m/s]
+            desiredVelocity_L = 0.8     # [m/s]
+            desiredVelocity_R = -0.8    # [m/s]
 
             tries = tries + 1
         elif angleOfRobotToGoal > 0.2:
             #print("Turning left")
-            desiredVelocity_L = -0.8   # [m/s]
-            desiredVelocity_R = 0.8   # [m/s]
+            desiredVelocity_L = -0.8    # [m/s]
+            desiredVelocity_R = 0.8     # [m/s]
 
             tries = tries + 1
 
