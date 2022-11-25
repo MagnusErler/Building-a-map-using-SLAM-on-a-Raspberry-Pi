@@ -379,7 +379,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
     tries = 0
 
-    while tries < 300:
+    while tries < 1000:
 
         global currentPosition_x, currentPosition_y
         distanceToGoal_x = desiredPosition_x - currentPosition_x    # [m]
@@ -429,7 +429,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         rate.sleep()  
     
-    print("Could NOT find the goal after 300 tries")
+    print("Could NOT find the goal after 1000 tries")
     desiredVelocity_L = 0   # [m/s]
     desiredVelocity_R = 0   # [m/s]
     updateVelocity()
@@ -444,12 +444,15 @@ def driveToThetaOrientation(desiredOrientation_theta):
 
     global desiredVelocity_L, desiredVelocity_R
 
-    while tries < 1000:
+    while tries < 300:
 
         global quaternion
         odom_euler = tf.transformations.euler_from_quaternion(quaternion)
 
         angleOfRobotToGoal = desiredOrientation_theta - odom_euler[2] # [rad]
+
+        # Bound between -pi and +pi
+        angleOfRobotToGoal = ((angleOfRobotToGoal - (-math.pi)) % (2*math.pi)) + (-math.pi)
 
         if abs(angleOfRobotToGoal) < 0.1:
             rospy.loginfo("DONE: Desired orientation (" + str(round(desiredOrientation_theta,3)) + " rad) has been reached")
@@ -459,10 +462,16 @@ def driveToThetaOrientation(desiredOrientation_theta):
             updateVelocity()
             return
 
-        if abs(angleOfRobotToGoal) > 0.2:
+        if angleOfRobotToGoal < -0.2:
             #print("Turning right")
             desiredVelocity_L = 0.8   # [m/s]
             desiredVelocity_R = -0.8   # [m/s]
+
+            tries = tries + 1
+        elif angleOfRobotToGoal > 0.2:
+            #print("Turning left")
+            desiredVelocity_L = -0.8   # [m/s]
+            desiredVelocity_R = 0.8   # [m/s]
 
             tries = tries + 1
 
@@ -470,11 +479,10 @@ def driveToThetaOrientation(desiredOrientation_theta):
 
         rate.sleep()  
 
-    print("Could NOT find the goal after 1000 tries")
+    print("Could NOT find the goal after 300 tries")
     desiredVelocity_L = 0   # [m/s]
     desiredVelocity_R = 0   # [m/s]
     updateVelocity()
-
 
 if __name__ == '__main__':
 
