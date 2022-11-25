@@ -404,8 +404,7 @@ Minimum requirements:
 - Ports
     - Digital input (interrupt): 4
     - Digital output (PWM): 6
-    - Analog input: 1
-    - Analog output: 0
+    - Analog input: 2
     - I2C: 1
 - Storage
     - RAM: 3 kB
