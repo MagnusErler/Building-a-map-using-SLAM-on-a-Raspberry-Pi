@@ -183,7 +183,9 @@ def callback_getPoseGoal(data):
     euler = tf.transformations.euler_from_quaternion([quat.x, quat.y, quat.z, quat.w])
     #rospy.loginfo("Euler Angles: %s"%str(euler))
 
-    #driveToThetaOrientation(euler[2])
+    desiredOrientation_theta = euler[2]
+
+    driveToThetaOrientation(desiredOrientation_theta)
 
 ## FUNCTIONS
 def checkEvent():
@@ -373,7 +375,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
     rospy.loginfo("Driving to position: " + str(round(desiredPosition_x,3)) + ", " + str(round(desiredPosition_y,3)))
 
-    rate = rospy.Rate(20)
+    rate = rospy.Rate(10)
 
     tries = 0
 
@@ -389,7 +391,7 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
         global desiredVelocity_L, desiredVelocity_R
 
         if distanceToGoal < 0.05:
-            rospy.loginfo("DONE: Desired position (" + str(desiredPosition_x) + ", " + str(desiredPosition_y) + ") has been reached")
+            rospy.loginfo("DONE: Desired position (" + str(round(desiredPosition_x,3)) + ", " + str(round(desiredPosition_y,3)) + ") has been reached")
 
             desiredVelocity_L = 0   # [m/s]
             desiredVelocity_R = 0   # [m/s]
@@ -405,19 +407,19 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
         angleOfRobotToGoal = ((angleOfRobotToGoal - (-math.pi)) % (2*math.pi)) + (-math.pi)
 
         if angleOfRobotToGoal < -0.1:
-            print("Turning right")
-            desiredVelocity_L = 0.8    # [m/s]
-            desiredVelocity_R = 0     # [m/s]
+            #print("Turning right")
+            desiredVelocity_L = 0.8   # [m/s]
+            desiredVelocity_R = 0   # [m/s]
 
             tries = tries + 1
         elif angleOfRobotToGoal > 0.1:
-            print("Turning left")
-            desiredVelocity_L = 0    # [m/s]
-            desiredVelocity_R = 0.8     # [m/s]
+            #print("Turning left")
+            desiredVelocity_L = 0   # [m/s]
+            desiredVelocity_R = 0.8   # [m/s]
 
             tries = tries + 1
         else:
-            print("Driving straight")
+            #print("Driving straight")
             desiredVelocity_L = 1   # [m/s]
             desiredVelocity_R = 1   # [m/s]
 
@@ -427,16 +429,16 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
         rate.sleep()  
     
-    print("Could NOT find the goal after 1000 tries")
+    print("Could NOT find the goal after 300 tries")
     desiredVelocity_L = 0   # [m/s]
     desiredVelocity_R = 0   # [m/s]
     updateVelocity()
 
 def driveToThetaOrientation(desiredOrientation_theta):
 
-    rospy.loginfo("Driving to orientation: " + str(desiredOrientation_theta) + " rad")
+    rospy.loginfo("Driving to orientation: " + str(round(desiredOrientation_theta,3)) + " rad")
 
-    r = rospy.Rate(20)
+    rate = rospy.Rate(10)
 
     tries = 0
 
@@ -444,19 +446,29 @@ def driveToThetaOrientation(desiredOrientation_theta):
 
     while tries < 1000:
 
-        if desiredOrientation_theta < 0.1:
-            rospy.loginfo("DONE: Desired orientation (" + str(desiredOrientation_theta) + ") has been reached")
+        global quaternion
+        odom_euler = tf.transformations.euler_from_quaternion(quaternion)
+
+        angleOfRobotToGoal = desiredOrientation_theta - odom_euler[2] # [rad]
+
+        if abs(angleOfRobotToGoal) < 0.1:
+            rospy.loginfo("DONE: Desired orientation (" + str(round(desiredOrientation_theta,3)) + " rad) has been reached")
 
             desiredVelocity_L = 0   # [m/s]
             desiredVelocity_R = 0   # [m/s]
             updateVelocity()
             return
 
-        if abs(desiredOrientation_theta) > 0.5:
-            desiredVelocity_L = -0.5    # [m/s]
-            desiredVelocity_R = 0.5     # [m/s]
+        if abs(angleOfRobotToGoal) > 0.2:
+            #print("Turning right")
+            desiredVelocity_L = 0.8   # [m/s]
+            desiredVelocity_R = -0.8   # [m/s]
 
             tries = tries + 1
+
+        updateVelocity()
+
+        rate.sleep()  
 
     print("Could NOT find the goal after 1000 tries")
     desiredVelocity_L = 0   # [m/s]
