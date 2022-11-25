@@ -125,7 +125,6 @@ echo 'SUBSYSTEM==\"vchiq\",GROUP=\"video\",MODE=\"0660\"' > /etc/udev/rules.d/10
 sudo usermod -a -G video $USER
 sudo reboot
 ```
-Test with ```raspistill -o test.jpg```
 
 <details>
 <summary>Calibrate camera</summary>
@@ -357,7 +356,7 @@ rosnode kill --all
 | Command  | Data types | Action |
 | ------------- | ------------- | ------------- |
 | ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP |
-| ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera |
+| ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera. Test with: ```sudo apt-get install ros-noetic-rqt-image-view && rqt_image_view``` |
 | ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] |
 | ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) |
 | ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
