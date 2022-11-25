@@ -93,21 +93,21 @@ def callback_getJoystickValues(data):
             keyValue = 999
 
     
+    global desiredVelocity_L, desiredVelocity_R
 
     if key == "x":
         print("Stop what you are doing")
-    
-    global desiredVelocity_L, desiredVelocity_R
-    if key == "ry":
+        desiredVelocity_L = 0
+        desiredVelocity_R = 0
+    elif key == "ry":
         desiredVelocity_L = desiredJoystickVelocity     # [m/s]
         desiredVelocity_R = desiredJoystickVelocity     # [m/s]
 
-        updateVelocity()
     elif key == "rx": # Turning to left or right
         desiredVelocity_L = desiredJoystickVelocity * 0.8     # [m/s]
         desiredVelocity_R = -desiredJoystickVelocity * 0.8    # [m/s]
 
-        updateVelocity()
+    updateVelocity()
 
 def callback_resetOdom(Empty):
     rospy.loginfo("Resetting the odometry")
@@ -299,6 +299,11 @@ def updateVelocity():
     newVelocity_L = pid_L(currentVelocity_L)   # [m/s]
     newVelocity_R = pid_R(currentVelocity_R)   # [m/s]
 
+    newVelocity_L = desiredVelocity_L
+    newVelocity_R = desiredVelocity_R
+
+    #print("newVelocity_L: " + str(newVelocity_L) + ", newVelocity_R: " + str(newVelocity_R))
+
     newVelocity_L = newVelocity_L * (100 + motorSpeedOffset)/100    # [m/s]
     newVelocity_R = newVelocity_R * (100 - motorSpeedOffset)/100    # [m/s]
 
@@ -372,14 +377,14 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
 
     tries = 0
 
-    while tries < 1000:
+    while tries < 300:
 
         global currentPosition_x, currentPosition_y
         distanceToGoal_x = desiredPosition_x - currentPosition_x    # [m]
         distanceToGoal_y = desiredPosition_y - currentPosition_y    # [m]
 
         distanceToGoal = math.sqrt(distanceToGoal_x*distanceToGoal_x + distanceToGoal_y*distanceToGoal_y)   # [m]
-        angleToGoal = math.atan2(distanceToGoal_y, distanceToGoal_x)    # [rad]
+        angleOfCurrentPositionToGoal = math.atan2(distanceToGoal_y, distanceToGoal_x)    # [rad]
 
         global desiredVelocity_L, desiredVelocity_R
 
@@ -394,20 +399,21 @@ def driveToXYPosition(desiredPosition_x, desiredPosition_y):
         global quaternion
         odom_euler = tf.transformations.euler_from_quaternion(quaternion)
 
-        angleFromRobotToGoal = angleToGoal - odom_euler[2]
+        angleOfRobotToGoal = angleOfCurrentPositionToGoal - odom_euler[2] # [rad]
 
-        print("angleFromRobotToGoal: " + str(angleFromRobotToGoal))
+        # Bound between -pi and +pi
+        angleOfRobotToGoal = ((angleOfRobotToGoal - (-math.pi)) % (2*math.pi)) + (-math.pi)
 
-        if angleFromRobotToGoal > 0.2:
-            print("Turning left")
-            desiredVelocity_L = -0.5    # [m/s]
-            desiredVelocity_R = 0.5     # [m/s]
+        if angleOfRobotToGoal < -0.1:
+            print("Turning right")
+            desiredVelocity_L = 0.8    # [m/s]
+            desiredVelocity_R = 0     # [m/s]
 
             tries = tries + 1
-        elif angleFromRobotToGoal < 0.2:
-            print("Turning right")
-            desiredVelocity_L = 0.5    # [m/s]
-            desiredVelocity_R = -0.5     # [m/s]
+        elif angleOfRobotToGoal > 0.1:
+            print("Turning left")
+            desiredVelocity_L = 0    # [m/s]
+            desiredVelocity_R = 0.8     # [m/s]
 
             tries = tries + 1
         else:
@@ -456,6 +462,7 @@ def driveToThetaOrientation(desiredOrientation_theta):
     desiredVelocity_L = 0   # [m/s]
     desiredVelocity_R = 0   # [m/s]
     updateVelocity()
+
 
 if __name__ == '__main__':
 
