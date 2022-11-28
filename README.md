@@ -195,7 +195,7 @@ chmod +x build_ros.sh
   
 ```
 cd ORB_SLAM3/
-./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/RP4.yaml 
+./Examples/Monocular/mono_tum Vocabulary/ORBvoc.txt ./Examples/Monocular/RP4.yaml
 ```
 
 <b>Run ROS ORB-SLAM3-script</b>
@@ -216,6 +216,19 @@ rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/RP4.yaml
 
   
 https://robot-vision-develop-story.tistory.com/10
+
+<b>Run ROS ORB-SLAM3 wrapper-script</b>
+
+Terminal 1
+```
+roslaunch orb_slam3_ros_wrapper euroc_mono.launch
+```
+
+Terminal 2
+
+```
+rosbag play MH_01_easy.bag
+```
 
 </details>
 
@@ -374,7 +387,7 @@ rosnode kill --all
 | ```/motor/CmdSetTurnRadius```  | Float32  | Set the turning radius [m]. O.B.S. set first velocity. | ```rostopic pub /motor/CmdSetTurnRadius std_msgs/Float32 0.4``` (set the turning radius to 0.4 m). Setting the turning radius to 0 will have the robot to spin around its center 
 | ```/motor/CmdSetVelocity```  | Float32  | Set the velocity of both motors [m/s] | ```rostopic pub /motor/CmdSetVelocity std_msgs/Float32 1.2``` (set the overall wheel velocity to 1.2 m/s). Use -- before negativ values (e.g. -- -4).
 | ```/motor/CmdSetVelocityPWM```  | Int16MultiArray  | Set the velocity of both motors (0 = off and 255 = max speed). Negative values will drive the motor backwards |
-| ```/OLED/CmdSetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-4 are reserved for IP-address, CPU Load, Memory, and Disk. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdSetText std_msgs/String 5_Robot``` (writes <i>Robot</i> to line 5). Use " when writing multiple words.
+| ```/OLED/CmdSetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-5 are reserved for IP-address, CPU Load, Memory, Disk and Voltage. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdSetText std_msgs/String 6_Robot``` (writes <i>Robot</i> to line 6). Use " when writing multiple words.
 
 ## Other
 
@@ -406,7 +419,7 @@ Minimum requirements:
     - Analog input: 2
     - I2C: 1
 - Storage
-    - RAM: 3 kB
-    - Flash: 23 kB
+    - RAM: 3 kB (2832 B)
+    - Flash: 23 kB (22448 B)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
