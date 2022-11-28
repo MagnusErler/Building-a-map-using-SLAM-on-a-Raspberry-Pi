@@ -96,7 +96,7 @@ void loop() {
     voltageMotor_previous = voltageMotor;
   }
 
-  // Publish orientation every 0.5sec
+  // Publish orientation every 0.25sec
   if (abs(currentMillis - previousMillis2) > 250) {
     previousMillis2 = currentMillis;
  
