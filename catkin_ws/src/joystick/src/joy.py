@@ -147,7 +147,7 @@ if __name__ == '__main__':
     
     pub = rospy.Publisher('/joystick', String, queue_size=10)
 
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(5)
     
     while not rospy.is_shutdown():
         evbuf = jsdev.read(8)
