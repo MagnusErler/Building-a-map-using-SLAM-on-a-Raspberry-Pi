@@ -244,11 +244,8 @@ def calcOdom(delta_encoderTick_L = 0, delta_encoderTick_R = 0):
     previous_time = current_time
 
 def updateOdom(currentPosition_x, currentPosition_y, currentOrientation_theta, currentVelocity_x, currentVelocity_y, currentVelocity_theta, current_time):
-    # since all odometry is 6DOF we'll need a quaternion created from yaw
-    global roll, pitch, yaw # [degrees]
-    #quaternion = tf.transformations.quaternion_from_euler(0, 0, currentOrientation_theta)
-    #quaternion = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), yaw*(math.pi/180))
-    #quaternion = tf.transformations.quaternion_from_euler(roll*(math.pi/180), pitch*(math.pi/180), currentOrientation_theta)
+
+    global roll, pitch, yaw # [rad]
     global quaternion
     quaternion = tf.transformations.quaternion_from_euler(roll, pitch, currentOrientation_theta)
 
