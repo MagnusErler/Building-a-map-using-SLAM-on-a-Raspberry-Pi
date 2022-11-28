@@ -60,6 +60,8 @@ const int motorR_encoderB = 2;
 volatile int pos_R = 0;
 volatile int pos_R_previous = 0;
 
+bool differentFromLastValue = false;
+
 // -------Timer-------
 long currentMillis = 0;
 long previousMillis1 = 0;
@@ -100,7 +102,7 @@ void loop() {
  
     getDataFromMPU6050();
 
-    publishData_orentation();
+    publishData_orientation();
   }
 
   // Publish encoder Ticks every 0.1sec
@@ -112,8 +114,8 @@ void loop() {
     pos_L = 0;
     pos_R = 0;
 
-    pos_L_previous = 0;
-    pos_R_previous = 0;
+    pos_L_previous = pos_L;
+    pos_R_previous = pos_R;
   }
 
   nh.spinOnce();
@@ -287,7 +289,7 @@ void publishData_voltage() {
   }
 }
 
-void publishData_orentation() {
+void publishData_orientation() {
   int value[3] = {pitch, roll, yaw};
   int16MultiArray.data = value;
   int16MultiArray.data_length = 3;
@@ -300,5 +302,17 @@ void publishData_encoderTicks() {
     int16MultiArray.data = value;
     int16MultiArray.data_length = 2;
     pub_encoderTicks.publish(&int16MultiArray);
+
+    differentFromLastValue = true;
+  } else {
+    if (differentFromLastValue) {
+      //Setting the encoder ticks to 0
+      int value[2] = {0, 0};
+      int16MultiArray.data = value;
+      int16MultiArray.data_length = 2;
+      pub_encoderTicks.publish(&int16MultiArray);
+
+      differentFromLastValue = false;
+    }
   }
 }
