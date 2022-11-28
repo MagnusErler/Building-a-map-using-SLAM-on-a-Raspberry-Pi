@@ -81,6 +81,9 @@ def callback_getOrientation(data):
     pitch = math.radians(data.data[0])  # [rad]
     yaw = math.radians(data.data[2])    # [rad]
 
+    global delta_encoderTick_L, delta_encoderTick_R
+    calcOdom(delta_encoderTick_L, delta_encoderTick_R)
+
 def callback_getJoystickValues(data):
     try:
         [key, keyValue] = data.data.split(": ")
@@ -132,7 +135,7 @@ def callback_setVelocity(data):
     global desiredVelocity
     desiredVelocity = data.data # [m/s]
 
-    rospy.loginfo("Setting the velocity to " + str(desiredVelocity))
+    rospy.loginfo("Setting the velocity to " + str(desiredVelocity) + " m/s")
 
     global desiredVelocity_L, desiredVelocity_R
     desiredVelocity_L = desiredVelocity # [m/s]
@@ -143,7 +146,7 @@ def callback_setVelocity(data):
 def callback_setTurnRadius(data):
     turnRadius = data.data
 
-    rospy.loginfo("Setting the turning radius to " + str(turnRadius))
+    rospy.loginfo("Setting the turning radius to " + str(turnRadius) + " m")
 
     global desiredVelocity
     desiredAngularVelocity = desiredVelocity / turnRadius
