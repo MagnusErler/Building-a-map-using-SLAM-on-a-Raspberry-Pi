@@ -60,12 +60,11 @@ const int motorR_encoderB = 2;
 volatile int pos_R = 0;
 volatile int pos_R_previous = 0;
 
-bool differentFromLastTime_encoderTicks = true;
-
 // -------Timer-------
 long currentMillis = 0;
 long previousMillis1 = 0;
 long previousMillis2 = 0;
+long previousMillis3 = 0;
 
 // -------Setup-------
 void setup() {
@@ -81,24 +80,32 @@ void loop() {
   
   currentMillis = millis();
 
-  // Publish voltage and IMU-data every 0.5sec
-  if (abs(currentMillis - previousMillis1) > 500) {
+  // Publish voltage and temperature every 2sec
+  if (abs(currentMillis - previousMillis1) > 2000) {
     previousMillis1 = currentMillis;
- 
+
     getVoltage();
-    getDataFromMPU6050();
+    // temperature is already calculated in below if-statement when calling getDataFromMPU6050()
     
     publishData_temperature();
     publishData_voltage();
-    publishData_orentation();
 
     voltageRP_previous = voltageRP;
     voltageMotor_previous = voltageMotor;
   }
 
-  // Publish encoder Ticks every 0.1sec
-  if (abs(currentMillis - previousMillis2) > 100) {
+  // Publish orientation every 0.5sec
+  if (abs(currentMillis - previousMillis2) > 250) {
     previousMillis2 = currentMillis;
+ 
+    getDataFromMPU6050();
+
+    publishData_orentation();
+  }
+
+  // Publish encoder Ticks every 0.1sec
+  if (abs(currentMillis - previousMillis3) > 100) {
+    previousMillis3 = currentMillis;
 
     publishData_encoderTicks();
 

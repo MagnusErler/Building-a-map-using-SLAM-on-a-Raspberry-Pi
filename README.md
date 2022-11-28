@@ -419,7 +419,7 @@ Minimum requirements:
     - Analog input: 2
     - I2C: 1
 - Storage
-    - RAM: 3 kB (2832 B)
-    - Flash: 23 kB (22448 B)
+    - RAM: 3 kB (2836 B)
+    - Flash: 23 kB (22538 B)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
