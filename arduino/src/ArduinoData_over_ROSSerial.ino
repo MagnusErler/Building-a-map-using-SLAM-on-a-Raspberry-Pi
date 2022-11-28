@@ -40,15 +40,6 @@ float temperature_previous = 0.00;
 int roll, pitch, yaw;
 
 // -------Motor-------
-// MOTOR RIGHT
-const int motorR_in1 = 11;
-const int motorR_in2 = 12;
-const int motorR_pwm_pin = 13;
-const int motorR_encoderA = 3;
-const int motorR_encoderB = 2;
-  
-volatile int pos_R = 0;
-
 // MOTOR LEFT
 const int motorL_in1 = 10;
 const int motorL_in2 = 9;
@@ -57,8 +48,19 @@ const int motorL_encoderA = 18;
 const int motorL_encoderB = 19;
   
 volatile int pos_L = 0;
+volatile int pos_L_previous = 0;
 
-bool differentFromLastTime_Motor = true;
+// MOTOR RIGHT
+const int motorR_in1 = 11;
+const int motorR_in2 = 12;
+const int motorR_pwm_pin = 13;
+const int motorR_encoderA = 3;
+const int motorR_encoderB = 2;
+  
+volatile int pos_R = 0;
+volatile int pos_R_previous = 0;
+
+bool differentFromLastTime_encoderTicks = true;
 
 // -------Timer-------
 long currentMillis = 0;
@@ -79,40 +81,32 @@ void loop() {
   
   currentMillis = millis();
 
-  // Publish encoder Ticks every 0.5sec
+  // Publish voltage and IMU-data every 0.5sec
   if (abs(currentMillis - previousMillis1) > 500) {
     previousMillis1 = currentMillis;
  
     getVoltage();
     getDataFromMPU6050();
     
-    publishData();
+    publishData_temperature();
+    publishData_voltage();
+    publishData_orentation();
+
+    voltageRP_previous = voltageRP;
+    voltageMotor_previous = voltageMotor;
   }
 
   // Publish encoder Ticks every 0.1sec
   if (abs(currentMillis - previousMillis2) > 100) {
     previousMillis2 = currentMillis;
 
-    if (pos_L == 0 && pos_R  == 0) {
-      if (differentFromLastTime_Motor) {
-        int value[2] = {0, 0};
-        int16MultiArray.data = value;
-        int16MultiArray.data_length = 2;
-        pub_encoderTicks.publish(&int16MultiArray);
-
-        differentFromLastTime_Motor = false;
-      }
-    } else {
-      int value[2] = {pos_L, pos_R};
-      int16MultiArray.data = value;
-      int16MultiArray.data_length = 2;
-      pub_encoderTicks.publish(&int16MultiArray);
-
-      differentFromLastTime_Motor = true;
-    }
+    publishData_encoderTicks();
 
     pos_L = 0;
     pos_R = 0;
+
+    pos_L_previous = 0;
+    pos_R_previous = 0;
   }
 
   nh.spinOnce();
@@ -270,22 +264,34 @@ void setupROSSerial() {
   nh.subscribe(sub_caliIMU);
 }
 
-void publishData() {
+void publishData_temperature() {
+  if (temperature_previous != temperature) {
+    float32_msg.data = temperature;
+    pub_temperature.publish(&float32_msg);
+  }
+}
 
-  if (voltageRP_previous != voltageRP && voltageMotor_previous != voltageMotor) {
+void publishData_voltage() {
+  if (voltageRP_previous != voltageRP || voltageMotor_previous != voltageMotor) {
     float value_voltage[2] = {voltageRP, voltageMotor};
     float32MultiArray.data = value_voltage;
     float32MultiArray.data_length = 2;
     pub_voltage.publish(&float32MultiArray);
   }
+}
 
-  if (temperature_previous != temperature) {
-    float32_msg.data = temperature;
-    pub_temperature.publish(&float32_msg);
-  }
-
-  int value_orientation[3] = {pitch, roll, yaw};
-  int16MultiArray.data = value_orientation;
+void publishData_orentation() {
+  int value[3] = {pitch, roll, yaw};
+  int16MultiArray.data = value;
   int16MultiArray.data_length = 3;
   pub_orientation.publish(&int16MultiArray);
+}
+
+void publishData_encoderTicks() {
+  if (pos_L_previous != pos_L || pos_R_previous != pos_R) {
+    int value[2] = {pos_L, pos_R};
+    int16MultiArray.data = value;
+    int16MultiArray.data_length = 2;
+    pub_encoderTicks.publish(&int16MultiArray);
+  }
 }
