@@ -366,17 +366,17 @@ rosnode kill --all
 ### Communication (Subscriber and publisher)
 
 #### <b>Publisher</b>
-| Command  | Data types | Action |
-| ------------- | ------------- | ------------- |
-| ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP |
-| ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera. Test with: ```sudo apt-get install ros-noetic-rqt-image-view && rqt_image_view``` |
-| ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] |
-| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) |
-| ```/joystick```  | String  | Give pressed and released keys and values from the joystick |
-| ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] |
-| ```/motor/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) |
- ```/move_base_simple/goal```  | PoseStamped | Give the position and orientation of the desired location|
-| ```/tf```  | TFMessage | Give the odometry of the robot (position, orientation) |
+| Command  | Data types | Action | Publish frequency [s] |
+| ------------- | ------------- | ------------- | ------------- |
+| ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP | 2 |
+| ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera. Test with: ```sudo apt-get install ros-noetic-rqt-image-view && rqt_image_view``` | 0.1 |
+| ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] | 0.25 |
+| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) | 2 |
+| ```/joystick```  | String  | Give pressed and released keys and values from the joystick | |
+| ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] | 0.1|
+| ```/motor/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) | 0.25 |
+ ```/move_base_simple/goal```  | PoseStamped | Give the position and orientation of the desired location| |
+| ```/tf```  | TFMessage | Give the odometry of the robot (position, orientation) | 0.25 |
 
 #### <b>Subscriber</b>
 | Command  | Data types | Action | Example |
@@ -387,7 +387,7 @@ rosnode kill --all
 | ```/motor/CmdSetTurnRadius```  | Float32  | Set the turning radius [m]. O.B.S. set first velocity. | ```rostopic pub /motor/CmdSetTurnRadius std_msgs/Float32 0.4``` (set the turning radius to 0.4 m). Setting the turning radius to 0 will have the robot to spin around its center 
 | ```/motor/CmdSetVelocity```  | Float32  | Set the velocity of both motors [m/s] | ```rostopic pub /motor/CmdSetVelocity std_msgs/Float32 1.2``` (set the overall wheel velocity to 1.2 m/s). Use -- before negativ values (e.g. -- -4).
 | ```/motor/CmdSetVelocityPWM```  | Int16MultiArray  | Set the velocity of both motors (0 = off and 255 = max speed). Negative values will drive the motor backwards |
-| ```/OLED/CmdSetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-5 are reserved for IP-address, CPU Load, Memory, Disk and Voltage. The display updates every 1 sec with existing values | ```rostopic pub /OLED/CmdSetText std_msgs/String 6_Robot``` (writes <i>Robot</i> to line 6). Use " when writing multiple words.
+| ```/OLED/CmdSetText```  | String  | Write 1 line of text to one of the 8 lines on the OLED display. Line 1-5 are reserved for IP-address, CPU Load, Memory, Disk and Voltage. The display updates every 1 sec | ```rostopic pub /OLED/CmdSetText std_msgs/String 6_Robot``` (writes <i>Robot</i> to line 6). Use " when writing multiple words.
 
 ## Other
 
