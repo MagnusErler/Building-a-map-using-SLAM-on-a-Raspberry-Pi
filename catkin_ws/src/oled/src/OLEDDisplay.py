@@ -86,6 +86,7 @@ def callback_setText(data=OLEDtext):
     MemUsage = MemUsage.decode("utf-8")
     Disk = Disk.decode("utf-8")
 
+    global voltageRP, voltageMotor
     OLEDtext_1 = str(IP)
     OLEDtext_2 = str(CPU)
     OLEDtext_3 = str(MemUsage)
