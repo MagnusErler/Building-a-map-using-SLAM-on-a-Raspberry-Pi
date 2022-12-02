@@ -23,6 +23,11 @@ if __name__ == '__main__':
 
     # Used to convert between ROS and OpenCV images
     br = CvBridge()
+
+    if (cap.isOpened()):
+        rospy.loginfo('Publishing video feed')
+    else:
+        rospy.loginfo("Can't open camera video feed")
     
     while not rospy.is_shutdown():
 
@@ -33,6 +38,10 @@ if __name__ == '__main__':
             # if video finished or no Video Input
             if not ret:
                 break
+
+            if frame.shape[0] != 300 and frame.shape[1] != 500 and frame.shape[2] != 3:
+                rospy.loginfo("Not correct size")
+                continue
 
             # The 'cv2_to_imgmsg' method converts an OpenCV image to a ROS image message
             pub.publish(br.cv2_to_imgmsg(frame, "rgb8"))
