@@ -368,12 +368,12 @@ rosnode kill --all
 #### <b>Publisher</b>
 | Command  | Data types | Action | Publish frequency [s] |
 | ------------- | ------------- | ------------- | ------------- |
-| ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP | 2 |
+| ```/battery/voltage```  | Float32MultiArray  | Give the voltage of the battery for the motors and RP | 2 (if value differs) |
 | ```/camera/image_raw```  | Image  | Image from Raspberry Pi camera. Test with: ```sudo apt-get install ros-noetic-rqt-image-view && rqt_image_view``` | 0.1 |
 | ```/IMU/orientation```  | Int16MultiArray  | Give the orientation in degrees [pitch, roll, yaw] | 0.25 |
-| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) | 2 |
+| ```/IMU/temperature```  | Float32  | Give the temperature (from the MPU6050-chip) | 2 (if value differs) |
 | ```/joystick```  | String  | Give pressed and released keys and values from the joystick | |
-| ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] | 0.1|
+| ```/motor/encoderTick```  | Int16MultiArray  | Give the encoder ticks for the two wheels [L, R] | 0.1 (if value differs) |
 | ```/motor/odom```  | Odometry  | Give the odometry of the robot (position, orientation, and linear- and angular velocity) | 0.25 |
  ```/move_base_simple/goal```  | PoseStamped | Give the position and orientation of the desired location| |
 | ```/tf```  | TFMessage | Give the odometry of the robot (position, orientation) | 0.25 |
