@@ -37,7 +37,7 @@ float voltageMotor_previous = 0.00;
 MPU6050 mpu6050(Wire);
 float temperature = 0.00;
 float temperature_previous = 0.00;
-int roll, pitch, yaw;
+int roll = 0, pitch = 0, yaw = 0;
 
 // -------Motor-------
 // MOTOR LEFT
@@ -119,6 +119,7 @@ void loop() {
   }
 
   nh.spinOnce();
+  delay(1);
 }
 
 // -------IMU-------
