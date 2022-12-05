@@ -15,8 +15,7 @@ There never was a specific desktop version of Ubuntu 20.04 for Raspberry Pi. Ins
 Start with downloading Raspberry Pi Imager on your personal machine, insert your SD card and flash it with Ubuntu 20.04 Server. Insert the SD card into the RP4, connect display and HDMI cable, login (login: ubuntu, password: ubuntu), and change the password. Now install the desktop version (without all the bloat) with:
 
 ```
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get update && upgrade
 sudo apt-get install --no-install-recommends ubuntu-desktop
 ```
 Install and setup LightDM as a Desktop Environment/GUI:
@@ -49,8 +48,7 @@ http://wiki.ros.org/noetic/Installation/Ubuntu
 Install further packages:
 ```
 sudo apt-get install python3-roslaunch
-sudo apt-get install ros-noetic-rosserial-arduino
-sudo apt-get install ros-noetic-rosserial
+sudo apt-get install ros-noetic-rosserial && ros-noetic-rosserial-arduino
 ```
 
 </details>
@@ -95,8 +93,7 @@ Follow these instructions to enable I2C interface: https://www.instructables.com
 Enable camera
   
 ```
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get update && upgrade
 ```
 Edit /boot/firmware/config.txt, append the following config at the end of the file
 ```
@@ -163,10 +160,9 @@ OpenCV
 ```
 git clone https://github.com/opencv/opencv.git
 cd opencv
-mkdir build
-cd build
+mkdir build && cd build
 cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_TBB=ON -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_V4L=ON -D INSTALL_C_EXAMPLES=ON -D INSTALL_PYTHON_EXAMPLES=ON -D BUILD_EXAMPLES=ON -D WITH_QT=ON -D WITH_GTK=ON -D WITH_OPENGL=ON ..
-make
+make -j4
 sudo make install
 ```
 
@@ -175,12 +171,12 @@ Pangolin
 ```
 git clone https://github.com/stevenlovegrove/Pangolin.git
 cd Pangolin
-mkdir build && cd build
+mkdir build
 cmake -B build
 cmake --build build
 ```
   
-ORB_SLAM3
+ORB-SLAM3
 
 ```
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git ORB_SLAM3
