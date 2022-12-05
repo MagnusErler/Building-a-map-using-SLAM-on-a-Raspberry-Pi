@@ -181,6 +181,7 @@ ORB-SLAM3
 ```
 git clone https://github.com/UZ-SLAMLab/ORB_SLAM3.git ORB_SLAM3
 cd ORB_SLAM3
+sed -i 's/++11/++14/g' CMakeLists.txt   #Change the compiler version in CMakeLists.txt from c++11 to c++14
 chmod +x build.sh
 ./build.sh
 chmod +x build_ros.sh
@@ -195,6 +196,34 @@ cd ORB_SLAM3/
 ```
 
 <b>Run ROS ORB-SLAM3-script</b>
+
+Copy the folder 'ROS' Example_old to Example
+
+Add/Edit the following CMakeLists.txt inside ORB_SLAM3/Examples/ROS/ORB_SLAM3
+```
+find_package(OpenCV 4.6 QUIET)
+if(NOT OpenCV_FOUND)
+   find_package(OpenCV 3.0 QUIET)
+   if(NOT OpenCV_FOUND)
+      find_package(OpenCV 2.4.3 QUIET)
+      if(NOT OpenCV_FOUND)
+         message(FATAL_ERROR "OpenCV > 2.4.3 not found.")
+      endif()
+   endif()
+endif()
+```
+
+Add the following:
+https://github.com/nindanaoto/ORB_SLAM3/blob/ec9ea0a24b4c5e2181a912751ad01bd17d31ea46/Examples/ROS/ORB_SLAM3/CMakeLists.txt#L46
+
+Use the following command inside ORB_SLAM3/Examples/ROS/ORB_SLAM3
+```
+sed -i 's/++11/++14/g' CMakeLists.txt
+```
+
+Add the following:
+https://github.com/UZ-SLAMLab/ORB_SLAM3/issues/479#issuecomment-1065925749
+
 
 Terminal 1
 
@@ -292,6 +321,8 @@ source /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catk
 3. Go under that line and write ```source /home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/catkin_ws/devel/setup.bash```
 
 4. Save and exit
+
+5. ```source ~/.bashrc```
 
 Now with every new shell you open, it will source automatically
 </details>
