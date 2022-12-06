@@ -19,7 +19,7 @@ if __name__ == '__main__':
     input_video_path = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/camera_scripts/recordedVideo.avi'
 
     cap = cv2.VideoCapture(input_video_path)
-    #cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
+    cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 300)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
@@ -48,13 +48,13 @@ if __name__ == '__main__':
                 continue
 
             # The 'cv2_to_imgmsg' method converts an OpenCV image to a ROS image message
-            #pub.publish(br.cv2_to_imgmsg(frame, "rgb8"))
-            pub1.publish(br.cv2_to_imgmsg(frame, "rgb8"))
+            #pub.publish(br.cv2_to_imgmsg(frame, "bgr8"))
+            pub1.publish(br.cv2_to_imgmsg(frame, "bgr8"))
             #pub2.publish(br.cv2_to_imgmsg(frame, "rgb8"))
 
         #     rospy.loginfo('Publishing video frame')
-        # else:
-        #     rospy.loginfo("Can't open camera video feed")
+        else:
+            rospy.loginfo("Can't open camera video feed")
 
             
         rate.sleep()  
