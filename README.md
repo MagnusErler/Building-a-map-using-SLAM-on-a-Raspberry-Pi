@@ -184,8 +184,6 @@ cd ORB_SLAM3
 sed -i 's/++11/++14/g' CMakeLists.txt   #Change the compiler version in CMakeLists.txt from c++11 to c++14
 chmod +x build.sh
 ./build.sh
-chmod +x build_ros.sh
-./build_ros.sh
 ```
 
 <b>Run ORB-SLAM3-script</b>
@@ -213,17 +211,19 @@ if(NOT OpenCV_FOUND)
 endif()
 ```
 
-Add the following:
-https://github.com/nindanaoto/ORB_SLAM3/blob/ec9ea0a24b4c5e2181a912751ad01bd17d31ea46/Examples/ROS/ORB_SLAM3/CMakeLists.txt#L46
+Add the following: https://github.com/nindanaoto/ORB_SLAM3/blob/ec9ea0a24b4c5e2181a912751ad01bd17d31ea46/Examples/ROS/ORB_SLAM3/CMakeLists.txt#L46
 
 Use the following command inside ORB_SLAM3/Examples/ROS/ORB_SLAM3
 ```
 sed -i 's/++11/++14/g' CMakeLists.txt
 ```
 
-Add the following:
-https://github.com/UZ-SLAMLab/ORB_SLAM3/issues/479#issuecomment-1065925749
+Add the following: https://github.com/UZ-SLAMLab/ORB_SLAM3/issues/479#issuecomment-1065925749
 
+```
+chmod +x build_ros.sh
+./build_ros.sh
+```
 
 Terminal 1
 
@@ -238,9 +238,6 @@ Terminal 2
 cd ORB_SLAM3/
 rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/RP4.yaml
 ```
-
-  
-https://robot-vision-develop-story.tistory.com/10
 
 <b>Run ROS ORB-SLAM3 wrapper-script</b>
 
