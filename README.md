@@ -241,6 +241,8 @@ rosrun ORB_SLAM3 Mono Vocabulary/ORBvoc.txt Examples/Monocular/RP4.yaml
 
 <b>Run ROS ORB-SLAM3 wrapper-script</b>
 
+clone ```https://github.com/thien94/orb_slam3_ros_wrapper``` into your catkin-folder
+
 Terminal 1
 ```
 roslaunch orb_slam3_ros_wrapper euroc_mono.launch
