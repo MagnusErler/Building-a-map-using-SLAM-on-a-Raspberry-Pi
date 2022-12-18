@@ -15,11 +15,14 @@ if __name__ == '__main__':
 
     # CAMERA
     input_video_path = '/home/ubuntu/RoboCup2023/Building-a-map-using-SLAM-on-a-Raspberry-Pi/camera_scripts/recordedVideo.avi'
+    
+    width = int(3280/8)
+    height = int(2464/8)
 
     #cap = cv2.VideoCapture(input_video_path)
     cap = cv2.VideoCapture('/dev/video0', cv2.CAP_V4L)
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc('M', 'J', 'P', 'G'))
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 300)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 500)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
     cap.set(cv2.CAP_PROP_FPS,20)
 
@@ -36,13 +39,8 @@ if __name__ == '__main__':
 
             ret, frame = cap.read()
 
-            # if video finished or no Video Input
-            if not ret:
+            if not ret: # Checking if the actual frame isn’t corrupt
                 break
-
-            if frame.shape[0] != 300 and frame.shape[1] != 300 and frame.shape[2] != 3:
-                rospy.loginfo("Not correct size")
-                continue
 
             # Converting OpenCV image to ROS image and publishing as an 8bit BGR image
             pub.publish(br.cv2_to_imgmsg(frame, "bgr8"))
